@@ -6,23 +6,20 @@ namespace HikingBlog
 {
     public class Destination
     {
-        public string Name;
-        public string Creator;
-        public int Difficulty;
-        public string Description;
-        public decimal Rating;
-        public string ImageUrl;
-        public string Region;
-        public int Duration;
-        public Destination(string name, string creator, int difficulty, string description, string imageUrl, string region, int duration)
+        private string Name;
+        private string Creator;
+        private int Difficulty;
+        private string Description;
+        private string ImageUrl;
+        private string Region;
+        
+        public Destination(string name, string creator, string description, string imageUrl, string region)
         {
             Name = name;
             Creator = creator;
-            Difficulty = difficulty;
             Description = description;
             ImageUrl = imageUrl;
             Region = region;
-            Duration = duration;
         }
     }
 }

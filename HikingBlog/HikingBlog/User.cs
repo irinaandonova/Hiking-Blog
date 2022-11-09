@@ -30,10 +30,6 @@ namespace HikingBlog
             {
                 Console.WriteLine("Destination name:");
                 string name = Console.ReadLine();
-                int difficulty;
-
-                Console.WriteLine("Destination difficulty");
-                Int32.TryParse(Console.ReadLine(), out difficulty);
 
                 Console.WriteLine("Destination description:");
                 string description = Console.ReadLine();
@@ -44,11 +40,7 @@ namespace HikingBlog
                 Console.WriteLine("Destination region:");
                 string region = Console.ReadLine();
 
-                Console.WriteLine("Destination hiking duration:");
-                int duration;
-                Int32.TryParse(Console.ReadLine(), out duration);
-
-                Destination destination = new Destination(name, this.Username, difficulty, description, imageUrl, region, duration);
+                Destination destination = new Destination(name, this.Username, description, imageUrl, region);
                 return destination;
             }
             catch(NullReferenceException)
@@ -59,7 +51,6 @@ namespace HikingBlog
             {
                 throw new Exception("Difficulty sould be in 1 to 3 range");
             }
-            
         }
     }
 }
