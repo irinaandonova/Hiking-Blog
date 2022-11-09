@@ -6,13 +6,13 @@ namespace HikingBlog
 {
     public class User
     {
-        public string Name;
+        public string Username;
         public string Email;
         public int HikingLevel;
 
-        public User(string name, string email, int hikingLevel)
+        public User(string username, string email, int hikingLevel)
         {
-            Name = name;
+            Username = username;
             if (!email.Contains("@")) throw new Exception("Invalid email");
             Email = email;
             if(hikingLevel == 1 || hikingLevel == 2 || hikingLevel == 3)
@@ -23,6 +23,39 @@ namespace HikingBlog
             {
                 throw new Exception("Invalid hiking level");
             }
+        }
+        public Destination CreateDestination()
+        {
+            try
+            {
+                Console.WriteLine("Destination name:");
+                string name = Console.ReadLine();
+                int difficulty;
+
+                Console.WriteLine("Destination difficulty");
+                Int32.TryParse(Console.ReadLine(), out difficulty);
+
+                Console.WriteLine("Destination description:");
+                string description = Console.ReadLine();
+
+                Console.WriteLine("Destination imageUrl:");
+                string imageUrl = Console.ReadLine();
+
+                Console.WriteLine("Destination region:");
+                string region = Console.ReadLine();
+
+                Destination destination = new Destination(name, this.Username, difficulty, description, imageUrl, region);
+                return destination;
+            }
+            catch(NullReferenceException)
+            {
+                throw new Exception("Fields must be filled");
+            }
+            catch
+            {
+                throw new Exception("Difficulty sould be in 1 to 3 range");
+            }
+            
         }
     }
 }
