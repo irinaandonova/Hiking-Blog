@@ -13,7 +13,8 @@ namespace HikingBlog
         public decimal Rating;
         public string ImageUrl;
         public string Region;
-        public Destination(string name, string creator, int difficulty, string description, string imageUrl, string region)
+        public int Duration;
+        public Destination(string name, string creator, int difficulty, string description, string imageUrl, string region, int duration)
         {
             Name = name;
             Creator = creator;
@@ -21,6 +22,7 @@ namespace HikingBlog
             Description = description;
             ImageUrl = imageUrl;
             Region = region;
+            Duration = duration;
         }
     }
 }

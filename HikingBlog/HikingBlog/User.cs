@@ -44,7 +44,11 @@ namespace HikingBlog
                 Console.WriteLine("Destination region:");
                 string region = Console.ReadLine();
 
-                Destination destination = new Destination(name, this.Username, difficulty, description, imageUrl, region);
+                Console.WriteLine("Destination hiking duration:");
+                int duration;
+                Int32.TryParse(Console.ReadLine(), out duration);
+
+                Destination destination = new Destination(name, this.Username, difficulty, description, imageUrl, region, duration);
                 return destination;
             }
             catch(NullReferenceException)
