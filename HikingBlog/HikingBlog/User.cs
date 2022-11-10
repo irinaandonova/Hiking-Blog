@@ -26,8 +26,6 @@ namespace HikingBlog
         }
         public Destination CreateDestination()
         {
-            try
-            {
                 Console.WriteLine("Destination name:");
                 string name = Console.ReadLine();
 
@@ -40,17 +38,15 @@ namespace HikingBlog
                 Console.WriteLine("Destination region:");
                 string region = Console.ReadLine();
 
-                Destination destination = new Destination(name, this.Username, description, imageUrl, region);
+            Console.WriteLine(name);
+
+              if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(imageUrl) || String.IsNullOrEmpty(region))
+                {
+                    throw new Exception("All fields must be filled!");
+                }
+            
+            Destination destination = new Destination(name, this.Username, description, imageUrl, region);
                 return destination;
-            }
-            catch(NullReferenceException)
-            {
-                throw new Exception("Fields must be filled");
-            }
-            catch
-            {
-                throw new Exception("Difficulty sould be in 1 to 3 range");
-            }
         }
     }
 }

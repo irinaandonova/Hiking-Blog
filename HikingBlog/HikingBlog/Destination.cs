@@ -15,11 +15,12 @@ namespace HikingBlog
         
         public Destination(string name, string creator, string description, string imageUrl, string region)
         {
-            Name = name;
-            Creator = creator;
-            Description = description;
-            ImageUrl = imageUrl;
-            Region = region;
+            
+                Name = name;
+                Creator = creator;
+                Description = description;
+                ImageUrl = imageUrl;
+                Region = region;
         }
     }
 }
