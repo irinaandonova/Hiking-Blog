@@ -12,6 +12,6 @@ namespace HikingBlog
         {
             HasPlayground = hasPlayground;
             IsDogFriendlyl = isDogFriendlyl;
-        }
+        }        
     }
 }
