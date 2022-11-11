@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models
 {
     public class Comment
-    {      
+    {
         public Comment(User creator, string text)
         {
             Creator = creator;

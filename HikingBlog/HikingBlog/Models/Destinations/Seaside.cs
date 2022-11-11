@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog.Models.Destinations
+namespace HikingBlog.Models
 {
     public class Seaside : Destination
     {

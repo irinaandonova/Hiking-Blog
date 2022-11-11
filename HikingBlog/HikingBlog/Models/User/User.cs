@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models
 {
     public class User
-    {       
+    {
         public User(string username, string email, int hikingLevel)
         {
             Username = username;
             if (!email.Contains("@")) throw new Exception("Invalid email");
             Email = email;
-            if(hikingLevel == 1 || hikingLevel == 2 || hikingLevel == 3)
+            if (hikingLevel == 1 || hikingLevel == 2 || hikingLevel == 3)
             {
                 HikingLevel = hikingLevel;
             }
@@ -20,7 +20,7 @@ namespace HikingBlog
                 throw new Exception("Invalid hiking level");
             }
         }
-        public string Username { get; set; }   
+        public string Username { get; set; }
         public string Email { get; set; }
         public int HikingLevel { get; set; }
     }

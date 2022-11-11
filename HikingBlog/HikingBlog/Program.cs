@@ -1,4 +1,5 @@
 ﻿using HikingBlog.Extensions;
+using HikingBlog.Models;
 using System;
 
 namespace HikingBlog
