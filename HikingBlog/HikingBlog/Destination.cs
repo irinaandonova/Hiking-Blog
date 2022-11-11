@@ -12,7 +12,7 @@ namespace HikingBlog
         private string Description;
         private string ImageUrl;
         private string Region;
-        private List<Comment> Comments;
+        private Dictionary<string, Comment> Comments = new Dictionary<string, Comment> {};
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
                 Name = name;
@@ -22,10 +22,18 @@ namespace HikingBlog
                 Region = region;
         }
 
-        public void createComment(User creator, string text)
+        public void CreateComment(User creator, string text)
         {
             Comment comment = new Comment(creator, text);
-            Comments.Add(comment);
+            string id = comment.Id;
+            Comments.Add(id, comment);
+        }
+        public void ShowComments()
+        {
+            foreach(KeyValuePair<string, Comment> comment in Comments)
+            {
+                Console.WriteLine(comment.Value.Text);
+            }
         }
     }
 }
