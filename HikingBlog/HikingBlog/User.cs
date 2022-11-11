@@ -24,6 +24,7 @@ namespace HikingBlog
                 throw new Exception("Invalid hiking level");
             }
         }
+        /*
         public Park CreatePark()
         {
                 Console.WriteLine("Destination name:");
@@ -70,7 +71,7 @@ namespace HikingBlog
                 return park;
         }
         
-        /*
+        
         public HikingTrail CreateHikingTrail(Destination destination)
         {
             if (difficulty != 1 || difficulty != 2 || difficulty != 3)
