@@ -6,9 +6,10 @@ namespace HikingBlog
 {
     public class Comment
     {
-        public User Creator;
-        public string Text;
-        public DateTime Date;
+        //Id
+        private User Creator;
+        private string Text;
+        private DateTime Date;
 
         public Comment(User creator, string text)
         {
