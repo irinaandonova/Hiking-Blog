@@ -6,9 +6,9 @@ namespace HikingBlog
 {
     public class Comment
     {
-        //Id
+        public string Id; 
         private User Creator;
-        private string Text;
+        public string Text;
         private DateTime Date;
 
         public Comment(User creator, string text)
@@ -16,6 +16,7 @@ namespace HikingBlog
             Creator = creator;
             Text = text;
             Date = DateTime.Now;
+            Id = Creator.Username + Date.ToString();
         }
     }
 }

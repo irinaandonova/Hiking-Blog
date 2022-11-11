@@ -8,7 +8,10 @@ namespace HikingBlog
         {
             try
             {
-                User user = new User("Ira", "ira@", 5);
+                User user = new User("Ira", "ira@", 2);
+                Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", null, null);
+                park.CreateComment(user, "Beautiful Park");
+                park.ShowComments();
             }
             catch
             {
