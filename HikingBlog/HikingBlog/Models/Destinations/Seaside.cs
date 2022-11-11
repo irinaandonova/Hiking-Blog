@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models.Destinations
 {
     public class Seaside : Destination
     {
@@ -13,6 +13,6 @@ namespace HikingBlog
         }
         public bool IsGuarded { get; set; }
         public bool OffersUmbrella { get; set; }
-        public double UmbrellaPrice { get; set; }        
+        public double UmbrellaPrice { get; set; }
     }
 }

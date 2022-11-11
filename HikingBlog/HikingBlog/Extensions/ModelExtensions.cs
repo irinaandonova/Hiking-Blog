@@ -7,15 +7,15 @@ namespace HikingBlog.Extensions
 {
     internal static class ModelExtensions
     {
-        public staticvoid CreateComment(this Destination destination, User creator, string text)
+        public static void CreateComment(this Destination destination, User creator, string text)
         {
             Comment comment = new Comment(creator, text);
             string id = comment.Id;
-            destinations.Comments.Add(id, comment);
+            destination.Comments.Add(id, comment);
         }
-        public void ShowComments()
+        public static void ShowComments(this Destination destination)
         {
-            foreach (KeyValuePair<string, Comment> comment in Comments)
+            foreach (KeyValuePair<string, Comment> comment in destination.Comments)
             {
                 Console.WriteLine(comment.Value.Text);
             }

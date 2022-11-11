@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models.Destinations
 {
     public class Destination
-    {        
-        public Dictionary<string, Comment> Comments = new Dictionary<string, Comment> {};
+    {
+        public Dictionary<string, Comment> Comments = new Dictionary<string, Comment> { };
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
-                Name = name;
-                Creator = creator;
-                Description = description;
-                ImageUrl = imageUrl;
-                Region = region;
+            Name = name;
+            Creator = creator;
+            Description = description;
+            ImageUrl = imageUrl;
+            Region = region;
         }
 
         public string Name { get; set; }

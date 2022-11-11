@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models.Destinations
 {
     public class HikingTrail : Destination
     {

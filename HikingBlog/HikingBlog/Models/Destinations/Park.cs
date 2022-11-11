@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog
+namespace HikingBlog.Models.Destinations
 {
-    public class Park: Destination
+    public class Park : Destination
     {
         public Park(string name, User creator, string description, string imageUrl, string region, bool? hasPlayground, bool? isDogFriendlyl) : base(name, creator, description, imageUrl, region)
         {
