@@ -7,15 +7,14 @@ namespace HikingBlog
     public class Destination
     {
         private string Name;
-        private string Creator;
+        private User Creator;
         private int Difficulty;
         private string Description;
         private string ImageUrl;
         private string Region;
         
-        public Destination(string name, string creator, string description, string imageUrl, string region)
+        public Destination(string name, User creator, string description, string imageUrl, string region)
         {
-            
                 Name = name;
                 Creator = creator;
                 Description = description;

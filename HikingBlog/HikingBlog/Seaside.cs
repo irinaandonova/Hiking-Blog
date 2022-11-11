@@ -10,7 +10,7 @@ namespace HikingBlog
         private bool OffersUmbrella;
         private double UmbrellaPrice;
         
-        public Seaside(string name, string creator, string description, string imageUrl, string region, bool isGuarded, bool offersUmbrella) : base(name, creator, description, imageUrl, region)
+        public Seaside(string name, User creator, string description, string imageUrl, string region, bool isGuarded, bool offersUmbrella) : base(name, creator, description, imageUrl, region)
         {
             IsGuarded = isGuarded;
             OffersUmbrella = offersUmbrella;
