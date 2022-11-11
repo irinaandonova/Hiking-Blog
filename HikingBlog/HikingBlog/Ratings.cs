@@ -6,5 +6,7 @@ namespace HikingBlog
 {
     internal class Ratings
     {
+        int RatingValue;
+
     }
 }

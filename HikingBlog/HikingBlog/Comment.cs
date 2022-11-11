@@ -5,12 +5,7 @@ using System.Text;
 namespace HikingBlog
 {
     public class Comment
-    {
-        public string Id; 
-        private User Creator;
-        public string Text;
-        private DateTime Date;
-
+    {      
         public Comment(User creator, string text)
         {
             Creator = creator;
@@ -18,5 +13,9 @@ namespace HikingBlog
             Date = DateTime.Now;
             Id = Creator.Username + Date.ToString();
         }
+        public string Id { get; set; }
+        public User Creator { get; set; }
+        public string Text { get; set; }
+        public DateTime Date { get; set; }
     }
 }

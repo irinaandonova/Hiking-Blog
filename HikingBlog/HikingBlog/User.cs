@@ -5,11 +5,7 @@ using System.Text;
 namespace HikingBlog
 {
     public class User
-    {
-        public string Username;
-        public string Email;
-        public int HikingLevel;
-
+    {       
         public User(string username, string email, int hikingLevel)
         {
             Username = username;
@@ -23,6 +19,9 @@ namespace HikingBlog
             {
                 throw new Exception("Invalid hiking level");
             }
-        }              
+        }
+        public string Username { get; set; }   
+        public string Email { get; set; }
+        public int HikingLevel { get; set; }
     }
 }

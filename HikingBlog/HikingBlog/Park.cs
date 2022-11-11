@@ -6,12 +6,12 @@ namespace HikingBlog
 {
     public class Park: Destination
     {
-        private bool? HasPlayground;
-        private bool? IsDogFriendlyl;
         public Park(string name, User creator, string description, string imageUrl, string region, bool? hasPlayground, bool? isDogFriendlyl) : base(name, creator, description, imageUrl, region)
         {
             HasPlayground = hasPlayground;
             IsDogFriendlyl = isDogFriendlyl;
-        }        
+        }
+        public bool? HasPlayground { get; set; }
+        public bool? IsDogFriendlyl { get; set; }
     }
 }

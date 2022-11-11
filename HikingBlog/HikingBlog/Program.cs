@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HikingBlog.Extensions;
+using System;
 
 namespace HikingBlog
 {
@@ -17,3 +18,6 @@ namespace HikingBlog
         }
     }
 }
+//Folders models
+//Folder services
+//Custom exceptions
