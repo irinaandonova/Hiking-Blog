@@ -21,5 +21,12 @@ namespace HikingBlog
                 OffersUmbrella = true;
             UmbrellaPrice = umbrellaPrice;            
         }
+        public void ShowUmbrellaPrices()
+        {
+            if (OffersUmbrella)
+                Console.WriteLine($"An umbrella could be rented for {UmbrellaPrice:C}");
+            else
+                Console.WriteLine("This destination doesn't offer umbrellas");
+        }
     }
 }
