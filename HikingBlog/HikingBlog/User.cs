@@ -24,7 +24,7 @@ namespace HikingBlog
                 throw new Exception("Invalid hiking level");
             }
         }
-        public Destination CreateDestination()
+        public Park CreatePark()
         {
                 Console.WriteLine("Destination name:");
                 string name = Console.ReadLine();
@@ -38,15 +38,49 @@ namespace HikingBlog
                 Console.WriteLine("Destination region:");
                 string region = Console.ReadLine();
 
-            Console.WriteLine(name);
+                bool? hasPlayground;
+                char key;
+                Console.WriteLine("Does park have playground y/n");
+                key = Console.ReadKey().KeyChar;
 
-              if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(imageUrl) || String.IsNullOrEmpty(region))
+                if (key == 'y')
+                  hasPlayground = true;
+                else if (key == 'n')
+                  hasPlayground = false;
+                else
+                  hasPlayground = null;
+
+                bool? isDogFriendly;
+                Console.WriteLine("Is park dog friendly y/n");
+                key = Console.ReadKey().KeyChar;
+
+                if (key == 'y')
+                  isDogFriendly = true;
+                else if (key == 'n')
+                  isDogFriendly = false;
+                else
+                  isDogFriendly = null;
+
+                if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(imageUrl) || String.IsNullOrEmpty(region))
                 {
                     throw new Exception("All fields must be filled!");
                 }
             
-            Destination destination = new Destination(name, this.Username, description, imageUrl, region);
-                return destination;
+                Park park = new Park(name, this.Username, description, imageUrl, region, hasPlayground, isDogFriendly);
+                return park;
         }
+        
+        /*
+        public HikingTrail CreateHikingTrail(Destination destination)
+        {
+            if (difficulty != 1 || difficulty != 2 || difficulty != 3)
+                throw new Exception("Difficulty value must be between 1 and 3");
+
+            HikingTrail hikingTrail = new HikingTrail(destination.name, destination.creator, destination.description, destination.imageUrl, destination.region, difficulty, hikingDuration);
+            return hikingTrail;
+        }
+        */
+
+        
     }
 }
