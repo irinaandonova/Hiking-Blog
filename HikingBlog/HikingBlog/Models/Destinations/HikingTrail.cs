@@ -12,8 +12,10 @@ namespace HikingBlog.Models
                 Difficulty = difficulty;
             else
                 throw new Exception("Difficulty value must be between 1 and 3");
-
-            HikingDuration = hikingDuration;
+            if (hikingDuration > 0)
+                HikingDuration = hikingDuration;
+            else
+                throw new ArgumentOutOfRangeException("Hiking duretion should be bigger than zero");
         }
         public int Difficulty { get; set; }
         public int HikingDuration { get; set; }
@@ -27,19 +29,19 @@ namespace HikingBlog.Models
                 if (!result)
                     throw new FormatException("Incorrect input");
                 if (difficulty == 1 || difficulty == 2 || difficulty == 3)
-                    Difficulty= difficulty;
+                    Difficulty = difficulty;
                 else
                     throw new ArgumentOutOfRangeException("Input should be from 1 to 3");
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 throw new FormatException("Input is not an integer number");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
     }
 }
