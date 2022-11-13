@@ -34,5 +34,74 @@ namespace HikingBlog.Extensions
             else
                 Console.WriteLine("This destination doesn't offer umbrellas");
         }
+        public static void RateDestination(this Destination destination, int ratingValue, User user)
+        {
+            try
+            {
+                if (ratingValue <= 0 || ratingValue > 5)
+                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
+                if (user == null)
+                    throw new ArgumentNullException("User field is missing!");
+                if (destination.Ratings.ContainsKey(user))
+                    destination.Ratings[user] = ratingValue;
+                else
+                    destination.Ratings.Add(user, ratingValue);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.ParamName);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.ParamName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static int CalcRatingScore(this Destination destination)
+        {
+            int ratingScore = 0;
+            foreach (KeyValuePair<User, int> ratingValue in destination.Ratings)
+            {
+                ratingScore += ratingValue.Value;
+            }
+            try
+            {
+                return ratingScore / destination.Ratings.Count;
+            }
+            catch (DivideByZeroException)
+            {
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static void ShowInfo(this Destination destination)
+        {
+            Console.WriteLine(destination.Name);
+
+            int ratingScore = destination.CalcRatingScore();
+            try
+            {
+                if (ratingScore == 0)
+                    Console.WriteLine("No one has voted yet");
+                else
+                    Console.WriteLine($"{destination.Name} rating is {ratingScore}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine(destination.Description);
+                Console.WriteLine(destination.Region);
+            }
+        }
     }
 }
+
