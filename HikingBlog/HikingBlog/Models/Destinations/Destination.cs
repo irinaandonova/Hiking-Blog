@@ -39,7 +39,7 @@ namespace HikingBlog.Models
             }
             catch(Exception ex)
             {
-                Console.WriteLine(Exception(ex.Message));
+                Console.WriteLine(ex.Message);
             }
         }
     }
