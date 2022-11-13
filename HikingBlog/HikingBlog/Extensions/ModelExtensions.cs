@@ -102,6 +102,29 @@ namespace HikingBlog.Extensions
                 Console.WriteLine(destination.Region);
             }
         }
+        public static void ShowFullInformation(this HikingTrail hikingTrail)
+        {
+            ShowInfo(hikingTrail);
+
+            Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
+            Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
+        }
+        public static void ShowFullInformation(this Seaside seaside)
+        {
+            ShowInfo(seaside);
+
+            if (seaside.IsGuarded)
+                Console.WriteLine("The beach is guarded by a lifeguard");
+            else
+                Console.WriteLine("The beach isn't guarded by a lifeguarld.");
+        }
+        public static void ShowFullInformation(this Park park)
+        {
+            ShowInfo(park);
+
+            Console.WriteLine($"The park has a children's playground.");
+            Console.WriteLine($"The park is dog friendly");
+        }
     }
 }
 
