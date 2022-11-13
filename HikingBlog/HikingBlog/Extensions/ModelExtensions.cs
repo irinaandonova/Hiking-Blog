@@ -87,10 +87,11 @@ namespace HikingBlog.Extensions
             int ratingScore = destination.CalcRatingScore();
             try
             {
-                if (ratingScore == 0)
-                    Console.WriteLine("No one has voted yet");
-                else
                     Console.WriteLine($"{destination.Name} rating is {ratingScore}");
+            }
+            catch(DivideByZeroException)
+            {
+                Console.WriteLine("No one has voted yet");
             }
             catch (Exception ex)
             {
