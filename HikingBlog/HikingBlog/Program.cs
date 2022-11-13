@@ -12,12 +12,12 @@ namespace HikingBlog
             Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", null, null);
             park.CreateComment(user, "Beautiful Park");
             park.ShowComments();
-
-            Seaside seaside = new Seaside("Konstantin i Elena", user, "Amazing beach", "image1.com", "Varna", true, true);
-            seaside.AddUmbrellaPrices(5.00);
-            seaside.ShowUmbrellaPrices();
-            HikingTrail hikingTrail = new HikingTrail("hsh", user, "hsh", "sjsj", "djsj", 1, 20);
-            hikingTrail.ChangeDifficulty();
+            
+                Seaside seaside = new Seaside("Konstantin i Elena", user, "Amazing beach", "image1.com", "Varna", true, true);
+                seaside.AddUmbrellaPrices(5.00);
+                seaside.ShowUmbrellaPrices();
+                HikingTrail hikingTrail = new HikingTrail("hsh", user, "hsh", "sjsj", "djsj", 1, 20);
+                hikingTrail.RateDestination(0, user);
         }
     }
 }

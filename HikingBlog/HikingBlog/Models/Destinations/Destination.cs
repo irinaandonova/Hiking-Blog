@@ -22,5 +22,25 @@ namespace HikingBlog.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string Region { get; set; }
+
+        public void RateDestination(int ratingValue, User user)
+        {
+            try
+            {
+             Rating rating = new Rating(ratingValue, user);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.ParamName);
+            }
+            catch(ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.ParamName);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(Exception(ex.Message));
+            }
+        }
     }
 }
