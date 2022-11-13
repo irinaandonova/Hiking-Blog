@@ -14,6 +14,7 @@ namespace HikingBlog.Extensions
             string id = comment.Id;
             destination.Comments.Add(id, comment);
         }
+
         public static void ShowComments(this Destination destination)
         {
             foreach (KeyValuePair<string, Comment> comment in destination.Comments)
@@ -21,12 +22,14 @@ namespace HikingBlog.Extensions
                 Console.WriteLine(comment.Value.Text);
             }
         }
+
         public static void AddUmbrellaPrices(this Seaside seaside, double umbrellaPrice)
         {
             if (!seaside.OffersUmbrella)
                 seaside.OffersUmbrella = true;
             seaside.UmbrellaPrice = umbrellaPrice;
         }
+
         public static void ShowUmbrellaPrices(this Seaside seaside)
         {
             if (seaside.OffersUmbrella)
@@ -34,6 +37,7 @@ namespace HikingBlog.Extensions
             else
                 Console.WriteLine("This destination doesn't offer umbrellas");
         }
+
         public static void RateDestination(this Destination destination, int ratingValue, User user)
         {
             try
@@ -60,6 +64,7 @@ namespace HikingBlog.Extensions
                 Console.WriteLine(ex.Message);
             }
         }
+
         public static int CalcRatingScore(this Destination destination)
         {
             int ratingScore = 0;
@@ -80,6 +85,7 @@ namespace HikingBlog.Extensions
                 throw new Exception(ex.Message);
             }
         }
+
         public static void ShowInfo(this Destination destination)
         {
             Console.WriteLine(destination.Name);
@@ -103,6 +109,7 @@ namespace HikingBlog.Extensions
                 Console.WriteLine(destination.Region);
             }
         }
+
         public static void ShowFullInformation(this HikingTrail hikingTrail)
         {
             ShowInfo(hikingTrail);
@@ -110,6 +117,7 @@ namespace HikingBlog.Extensions
             Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
             Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
         }
+
         public static void ShowFullInformation(this Seaside seaside)
         {
             ShowInfo(seaside);
@@ -119,6 +127,7 @@ namespace HikingBlog.Extensions
             else
                 Console.WriteLine("The beach isn't guarded by a lifeguarld.");
         }
+
         public static void ShowFullInformation(this Park park)
         {
             ShowInfo(park);
