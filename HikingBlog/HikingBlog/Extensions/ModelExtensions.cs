@@ -135,6 +135,16 @@ namespace HikingBlog.Extensions
             Console.WriteLine($"The park has a children's playground.");
             Console.WriteLine($"The park is dog friendly");
         }
+
+        public static void VisitStatus(this Destination destination, User visitor)
+        {
+            int index = destination.Visitors.IndexOf(visitor);
+            
+            if(index == -1)
+                destination.Visitors.Add(visitor);
+            else
+                destination.Visitors.RemoveAt(index);
+        }
     }
 }
 
