@@ -13,6 +13,7 @@ namespace HikingBlog.Services
 
         public void GetAllDestinations()
         {
+            //var subset  = from destination in AllDestinations
             foreach(Destination destination in AllDestinations)
             {
                 destination.ShowInfo();
