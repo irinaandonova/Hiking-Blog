@@ -13,8 +13,9 @@ namespace HikingBlog.Services
 
         public void GetAllDestinations()
         {
-            //var subset  = from destination in AllDestinations
-            foreach(Destination destination in AllDestinations)
+            var subset = from destination in AllDestinations orderby destination.Visitors.Count select destination;
+
+            foreach(Destination destination in subset.Take(10))
             {
                 destination.ShowInfo();
             }
@@ -32,5 +33,11 @@ namespace HikingBlog.Services
         {
             return AllDestinations.SingleOrDefault(x => x.Name == name);
         }
+        /*
+        public List<Seaside> GetAllSeaside(this Seaside seaside)
+        {
+            return AllDestinations.Where(x => x.GetType() == typeof(Seaside));
+        }
+        */
     }
 }
