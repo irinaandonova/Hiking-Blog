@@ -17,5 +17,29 @@ namespace HikingBlog.Models
         }
         public int Difficulty { get; set; }
         public int HikingDuration { get; set; }
+
+        public void ChangeDifficulty()
+        {
+            int difficulty;
+            try
+            {
+                bool result = Int32.TryParse(Console.ReadLine(), out difficulty);
+                if (!result)
+                    throw new FormatException("Incorrect input");
+                if (difficulty == 1 || difficulty == 2 || difficulty == 3)
+                    Difficulty= difficulty;
+                else
+                    throw new ArgumentOutOfRangeException("Input should be from 1 to 3");
+            }
+            catch(FormatException)
+            {
+                throw new FormatException("Input is not an integer number");
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
     }
 }

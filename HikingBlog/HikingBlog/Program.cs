@@ -16,6 +16,8 @@ namespace HikingBlog
             Seaside seaside = new Seaside("Konstantin i Elena", user, "Amazing beach", "image1.com", "Varna", true, true);
             seaside.AddUmbrellaPrices(5.00);
             seaside.ShowUmbrellaPrices();
+            HikingTrail hikingTrail = new HikingTrail("hsh", user, "hsh", "sjsj", "djsj", 1, 20);
+            hikingTrail.ChangeDifficulty();
         }
     }
 }
