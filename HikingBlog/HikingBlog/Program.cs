@@ -25,7 +25,9 @@ namespace HikingBlog
             HikingTrail hikingTrail = new HikingTrail("Rilski ezera", user, "Krasiva puteka", "sjsj.com", "Rila", 2, 20);
             hikingTrail.RateDestination(1, user);
             webApi.AddDestination(hikingTrail);
+            webApi.RemoveDestination(hikingTrail.Name);
             webApi.GetAllDestinations();
+
         }
     }
 }

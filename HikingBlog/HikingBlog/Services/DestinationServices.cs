@@ -20,10 +20,12 @@ namespace HikingBlog.Services
                 destination.ShowInfo();
             }
         }
+
         public void AddDestination(Destination destination)
         {
             AllDestinations.Add(destination);
         }
+
         public void RemoveDestination(string name)
         {
             try
@@ -36,6 +38,7 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
             }
         }
+
         public Destination GetDestination(string name)
         {
             return AllDestinations.SingleOrDefault(x => x.Name == name);
