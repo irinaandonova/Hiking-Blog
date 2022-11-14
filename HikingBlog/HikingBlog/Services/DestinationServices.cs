@@ -34,10 +34,11 @@ namespace HikingBlog.Services
             return AllDestinations.SingleOrDefault(x => x.Name == name);
         }
         /*
-        public List<Seaside> GetAllSeaside(this Seaside seaside)
+        public List<Seaside> GetAllSeaside()
         {
             return AllDestinations.Where(x => x.GetType() == typeof(Seaside));
         }
         */
+       
     }
 }
