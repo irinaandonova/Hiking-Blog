@@ -70,13 +70,12 @@ namespace HikingBlog.Services
             }
             
         }
-        /*
-        public List<Seaside> GetAllSeaside()
+        public IEnumerable<Seaside> GetAllSeaside()
         {
-            return (List<Seaside>)AllDestinations.Where(x => x.GetType() == typeof(Seaside));
+            var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
+            return destinations;
         }
-        */
-       public void FilterHikingTrail(int difficulty)
+        public void FilterHikingTrail(int difficulty)
         {
             try
             {
