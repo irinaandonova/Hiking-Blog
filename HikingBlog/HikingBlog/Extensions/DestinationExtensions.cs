@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using HikingBlog.Models;
 
 namespace HikingBlog.Extensions
 {
-    internal static class ModelExtensions
+    internal static class DestinationExtensions
     {
         public static void ShowInfo(this Destination destination)
         {
@@ -111,7 +112,23 @@ namespace HikingBlog.Extensions
 
         public static int CalcRatingScore(this Destination destination)
         {
-            int ratingScore = 0;
+            int ratingScore;
+            try
+            {
+                ratingScore = (int)destination.Ratings.Values.Average();
+                return ratingScore;
+            }
+            catch(DivideByZeroException)
+            {
+                Console.WriteLine("The are no rating yet");
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            /*
             foreach (KeyValuePair<User, int> ratingValue in destination.Ratings)
             {
                 ratingScore += ratingValue.Value;
@@ -128,6 +145,7 @@ namespace HikingBlog.Extensions
             {
                 throw new Exception(ex.Message);
             }
+            */
         }
     }
 }

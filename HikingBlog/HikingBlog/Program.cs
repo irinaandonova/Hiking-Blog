@@ -27,7 +27,6 @@ namespace HikingBlog
             webApi.AddDestination(hikingTrail);
             webApi.RemoveDestination(hikingTrail.Name);
             webApi.GetAllDestinations();
-
         }
     }
 }
