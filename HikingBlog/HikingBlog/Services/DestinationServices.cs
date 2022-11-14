@@ -7,15 +7,15 @@ using System.Text;
 
 namespace HikingBlog.Services
 {
-    internal class WebAPI
+    public class WebAPI
     {
         public List<Destination> AllDestinations = new List<Destination> { };
 
         public void GetAllDestinations()
         {
-            var subset = from destination in AllDestinations orderby destination.Visitors.Count select destination;
+            var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
 
-            foreach(Destination destination in subset.Take(10))
+            foreach(Destination destination in condition.Take(10))
             {
                 destination.ShowInfo();
             }
@@ -26,8 +26,15 @@ namespace HikingBlog.Services
         }
         public void RemoveDestination(string name)
         {
-            Destination destination = AllDestinations.Single(x => x.Name == name);
-            AllDestinations.Remove(destination);
+            try
+            {
+                Destination destination = AllDestinations.Single(x => x.Name == name);
+                AllDestinations.Remove(destination);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public Destination GetDestination(string name)
         {
