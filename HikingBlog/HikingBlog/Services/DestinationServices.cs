@@ -11,7 +11,7 @@ namespace HikingBlog.Services
     {
         public List<Destination> AllDestinations = new List<Destination> { };
 
-        public void GetAllDestinations()
+        public void GetFirstTen()
         {
             var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
 
@@ -33,15 +33,42 @@ namespace HikingBlog.Services
                 Destination destination = AllDestinations.Single(x => x.Name == name);
                 AllDestinations.Remove(destination);
             }
+            catch(ArgumentNullException)
+            {
+                Console.WriteLine("No such element");
+            }
+            catch(InvalidOperationException)
+            {
+                Console.WriteLine("More than one destination with that name!");
+            }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
 
-        public Destination GetDestination(string name)
+        public Destination? GetDestination(string name)
         {
-            return AllDestinations.SingleOrDefault(x => x.Name == name);
+            try
+            {
+                return AllDestinations.Single(x => x.Name == name);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("No such element");
+                return null;
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("More than one destination with that name!");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
         }
         /*
         public List<Seaside> GetAllSeaside()
