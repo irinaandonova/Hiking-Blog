@@ -46,6 +46,26 @@ namespace HikingBlog.Services
             return AllDestinations.Where(x => x.GetType() == typeof(Seaside));
         }
         */
-       
+       public void FilterHikingTrail(int difficulty)
+        {
+            try
+            {
+                List<HikingTrail> hikingTrails = (List<HikingTrail>)AllDestinations.Where(x => x.Difficulty == difficulty);
+                
+                foreach(HikingTrail hikingTrail in hikingTrails)
+                    {
+                        hikingTrail.ShowInfo();
+                    }
+                
+            }
+            catch(CustomException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
