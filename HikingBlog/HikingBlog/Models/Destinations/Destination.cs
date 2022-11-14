@@ -8,11 +8,24 @@ namespace HikingBlog.Models
     {
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
-            Name = name;
-            Creator = creator;
-            Description = description;
-            ImageUrl = imageUrl;
-            Region = region;
+            try
+            {
+                Name = name;
+                Creator = creator;
+                Description = description;
+                ImageUrl = imageUrl;
+                Region = region;
+            }
+            catch(ArgumentNullException)
+            {
+                Console.WriteLine("All fields must be filled!");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            
         }
 
         public string Name { get; set; }

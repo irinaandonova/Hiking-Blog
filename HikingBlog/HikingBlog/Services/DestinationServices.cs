@@ -73,7 +73,7 @@ namespace HikingBlog.Services
         /*
         public List<Seaside> GetAllSeaside()
         {
-            return AllDestinations.Where(x => x.GetType() == typeof(Seaside));
+            return (List<Seaside>)AllDestinations.Where(x => x.GetType() == typeof(Seaside));
         }
         */
        public void FilterHikingTrail(int difficulty)

@@ -8,14 +8,18 @@ namespace HikingBlog.Models
     {
         public HikingTrail(string name, User creator, string description, string imageUrl, string region, int difficulty, int hikingDuration) : base(name, creator, description, imageUrl, region)
         {
-            if (difficulty == 1 || difficulty == 2 || difficulty == 3)
+            try
+            {
+                CustomException.CheckDifficultyValue(difficulty);
                 Difficulty = difficulty;
-            else
-                throw new Exception("Difficulty value must be between 1 and 3");
-            if (hikingDuration > 0)
+                CustomException.CheckDurationValue(hikingDuration);
                 HikingDuration = hikingDuration;
-            else
-                throw new ArgumentOutOfRangeException("Hiking duretion should be bigger than zero");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
         public int Difficulty { get; set; }
         public int HikingDuration { get; set; }
@@ -33,13 +37,9 @@ namespace HikingBlog.Models
                 else
                     throw new ArgumentOutOfRangeException("Input should be from 1 to 3");
             }
-            catch (FormatException)
-            {
-                throw new FormatException("Input is not an integer number");
-            }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Console.WriteLine(ex.Message);
             }
 
         }

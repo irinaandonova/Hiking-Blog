@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+F/aTPNR2IFjEFP8LAqoqaIb5mIFQizV5NK+BzzlGT4uDyaj1If44AXsmkkkH2adCJuRp2ZALo3ExcdsewCTgQ==",
+  "dgSpecHash": "XaWkGzIzbtjXIAlDwExVpGiRURXb52MPseCkmqZilBgiPRFnDhkzHmck8qde/0vZQrzk6i779ZCF4eDCvAMOfg==",
   "success": true,
   "projectFilePath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\HikingBlog.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Irina\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.31\\microsoft.netcore.app.host.win-x64.3.1.31.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
