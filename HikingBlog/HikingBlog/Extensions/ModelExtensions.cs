@@ -8,21 +8,65 @@ namespace HikingBlog.Extensions
 {
     internal static class ModelExtensions
     {
-        public static void CreateComment(this Destination destination, User creator, string text)
+        public static void ShowInfo(this Destination destination)
         {
-            Comment comment = new Comment(creator, text);
-            string id = comment.Id;
-            destination.Comments.Add(id, comment);
-        }
+            Console.WriteLine(destination.Name);
 
-        public static void ShowComments(this Destination destination)
-        {
-            foreach (KeyValuePair<string, Comment> comment in destination.Comments)
+            int ratingScore = destination.CalcRatingScore();
+            try
             {
-                Console.WriteLine(comment.Value.Text);
+                Console.WriteLine($"{destination.Name} rating is {ratingScore}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("No one has voted yet");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine(destination.Description);
+                Console.WriteLine(destination.Region);
             }
         }
 
+        public static void ShowFullInformation(this HikingTrail hikingTrail)
+        {
+            ShowInfo(hikingTrail);
+
+            Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
+            Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
+        }
+
+        public static void ShowFullInformation(this Seaside seaside)
+        {
+            ShowInfo(seaside);
+
+            if (seaside.IsGuarded)
+                Console.WriteLine("The beach is guarded by a lifeguard");
+            else
+                Console.WriteLine("The beach isn't guarded by a lifeguarld.");
+        }
+
+        public static void ShowFullInformation(this Park park)
+        {
+            ShowInfo(park);
+
+            Console.WriteLine($"The park has a children's playground.");
+            Console.WriteLine($"The park is dog friendly");
+        }
+
+        public static void VisitStatus(this Destination destination, User visitor)
+        {
+            int index = destination.Visitors.IndexOf(visitor);
+
+            if (index == -1)
+                destination.Visitors.Add(visitor);
+            else
+                destination.Visitors.RemoveAt(index);
+        }
         public static void AddUmbrellaPrices(this Seaside seaside, double umbrellaPrice)
         {
             if (!seaside.OffersUmbrella)
@@ -84,66 +128,6 @@ namespace HikingBlog.Extensions
             {
                 throw new Exception(ex.Message);
             }
-        }
-
-        public static void ShowInfo(this Destination destination)
-        {
-            Console.WriteLine(destination.Name);
-
-            int ratingScore = destination.CalcRatingScore();
-            try
-            {
-                    Console.WriteLine($"{destination.Name} rating is {ratingScore}");
-            }
-            catch(DivideByZeroException)
-            {
-                Console.WriteLine("No one has voted yet");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine(destination.Description);
-                Console.WriteLine(destination.Region);
-            }
-        }
-
-        public static void ShowFullInformation(this HikingTrail hikingTrail)
-        {
-            ShowInfo(hikingTrail);
-
-            Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
-            Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
-        }
-
-        public static void ShowFullInformation(this Seaside seaside)
-        {
-            ShowInfo(seaside);
-
-            if (seaside.IsGuarded)
-                Console.WriteLine("The beach is guarded by a lifeguard");
-            else
-                Console.WriteLine("The beach isn't guarded by a lifeguarld.");
-        }
-
-        public static void ShowFullInformation(this Park park)
-        {
-            ShowInfo(park);
-
-            Console.WriteLine($"The park has a children's playground.");
-            Console.WriteLine($"The park is dog friendly");
-        }
-
-        public static void VisitStatus(this Destination destination, User visitor)
-        {
-            int index = destination.Visitors.IndexOf(visitor);
-            
-            if(index == -1)
-                destination.Visitors.Add(visitor);
-            else
-                destination.Visitors.RemoveAt(index);
         }
     }
 }
