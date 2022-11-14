@@ -12,10 +12,9 @@ namespace HikingBlog.Extensions
         public static void ShowInfo(this Destination destination)
         {
             Console.WriteLine(destination.Name);
-
-            int ratingScore = destination.CalcRatingScore();
             try
             {
+                int ratingScore = destination.CalcRatingScore();
                 Console.WriteLine($"{destination.Name} rating is {ratingScore}");
             }
             catch (DivideByZeroException)
