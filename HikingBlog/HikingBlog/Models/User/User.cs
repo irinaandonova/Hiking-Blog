@@ -9,14 +9,14 @@ namespace HikingBlog.Models
         public User(string username, string email)
         {
             try
-            {
-                Username = username;
+            {                
                 Email = CustomException.InvalidEmail(email);
                 Email = email;
+                Username = username;
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             
         }

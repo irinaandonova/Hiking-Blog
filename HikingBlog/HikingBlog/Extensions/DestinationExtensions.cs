@@ -122,7 +122,11 @@ namespace HikingBlog.Extensions
                 Console.WriteLine("The are no rating yet");
                 return 0;
             }
-            catch (Exception ex)
+            catch (InvalidOperationException)
+            {
+                throw new Exception("The are no rating yet");
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
