@@ -135,5 +135,29 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
             }
         }
+        public void FilterByRegion(string Region)
+        {
+            try
+            {
+                List<Destination> destinations = AllDestinations.FindAll(x => x.Region == Region);
+                if (destinations.Count > 0)
+                {
+                    foreach (Destination destination in destinations)
+                    {
+                        destination.ShowInfo();
+                    }
+                }
+                else
+                    throw new InvalidOperationException("The are no elements in the list");
+            }
+            catch(InvalidOperationException ex)
+            {
+                Console.WriteLine($"The are no destination in the {Region} region");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
