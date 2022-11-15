@@ -22,11 +22,11 @@ namespace HikingBlog.Services
                     destination.ShowInfo();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);  
+                Console.WriteLine(ex.Message);
             }
-            
+
         }
 
         public void AddDestination(Destination destination)
@@ -37,11 +37,11 @@ namespace HikingBlog.Services
                 if (!AllDestinations.Contains(destination))
                     throw new NotImplementedException("Element not added successfully");
             }
-           catch(NotImplementedException)
+            catch (NotImplementedException)
             {
                 Console.WriteLine("Creation of destination failed");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -97,7 +97,7 @@ namespace HikingBlog.Services
             {
                 var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
                 if (destinations.Count() < 0)
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("There are no elements in the collection");
                 return destinations;
             }
 
@@ -118,7 +118,7 @@ namespace HikingBlog.Services
             {
                 var destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail);
                 if (destinations.Count() < 0)
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("There are no elements in the collection");
                 return destinations;
             }
 
@@ -139,7 +139,7 @@ namespace HikingBlog.Services
             {
                 var destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park);
                 if (destinations.Count() < 0)
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("There are no elements in the collection");
 
                 return destinations;
             }
@@ -160,7 +160,7 @@ namespace HikingBlog.Services
             {
                 IEnumerable<HikingTrail> hikingTrails = GetAllHikingTrails();
                 if (hikingTrails.Count() < 0)
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("There are no elements in the collection");
 
                 foreach (HikingTrail hikingTrail in hikingTrails)
                 {
@@ -179,7 +179,7 @@ namespace HikingBlog.Services
                 IEnumerable<Seaside> seasides = GetAllSeaside();
                 seasides = seasides.Where(x => x.IsGuarded);
                 if (seasides.Count() < 0)
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("There are no elements in the collection");
 
                 foreach (Seaside seaside in seasides)
                 {
@@ -188,7 +188,7 @@ namespace HikingBlog.Services
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine($"The are no destination in that fullfils this conditions");
+                Console.WriteLine($"There are no destination in that fullfils this conditions");
             }
             catch (Exception ex)
             {
@@ -203,7 +203,7 @@ namespace HikingBlog.Services
                 parks = parks.Where(x => x.HasPlayground == hasPlayground && x.IsDogFriendly == isDogFriendly);
 
                 if (parks.Count() < 0)
-                    throw new InvalidOperationException("The are no elemnts on the list");
+                    throw new InvalidOperationException("There are no elements on the collection");
 
                 foreach (Park park in parks)
                 {
@@ -212,7 +212,7 @@ namespace HikingBlog.Services
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine($"The are no destination in that fullfils this conditions");
+                Console.WriteLine($"The are no destinations in that fullfils this conditions");
             }
             catch (Exception ex)
             {
@@ -232,15 +232,36 @@ namespace HikingBlog.Services
                     }
                 }
                 else
-                    throw new InvalidOperationException("The are no elements in the list");
+                    throw new InvalidOperationException("The are no elements in the collection");
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine($"The are no destination in the {Region} region");
+                Console.WriteLine($"The are no destinations in the {Region} region");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+        public IEnumerable<Destination> SearchDestination(string searchWord)
+        {
+            try
+            {
+                IEnumerable<Destination> destinations = AllDestinations.Where(d => d.Name.Contains(searchWord));
+                if (destinations.Count() < 0)
+                    throw new InvalidOperationException("No elements ");
+
+                return destinations;
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine($"The are no destinations that contain {searchWord} in their name!");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
     }
