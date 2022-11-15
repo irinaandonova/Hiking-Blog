@@ -35,7 +35,7 @@ namespace HikingBlog
         public static List<Destination> CheckCount(List<Destination> destinations)
         {
             if (destinations.Count == 0)
-                throw new Exception("No such destinations");
+                throw new Exception("No destinations at the moment!");
             else
             {
                 return destinations;
