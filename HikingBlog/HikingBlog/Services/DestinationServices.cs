@@ -15,7 +15,7 @@ namespace HikingBlog.Services
         {
             var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
 
-            foreach(Destination destination in condition.Take(10))
+            foreach (Destination destination in condition.Take(10))
             {
                 destination.ShowInfo();
             }
@@ -33,15 +33,15 @@ namespace HikingBlog.Services
                 Destination destination = AllDestinations.Single(x => x.Name == name);
                 AllDestinations.Remove(destination);
             }
-            catch(ArgumentNullException)
+            catch (ArgumentNullException)
             {
                 Console.WriteLine("No such element");
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 Console.WriteLine("More than one destination with that name!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -68,7 +68,7 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            
+
         }
         public IEnumerable<Seaside> GetAllSeaside()
         {
@@ -80,18 +80,25 @@ namespace HikingBlog.Services
             try
             {
                 List<HikingTrail> hikingTrails = (List<HikingTrail>)AllDestinations.Where(x => x.Difficulty == difficulty);
-                
-                foreach(HikingTrail hikingTrail in hikingTrails)
-                    {
-                        hikingTrail.ShowInfo();
-                    }
-                
+
+                foreach (HikingTrail hikingTrail in hikingTrails)
+                {
+                    hikingTrail.ShowInfo();
+                }
             }
-            catch(Exceptions ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            catch(Exception ex)
+        }
+        public void FilterSeaside(bool isGuarded)
+        {
+            try
+            {
+                IEnumerable<Seaside> seasides = GetAllSeaside();
+                seasides = seasides.Where(x => x.IsGuarded);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
