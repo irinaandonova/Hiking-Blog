@@ -6,16 +6,16 @@ using System.Text;
 
 namespace HikingBlog
 {
-    internal class CustomException : Exception
+    internal class Exceptions : Exception
     {
-        public CustomException(string msg) : base(msg)
+        public Exceptions(string msg) : base(msg)
         { }
-        public static string InvalidEmail(string email)
+        public static User CreateUser(string email, string username)
         {
-            if (!email.Contains('@'))
-                throw new Exception("Invalid email");
+            if (!email.Contains('@') || username == null)
+                throw new Exception("Invalid email or username");
             else
-                return email;
+                return new User(username, email);
         }
         public static int CheckDifficultyValue(int difficulty)
         {
@@ -41,13 +41,5 @@ namespace HikingBlog
                 return destinations;
             }
         }       
-        public static User CheckUser(User user)
-        {
-            if(user == null)
-            {
-                throw new ArgumentNullException("User is not properly defiened");
-            }
-            return user;    
-        }
     }
 }

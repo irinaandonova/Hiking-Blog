@@ -13,7 +13,7 @@ namespace HikingBlog
             {
                 WebAPI webApi = new WebAPI();
 
-                User user = new User("Ira", "ira@");
+                User user =  Exceptions.CreateUser("Ira", "ira@");
                 Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", true, false);
                 park.CreateComment(user, "Beautiful Park");
                 park.ShowComments();
@@ -24,10 +24,9 @@ namespace HikingBlog
                 seaside.ShowUmbrellaPrices();
                 webApi.AddDestination(seaside);
                 //webApi.GetAllSeaside();
-                HikingTrail hikingTrail = new HikingTrail("Rilski ezera", user, "Krasiva puteka", "sjsj.com", "Rila", 2, 20);
-                hikingTrail.RateDestination(1, user);
+                HikingTrail hikingTrail = new HikingTrail("Rilski ezera", user, "Beautiful trail", "sjsj.com", "Rila", 2, 20);
+                hikingTrail.RateDestination(4, user);
                 webApi.AddDestination(hikingTrail);
-                webApi.RemoveDestination(hikingTrail.Name);
                 webApi.GetFirstTen();
             }
             catch(Exception ex)

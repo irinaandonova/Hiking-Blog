@@ -87,7 +87,7 @@ namespace HikingBlog.Services
                     }
                 
             }
-            catch(CustomException ex)
+            catch(Exceptions ex)
             {
                 Console.WriteLine(ex.Message);
             }

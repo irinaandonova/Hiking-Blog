@@ -8,7 +8,7 @@ namespace HikingBlog.Models
     {
         public Comment(User creator, string text)
         {
-            CustomException.CheckUser(creator);
+            Exceptions.CheckUser(creator);
             Creator = creator;
             Text = text;
             Date = DateTime.Now;

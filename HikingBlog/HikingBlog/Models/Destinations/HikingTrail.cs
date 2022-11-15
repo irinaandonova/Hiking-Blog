@@ -10,9 +10,9 @@ namespace HikingBlog.Models
         {
             try
             {
-                CustomException.CheckDifficultyValue(difficulty);
+                Exceptions.CheckDifficultyValue(difficulty);
                 Difficulty = difficulty;
-                CustomException.CheckDurationValue(hikingDuration);
+                Exceptions.CheckDurationValue(hikingDuration);
                 HikingDuration = hikingDuration;
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace HikingBlog.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
 
         }
