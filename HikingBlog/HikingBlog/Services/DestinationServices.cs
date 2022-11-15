@@ -13,17 +13,38 @@ namespace HikingBlog.Services
 
         public void GetFirstTen()
         {
-            var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
-
-            foreach (Destination destination in condition.Take(10))
+            try
             {
-                destination.ShowInfo();
+                var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
+                Exceptions.CheckCount(AllDestinations);
+                foreach (Destination destination in condition.Take(10))
+                {
+                    destination.ShowInfo();
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);  
+            }
+            
         }
 
         public void AddDestination(Destination destination)
         {
-            AllDestinations.Add(destination);
+            try
+            {
+                AllDestinations.Add(destination);
+                if (!AllDestinations.Contains(destination))
+                    throw new NotImplementedException("Element not added successfully");
+            }
+           catch(NotImplementedException)
+            {
+                Console.WriteLine("Creation of destination failed");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void RemoveDestination(string name)
