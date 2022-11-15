@@ -12,7 +12,7 @@ namespace HikingBlog
         { }
         public static User CreateUser(string email, string username)
         {
-            if (!email.Contains("a") || username == null)
+            if (!email.Contains("@") || username == null)
                 throw new Exception("Invalid email or username");
             else
                 return new User(username, email);
