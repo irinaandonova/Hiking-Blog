@@ -75,11 +75,21 @@ namespace HikingBlog.Services
             var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
             return destinations;
         }
+        public IEnumerable<HikingTrail> GetAllHikingTrails()
+        {
+            var destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail);
+            return destinations;
+        }
+        public IEnumerable<Park> GetAllParks()
+        {
+            var destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park);
+            return destinations;
+        }
         public void FilterHikingTrail(int difficulty)
         {
             try
             {
-                List<HikingTrail> hikingTrails = (List<HikingTrail>)AllDestinations.Where(x => x.Difficulty == difficulty);
+                IEnumerable<HikingTrail> hikingTrails = GetAllHikingTrails();
 
                 foreach (HikingTrail hikingTrail in hikingTrails)
                 {
@@ -97,6 +107,28 @@ namespace HikingBlog.Services
             {
                 IEnumerable<Seaside> seasides = GetAllSeaside();
                 seasides = seasides.Where(x => x.IsGuarded);
+
+                foreach (Seaside seaside in seasides)
+                {
+                    seaside.ShowInfo();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void FilterPark(bool hasPlayground, bool isDogFriendly)
+        {
+            try
+            {
+                IEnumerable<Park> parks = GetAllParks();
+                parks = parks.Where(x => x.HasPlayground == hasPlayground && x.IsDogFriendly == isDogFriendly);
+
+                foreach (Park park in parks)
+                {
+                    park.ShowInfo();
+                }
             }
             catch (Exception ex)
             {

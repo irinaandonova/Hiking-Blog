@@ -23,7 +23,7 @@ namespace HikingBlog
                 return difficulty;
             else
                 throw new ArgumentOutOfRangeException("Difficulty value must be between 1 and 3");
-            
+
         }
         public static int CheckDurationValue(int duration)
         {
@@ -40,6 +40,6 @@ namespace HikingBlog
             {
                 return destinations;
             }
-        }   
+        }
     }
 }

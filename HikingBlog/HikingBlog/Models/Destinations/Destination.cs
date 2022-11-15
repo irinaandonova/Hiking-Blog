@@ -16,16 +16,15 @@ namespace HikingBlog.Models
                 ImageUrl = imageUrl;
                 Region = region;
             }
-            catch(ArgumentNullException)
+            catch (ArgumentNullException)
             {
                 Console.WriteLine("All fields must be filled!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return;
             }
-            
         }
 
         public string Name { get; set; }
