@@ -40,6 +40,6 @@ namespace HikingBlog
             {
                 return destinations;
             }
-        }       
+        }   
     }
 }

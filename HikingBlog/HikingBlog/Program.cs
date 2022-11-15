@@ -19,12 +19,12 @@ namespace HikingBlog
                 park.ShowComments();
                 webApi.AddDestination(park);
 
-                Seaside seaside = new Seaside("Konstantin i Elena", user, "Amazing beach", "image1.com", "Varna", true, true);
+                Seaside seaside = new Seaside("Konstantin and Elena", user, "Amazing beach", "image1.com", "Varna", true, true);
                 seaside.AddUmbrellaPrices(5.00);
                 seaside.ShowUmbrellaPrices();
                 webApi.AddDestination(seaside);
                 //webApi.GetAllSeaside();
-                HikingTrail hikingTrail = new HikingTrail("Rilski ezera", user, "Beautiful trail", "sjsj.com", "Rila", 2, 20);
+                HikingTrail hikingTrail = new HikingTrail("Rila lakes", user, "Beautiful trail", "sjsj.com", "Rila", 2, 20);
                 hikingTrail.RateDestination(4, user);
                 webApi.AddDestination(hikingTrail);
                 webApi.GetFirstTen();
