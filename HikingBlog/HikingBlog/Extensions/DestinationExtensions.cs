@@ -97,11 +97,11 @@ namespace HikingBlog.Extensions
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine(ex.ParamName);
+                Console.WriteLine(ex.Message);
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine(ex.ParamName);
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
