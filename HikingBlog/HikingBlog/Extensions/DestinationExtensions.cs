@@ -117,7 +117,7 @@ namespace HikingBlog.Extensions
                 ratingScore = (int)destination.Ratings.Values.Average();
                 return ratingScore;
             }
-            catch(DivideByZeroException)
+            catch (DivideByZeroException)
             {
                 Console.WriteLine("The are no rating yet");
                 return 0;
@@ -126,29 +126,10 @@ namespace HikingBlog.Extensions
             {
                 throw new Exception("The are no rating yet");
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            /*
-            foreach (KeyValuePair<User, int> ratingValue in destination.Ratings)
-            {
-                ratingScore += ratingValue.Value;
-            }
-            try
-            {
-                return ratingScore / destination.Ratings.Count;
-            }
-            catch (DivideByZeroException)
-            {
-                return 0;
-            }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            */
         }
     }
 }
