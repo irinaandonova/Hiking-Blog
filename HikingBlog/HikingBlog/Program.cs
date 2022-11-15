@@ -7,8 +7,8 @@ using System;
 try
 {
     WebAPI webApi = new WebAPI();
-
-    User user = Exceptions.CreateUser("Ira", "ira@");
+    /*
+    User user = Exceptions.CreateUser("irina@", "irina");
     Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", true, false);
     park.CreateComment(user, "Beautiful Park");
     park.ShowComments();
@@ -24,6 +24,8 @@ try
     webApi.AddDestination(hikingTrail);
     webApi.GetFirstTen();
     hikingTrail.ShowFullInformation();
+    */
+    webApi.GetFirstTen();
 }
 catch (Exception ex)
 {
