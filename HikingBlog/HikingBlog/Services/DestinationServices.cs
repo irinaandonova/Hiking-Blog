@@ -26,9 +26,7 @@ namespace HikingBlog.Services
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
-
         public void AddDestination(Destination destination)
         {
             try
@@ -46,7 +44,6 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
             }
         }
-
         public void RemoveDestination(string name)
         {
             try
@@ -89,7 +86,6 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
                 return null;
             }
-
         }
         public IEnumerable<Seaside> GetAllSeaside()
         {
@@ -236,7 +232,7 @@ namespace HikingBlog.Services
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine($"The are no destinations in the {Region} region");
+                Console.WriteLine($"The are no destination in the {Region} region");
             }
             catch (Exception ex)
             {
@@ -262,6 +258,35 @@ namespace HikingBlog.Services
             {
                 Console.WriteLine(ex.Message);
                 return null;
+            }
+        }
+        public void SortDestinations(string condition)
+        {
+            try
+            {
+                if (condition == "alphabetical")
+                    AllDestinations.Sort((a, b) => a.Name.CompareTo(b.Name));
+                else if (condition == "reverse alphabetical")
+                    AllDestinations.Sort((b, a) => b.Name.CompareTo(a.Name));
+                else if (condition == "accending difficulty")
+                    AllDestinations.Sort((a, b) => b.Difficulty - a.Difficulty);
+                else if (condition == "descending difficulty")
+                    AllDestinations.Sort((a, b) => a.Difficulty - b.Difficulty);
+                else
+                    throw new ArgumentOutOfRangeException("Invalid condition");
+
+                foreach (var destination in AllDestinations)
+                    destination.ShowInfo();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+                foreach (var destination in AllDestinations)
+                    destination.ShowInfo();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
