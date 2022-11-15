@@ -72,24 +72,74 @@ namespace HikingBlog.Services
         }
         public IEnumerable<Seaside> GetAllSeaside()
         {
-            var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
-            return destinations;
+            try
+            {
+                var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
+                if (destinations.Count() < 0)
+                    throw new InvalidOperationException("The are no elements in the list");
+                return destinations;
+            }
+
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("There are no destinations yet");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         public IEnumerable<HikingTrail> GetAllHikingTrails()
         {
-            var destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail);
-            return destinations;
+            try
+            {
+                var destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail);
+                if (destinations.Count() < 0)
+                    throw new InvalidOperationException("The are no elements in the list");
+                return destinations;
+            }
+
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("There are no destinations yet");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         public IEnumerable<Park> GetAllParks()
         {
-            var destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park);
-            return destinations;
+            try
+            {
+                var destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park);
+                if (destinations.Count() < 0)
+                    throw new InvalidOperationException("The are no elements in the list");
+
+                return destinations;
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("There are no destinations yet");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         public void FilterHikingTrail(int difficulty)
         {
             try
             {
                 IEnumerable<HikingTrail> hikingTrails = GetAllHikingTrails();
+                if (hikingTrails.Count() < 0)
+                    throw new InvalidOperationException("The are no elements in the list");
 
                 foreach (HikingTrail hikingTrail in hikingTrails)
                 {
@@ -107,11 +157,17 @@ namespace HikingBlog.Services
             {
                 IEnumerable<Seaside> seasides = GetAllSeaside();
                 seasides = seasides.Where(x => x.IsGuarded);
+                if (seasides.Count() < 0)
+                    throw new InvalidOperationException("The are no elements in the list");
 
                 foreach (Seaside seaside in seasides)
                 {
                     seaside.ShowInfo();
                 }
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine($"The are no destination in that fullfils this conditions");
             }
             catch (Exception ex)
             {
@@ -125,10 +181,17 @@ namespace HikingBlog.Services
                 IEnumerable<Park> parks = GetAllParks();
                 parks = parks.Where(x => x.HasPlayground == hasPlayground && x.IsDogFriendly == isDogFriendly);
 
+                if (parks.Count() < 0)
+                    throw new InvalidOperationException("The are no elemnts on the list");
+
                 foreach (Park park in parks)
                 {
                     park.ShowInfo();
                 }
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine($"The are no destination in that fullfils this conditions");
             }
             catch (Exception ex)
             {
@@ -140,7 +203,7 @@ namespace HikingBlog.Services
             try
             {
                 List<Destination> destinations = AllDestinations.FindAll(x => x.Region == Region);
-                if (destinations.Count > 0)
+                if (destinations.Count < 0)
                 {
                     foreach (Destination destination in destinations)
                     {
@@ -150,11 +213,11 @@ namespace HikingBlog.Services
                 else
                     throw new InvalidOperationException("The are no elements in the list");
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
                 Console.WriteLine($"The are no destination in the {Region} region");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
