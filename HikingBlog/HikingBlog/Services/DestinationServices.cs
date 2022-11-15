@@ -64,8 +64,7 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
             }
         }
-
-        public Destination? GetDestination(string name)
+        public Destination GetDestination(string name)
         {
             try
             {
@@ -106,6 +105,32 @@ namespace HikingBlog.Services
             {
                 Console.WriteLine(ex.Message);
                 return null;
+            }
+        }
+        public static void RateDestination(this Destination destination, int ratingValue, User user)
+        {
+            try
+            {
+                if (ratingValue <= 0 || ratingValue > 5)
+                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
+                if (user == null)
+                    throw new ArgumentNullException("User field is missing!");
+                if (destination.Ratings.ContainsKey(user))
+                    destination.Ratings[user] = ratingValue;
+                else
+                    destination.Ratings.Add(user, ratingValue);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         public IEnumerable<HikingTrail> GetAllHikingTrails()
