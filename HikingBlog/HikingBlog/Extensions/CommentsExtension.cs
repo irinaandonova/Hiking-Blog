@@ -13,8 +13,9 @@ namespace HikingBlog.Extensions
         {
             Comment comment = new Comment(creator, text);
             string id = comment.Id;
-            destination.Comments.Add(id, comment);
+            destination.AddComment(id, comment);
         }
+
         public static void ShowComments(this Destination destination)
         {
             foreach (KeyValuePair<string, Comment> comment in destination.Comments)
@@ -26,10 +27,9 @@ namespace HikingBlog.Extensions
         {
             try
             {
-                Comment comment = destination.Comments[id];
-                if (!comment.Creator.Equals(creator))
+                if (!destination.CompareUser(id, creator))
                     throw new InvalidOperationException("Current user isn't the creator of the comment!");
-                destination.Comments.Remove(id);
+                destination.RemoveComment(id);
             }
             catch (KeyNotFoundException)
             {
@@ -46,12 +46,11 @@ namespace HikingBlog.Extensions
         }
         public static void EditComment(this Destination destination, User creator, string id, string text)
         {
-            Comment comment = destination.Comments[id];
             try
             {
-                if (!comment.Creator.Equals(creator))
+                if (!destination.CompareUser(id, creator))
                     throw new InvalidOperationException("Current user isn't the creator of the comment!");
-                comment.Text = text;
+                destination.EditComment(id, text);
             }
             catch (ArgumentNullException)
             {
