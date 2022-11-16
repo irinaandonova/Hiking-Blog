@@ -107,7 +107,7 @@ namespace HikingBlog.Services
                 return null;
             }
         }
-        public static void RateDestination(this Destination destination, int ratingValue, User user)
+        public static void RateDestination(Destination destination, int ratingValue, User user)
         {
             try
             {
