@@ -13,7 +13,7 @@ namespace HikingBlog.Models
             Date = DateTime.Now;
             Id = Creator.Username + Date.ToString();
         }
-        public string Id { get; set; }
+        public string Id { get; }
         public User Creator { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
