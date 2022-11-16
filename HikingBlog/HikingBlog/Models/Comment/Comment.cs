@@ -14,8 +14,18 @@ namespace HikingBlog.Models
             Id = Creator.Username + Date.ToString();
         }
         public string Id { get; }
-        public User Creator { get; set; }
-        public string Text { get; set; }
-        public DateTime Date { get; set; }
+
+        public User Creator { get; }
+
+        public string Text { get; }
+
+        public DateTime Date { get; }
+
+        public void ShowComment()
+        {
+            Console.WriteLine(Date.ToString());
+            Console.WriteLine(Creator.Username);
+            Console.WriteLine(Text);
+        }
     }
 }
