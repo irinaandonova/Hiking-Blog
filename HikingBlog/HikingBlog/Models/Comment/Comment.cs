@@ -17,7 +17,7 @@ namespace HikingBlog.Models
 
         public User Creator { get; }
 
-        public string Text { get; }
+        public string Text { get; set; }
 
         public DateTime Date { get; }
 
