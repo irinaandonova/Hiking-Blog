@@ -6,6 +6,7 @@ using System.Text;
 
 namespace HikingBlog
 {
+    /*
     internal class Exceptions : Exception
     {
         public Exceptions(string msg) : base(msg)
@@ -42,4 +43,5 @@ namespace HikingBlog
             }
         }
     }
+    */
 }
