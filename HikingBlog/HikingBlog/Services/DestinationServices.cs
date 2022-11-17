@@ -1,4 +1,5 @@
-﻿using HikingBlog.Extensions;
+﻿using HikingBlog.Exceptions;
+using HikingBlog.Extensions;
 using HikingBlog.Models;
 using System;
 using System.Collections.Generic;
@@ -64,15 +65,24 @@ namespace HikingBlog.Services
                 Console.WriteLine(ex.Message);
             }
         }
-        public Destination GetDestination(string name)
+
+        public Destination? GetDestination(string name)
         {
             try
             {
-                return AllDestinations.Single(x => x.Name == name);
+                Destination destination = AllDestinations.SingleOrDefault(x => x.Name == name);
+                if (destination is null)
+                    throw new DestinationNotFoundException();
+                return destination;
             }
             catch (ArgumentNullException)
             {
                 Console.WriteLine("No such element");
+                return null;
+            }
+            catch(DestinationNotFoundException)
+            {
+                Console.WriteLine($"No {name} destination in the data base");
                 return null;
             }
             catch (InvalidOperationException)
@@ -86,6 +96,7 @@ namespace HikingBlog.Services
                 return null;
             }
         }
+
         public IEnumerable<Seaside> GetAllSeaside()
         {
             try
@@ -108,7 +119,6 @@ namespace HikingBlog.Services
             }
         }
 
-        
         public IEnumerable<HikingTrail> GetAllHikingTrails()
         {
             try
