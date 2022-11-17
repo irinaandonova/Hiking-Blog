@@ -31,17 +31,19 @@ namespace HikingBlog.Models
             }
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public User Creator { get; set; }
+        public User Creator { get; }
 
         public int Difficulty { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; }
 
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; }
 
-        public string Region { get; set; }
+        public string Region { get; }
+
+        public int RatingScore { get; set; }
 
         private Dictionary<string, Comment> Comments { get; set; }
 
@@ -57,47 +59,40 @@ namespace HikingBlog.Models
 
         public bool CompareUser(string id, User creator) => Comments[id].Creator.Equals(creator) ? true : false;
 
-        
-        
-        public static void RateDestination(this Destination destination, int ratingValue, User user)
+
+        public List<User> GetVististors() => Visitors;
+        public void ShowComments()
+        {
+            foreach (KeyValuePair<string, Comment> comment in Comments)
+                comment.Value.ShowComment();
+        }
+
+        public void RateDestination(User user, int rating)
         {
             try
             {
-                if (ratingValue <= 0 || ratingValue > 5)
-                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (user == null)
-                    throw new ArgumentNullException("User field is missing!");
-                if (destination.Ratings.ContainsKey(user))
-                    destination.Ratings[user] = ratingValue;
+                if (Ratings.ContainsKey(user))
+                    Ratings[user] = rating;
+
                 else
-                    destination.Ratings.Add(user, ratingValue);
+                    Ratings.Add(user, rating);
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                throw new Exception();
             }
         }
 
-        public static int CalcRatingScore(this Destination destination)
+
+        public void CalcRatingScore(Destination destination)
         {
-            int ratingScore;
             try
             {
-                ratingScore = (int)destination.Ratings.Values.Average();
-                return ratingScore;
+                RatingScore = (int)Ratings.Values.Average();
             }
             catch (DivideByZeroException)
             {
                 Console.WriteLine("The are no rating yet");
-                return 0;
             }
             catch (InvalidOperationException)
             {
@@ -109,7 +104,7 @@ namespace HikingBlog.Models
             }
         }
 
-        public static void VisitStatus(this Destination destination, User visitor)
+        public void VisitStatus(Destination destination, User visitor)
         {
             int index = destination.Visitors.IndexOf(visitor);
 
@@ -118,5 +113,7 @@ namespace HikingBlog.Models
             else
                 destination.Visitors.RemoveAt(index);
         }
+
+        
     }
 }
