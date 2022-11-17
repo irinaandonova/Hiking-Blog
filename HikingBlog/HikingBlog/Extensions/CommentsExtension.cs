@@ -16,13 +16,6 @@ namespace HikingBlog.Extensions
             destination.AddComment(id, comment);
         }
 
-        public static void ShowComments(this Destination destination)
-        {
-            foreach (KeyValuePair<string, Comment> comment in destination.Comments)
-            {
-                Console.WriteLine(comment.Value.Text);
-            }
-        }
         public static void DeleteComment(this Destination destination, User creator, string id)
         {
             try
@@ -35,15 +28,16 @@ namespace HikingBlog.Extensions
             {
                 Console.WriteLine("No comment found with given id!");
             }
-            catch(ArgumentNullException)
+            catch (ArgumentNullException)
             {
                 Console.WriteLine("Insert all values!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+
         public static void EditComment(this Destination destination, User creator, string id, string text)
         {
             try
@@ -56,9 +50,9 @@ namespace HikingBlog.Extensions
             {
                 Console.WriteLine($"Insert all values!");
             }
-            catch(KeyNotFoundException)
+            catch (KeyNotFoundException)
             {
-                Console.WriteLine("No comment found with given id!"); 
+                Console.WriteLine("No comment found with given id!");
             }
             catch (Exception ex)
             {
