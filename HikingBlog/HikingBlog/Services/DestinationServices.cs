@@ -15,8 +15,8 @@ namespace HikingBlog.Services
         {
             try
             {
-                var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
-                Exceptions.CheckCount(AllDestinations);
+                var condition = from destination in AllDestinations orderby destination.GetVististors().Count select destination;
+                //Exceptions.CheckCount(AllDestinations);
                 foreach (Destination destination in condition.Take(10))
                 {
                     destination.ShowInfo();
@@ -107,32 +107,8 @@ namespace HikingBlog.Services
                 return null;
             }
         }
-        public static void RateDestination(Destination destination, int ratingValue, User user)
-        {
-            try
-            {
-                if (ratingValue <= 0 || ratingValue > 5)
-                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (user == null)
-                    throw new ArgumentNullException("User field is missing!");
-                if (destination.Ratings.ContainsKey(user))
-                    destination.Ratings[user] = ratingValue;
-                else
-                    destination.Ratings.Add(user, ratingValue);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+
+        
         public IEnumerable<HikingTrail> GetAllHikingTrails()
         {
             try
