@@ -22,29 +22,14 @@ namespace HikingBlog.Models
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
-        public int Difficulty { get; set; }
+
+        private int Difficulty { get; set; }
+
         public int HikingDuration { get; set; }
 
-        public void ChangeDifficulty()
-        {
-            int difficulty;
-            try
-            {
-                bool result = Int32.TryParse(Console.ReadLine(), out difficulty);
-                if (!result)
-                    throw new FormatException("Incorrect input");
-                if (difficulty == 1 || difficulty == 2 || difficulty == 3)
-                    Difficulty = difficulty;
-                else
-                    throw new ArgumentOutOfRangeException("Input should be from 1 to 3");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        public int GetDifficulty() => Difficulty;
 
-        }
+        public void SetDifficulty(int difficulty) => Difficulty = difficulty;
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Linq;
+using HikingBlog.Exceptions;
 using HikingBlog.Models;
 
 namespace HikingBlog.Extensions
@@ -96,6 +98,25 @@ namespace HikingBlog.Extensions
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public ChangeDifficulty(this HikiTrail hikiTrail)
+        {
+            int difficulty;
+            try
+            {
+                bool result = Int32.TryParse(Console.ReadLine(), out difficulty);
+                if (!result)
+                    throw new FormatException("Incorrect input");
+                if (difficulty == 1 || difficulty == 2 || difficulty == 3)
+                    SetDifficulty(difficulty);
+                else
+                    throw new OutOfRangeException("Input should be from 1 to 3");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
