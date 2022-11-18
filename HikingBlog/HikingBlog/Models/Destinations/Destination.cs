@@ -16,7 +16,7 @@ namespace HikingBlog.Models
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
-                new Dictionary<User, int> { };
+                Ratings = new Dictionary<User, int> { };
                 Comments = new Dictionary<string, Comment> { };
                 Visitors = new List<User> { };
             }
@@ -77,9 +77,9 @@ namespace HikingBlog.Models
                 else
                     Ratings.Add(user, rating);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                Console.WriteLine(ex.Message);
             }
         }
 
