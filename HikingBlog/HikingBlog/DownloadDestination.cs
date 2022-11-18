@@ -11,22 +11,28 @@ namespace HikingBlog
 {
     internal class DownloadDestination
     {
-        Stream s = File.Create("compressed.dat");
+        Stream stream = File.Create("destination.txt");
 
-        public void EncryptString()
+        public void SaveDestination(Destination destination)
         {
+            using StreamWriter sw = new StreamWriter(stream);
 
+                sw.WriteLine($"Destination name: {destination.Name}");
+                sw.WriteLine($"Description: {destination.Description}");
+                sw.WriteLine($"Region {destination.Region}");
+                sw.WriteLine($"Rating Score: {destination.RatingScore}");
         }
+        /*
+        Stream s = File.Create("compressed.dat");
+        
         public void CompressStream(Destination destination)
         {
+            string line = "Description: " + destination.Description;
             using Stream gzs = new GZipStream(s, CompressionMode.Compress);
             {
-                File.Encrypt(destination.Description);
-                for (int i = 0; i < destination.Description.Length; i++)
-                {
-                    byte[] letterBytes = Encoding.ASCII.GetBytes(destination.Description);
+                    File.Encrypt(line);
+                    byte[] letterBytes = Encoding.ASCII.GetBytes(line);
                     gzs.Write(letterBytes, 0, letterBytes.Length);
-                }
             }
         }
 
@@ -36,17 +42,21 @@ namespace HikingBlog
             {
                 Stream gzs = new GZipStream(stream, CompressionMode.Decompress);
                 string word = "";
-                while(gzs != null)
+                while (gzs != null)
                 {
                     int letter = gzs.ReadByte();
+
                     if (letter == -1)
                         break;
                     word += Convert.ToChar(letter);
-                    Console.WriteLine($"{word}");
                 }
                 File.Decrypt(word);
+                Console.WriteLine($"{word}");
+
             }
         }
+
+        */
     }
 }
 
