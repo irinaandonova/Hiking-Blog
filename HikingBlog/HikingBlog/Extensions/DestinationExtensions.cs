@@ -14,7 +14,7 @@ namespace HikingBlog.Extensions
             Console.WriteLine(destination.Name);
             try
             {
-                int ratingScore = destination.CalcRatingScore();
+                int ratingScore = destination.RatingScore;
                 Console.WriteLine($"{destination.Name} rating is {ratingScore}");
             }
             catch (DivideByZeroException)
@@ -58,15 +58,6 @@ namespace HikingBlog.Extensions
             Console.WriteLine($"The park is dog friendly");
         }
 
-        public static void VisitStatus(this Destination destination, User visitor)
-        {
-            int index = destination.Visitors.IndexOf(visitor);
-
-            if (index == -1)
-                destination.Visitors.Add(visitor);
-            else
-                destination.Visitors.RemoveAt(index);
-        }
         public static void AddUmbrellaPrices(this Seaside seaside, double umbrellaPrice)
         {
             if (!seaside.OffersUmbrella)
@@ -82,28 +73,29 @@ namespace HikingBlog.Extensions
                 Console.WriteLine("This destination doesn't offer umbrellas");
         }
 
-        
-
-        public static int CalcRatingScore(this Destination destination)
+        public static void RateDestination(this Destination destination, int ratingValue, User user)
         {
-            int ratingScore;
             try
             {
-                ratingScore = (int)destination.Ratings.Values.Average();
-                return ratingScore;
+                if (ratingValue <= 0 || ratingValue > 5)
+                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
+                if (user == null)
+                    throw new ArgumentNullException("User field is missing!");
+
+                destination.RateDestination(user, ratingValue);
+
             }
-            catch (DivideByZeroException)
+            catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine("The are no rating yet");
-                return 0;
+                Console.WriteLine(ex.Message);
             }
-            catch (InvalidOperationException)
+            catch (ArgumentNullException ex)
             {
-                throw new Exception("The are no rating yet");
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }
