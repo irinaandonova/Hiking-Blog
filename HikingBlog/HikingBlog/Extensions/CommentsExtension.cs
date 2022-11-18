@@ -1,4 +1,5 @@
-﻿using HikingBlog.Models;
+﻿using HikingBlog.Exceptions;
+using HikingBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace HikingBlog.Extensions
             try
             {
                 if (!destination.CompareUser(id, creator))
-                    throw new InvalidOperationException("Current user isn't the creator of the comment!");
+                    throw new UserNotCreatorException("Current user isn't the creator of the comment!");
                 destination.EditComment(id, text);
             }
             catch (ArgumentNullException)
