@@ -38,7 +38,7 @@ namespace HikingBlog.Extensions
         {
             ShowInfo(hikingTrail);
 
-            Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
+            Console.WriteLine($"Difficulty: {hikingTrail.GetDifficulty()}");
             Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
         }
 
@@ -101,7 +101,7 @@ namespace HikingBlog.Extensions
             }
         }
 
-        public ChangeDifficulty(this HikiTrail hikiTrail)
+        public static void ChangeDifficulty(this HikingTrail hikingTrail)
         {
             int difficulty;
             try
@@ -110,7 +110,7 @@ namespace HikingBlog.Extensions
                 if (!result)
                     throw new FormatException("Incorrect input");
                 if (difficulty == 1 || difficulty == 2 || difficulty == 3)
-                    SetDifficulty(difficulty);
+                    hikingTrail.SetDifficulty(difficulty);
                 else
                     throw new OutOfRangeException("Input should be from 1 to 3");
             }
