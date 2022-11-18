@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HikingBlog.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,9 +11,11 @@ namespace HikingBlog.Models
         {
             try
             {
-                Exceptions.CheckDifficultyValue(difficulty);
+                if (difficulty < 1 || difficulty > 3)
+                    throw new OutOfRangeException("Difficulty shuold be between 1 and 3!");
                 Difficulty = difficulty;
-                Exceptions.CheckDurationValue(hikingDuration);
+                if (hikingDuration <= 0)
+                    throw new OutOfRangeException("Hiking duration should be a positive number bigger than 0!");
                 HikingDuration = hikingDuration;
             }
             catch (Exception ex)
