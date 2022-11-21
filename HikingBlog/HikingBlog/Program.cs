@@ -7,6 +7,7 @@ using System.IO;
 
 try
 {
+    //Singleton for webApi
     WebAPI webApi = new WebAPI();
     //var ms = new MemoryStream(); 
     User user = new User("irina", "irina@");
@@ -18,7 +19,7 @@ try
     HikingTrail hikingTrail = new HikingTrail("Rila lakes", user, "Beautiful trail", "sjsj.com", "Rila", 2, 20);
     hikingTrail.ShowFullInformation();
     
-    //download.CompressStream(park);
+    download.CompressStream(park);
     //download.Decompress();
     /*
     webApi.AddDestination(park);
