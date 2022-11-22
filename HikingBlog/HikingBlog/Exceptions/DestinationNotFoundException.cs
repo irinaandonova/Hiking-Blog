@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HikingBlog.Exceptions
+namespace NatureBlog.Exceptions
 {
     internal class DestinationNotFoundException : Exception
     {

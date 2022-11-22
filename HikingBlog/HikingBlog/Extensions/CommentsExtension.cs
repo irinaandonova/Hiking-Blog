@@ -1,12 +1,12 @@
-﻿using HikingBlog.Exceptions;
-using HikingBlog.Models;
+﻿using NatureBlog.Exceptions;
+using NatureBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace HikingBlog.Extensions
+namespace NatureBlog.Extensions
 {
     internal static class CommentsExtension
     {

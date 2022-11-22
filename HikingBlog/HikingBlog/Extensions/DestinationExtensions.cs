@@ -4,10 +4,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Linq;
-using HikingBlog.Exceptions;
-using HikingBlog.Models;
+using NatureBlog.Exceptions;
+using NatureBlog.Models;
 
-namespace HikingBlog.Extensions
+namespace NatureBlog.Extensions
 {
     internal static class DestinationExtensions
     {

@@ -1,12 +1,12 @@
-﻿using HikingBlog.Exceptions;
-using HikingBlog.Extensions;
-using HikingBlog.Models;
+﻿using NatureBlog.Exceptions;
+using NatureBlog.Extensions;
+using NatureBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HikingBlog.Services
+namespace NatureBlog.Services
 {
     public class WebAPI
     {

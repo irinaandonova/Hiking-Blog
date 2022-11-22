@@ -1,9 +1,9 @@
-﻿using HikingBlog.Exceptions;
+﻿using NatureBlog.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HikingBlog.Models
+namespace NatureBlog.Models
 {
     public class HikingTrail : Destination
     {

@@ -5,11 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HikingBlog.Models;
+using NatureBlog.Models;
 using System.Security.Cryptography;
 using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
-namespace HikingBlog
+namespace NatureBlog
 {
     internal class DownloadDestination
     {
@@ -24,14 +25,21 @@ namespace HikingBlog
             sw.Dispose();
         }
 
+        private static void CreateFileToCompress(string line) => File.WriteAllText("text.txt", line);
+
         public void CompressStream(Destination destination)
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter("text.txt"))
+                string line = "Description: " + destination.Description;
+                CreateFileToCompress(line);
+                using (FileStream originalFileStream = File.Open("text.txt", FileMode.Open))
+                using (FileStream compressedFileStream = File.Create("compressed.txt"))
+                using (var compressor = new GZipStream(compressedFileStream, CompressionMode.Compress))
                 {
-                    sw.WriteLine(destination.Description);
+                    originalFileStream.CopyTo(compressor);
                 }
+
             }
             catch (Exception ex)
             {
@@ -63,7 +71,8 @@ namespace HikingBlog
                 {
                     using (GZipStream gs = new GZipStream(cs, CompressionMode.Compress))
                     {
-                        fs.CopyTo(cs);
+                        for (byte i = 0; i < 100; i++)
+                        gs.WriteByte(i);
                     }
                 }
             }
