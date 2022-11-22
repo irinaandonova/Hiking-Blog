@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NatureBlog.Services
+namespace NatureBlog.Services.DestinationServices
 {
-    public class WebAPI
+    public class DisplayDestinationsService
     {
-        public List<Destination> AllDestinations = new List<Destination> { };
+        public List<Destination> AllDestinations = DestinationsList.GetInstance().AllDestinations;
 
         public void GetFirstTen()
         {
@@ -21,47 +21,6 @@ namespace NatureBlog.Services
                 {
                     ShowInfo(destination);
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void AddDestination(Destination destination)
-        {
-            try
-            {
-                AllDestinations.Add(destination);
-                if (!AllDestinations.Contains(destination))
-                    throw new NotImplementedException("Element not added successfully");
-            }
-            catch (NotImplementedException)
-            {
-                Console.WriteLine("Creation of destination failed");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void RemoveDestination(string name)
-        {
-            try
-            {
-                Destination destination = AllDestinations.SingleOrDefault(x => x.Name == name);
-                if (destination == null)
-                    throw new DestinationNotFoundException();
-                AllDestinations.Remove(destination);
-            }
-            catch (DestinationNotFoundException)
-            {
-                Console.WriteLine("No such destination");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("More than one destination with that name!");
             }
             catch (Exception ex)
             {
@@ -95,11 +54,11 @@ namespace NatureBlog.Services
             }
         }
 
-        public IEnumerable<Seaside> GetAllSeaside()
+        public List<Seaside> GetAllSeaside()
         {
             try
             {
-                var destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside);
+                List<Seaside> destinations = AllDestinations.Where(x => x is Seaside).Select(s => s as Seaside).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
                 return destinations;
@@ -117,11 +76,11 @@ namespace NatureBlog.Services
             }
         }
 
-        public IEnumerable<HikingTrail> GetAllHikingTrails()
+        public List<HikingTrail> GetAllHikingTrails()
         {
             try
             {
-                var destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail);
+                List<HikingTrail> destinations = AllDestinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
                 return destinations;
@@ -139,11 +98,11 @@ namespace NatureBlog.Services
             }
         }
 
-        public IEnumerable<Park> GetAllParks()
+        public List<Park> GetAllParks()
         {
             try
             {
-                var destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park);
+                List<Park> destinations = AllDestinations.Where(x => x is Park).Select(s => s as Park).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
 
@@ -165,14 +124,18 @@ namespace NatureBlog.Services
         {
             try
             {
-                IEnumerable<HikingTrail> hikingTrails = GetAllHikingTrails();
+                List<HikingTrail> hikingTrails = GetAllHikingTrails();
                 if (hikingTrails.Count() < 0)
-                    throw new DestinationNotFoundException("There are no elements in the collection");
+                    throw new DestinationNotFoundException("There are no hiking elements that fullfil the condition in the collection");
 
                 foreach (HikingTrail hikingTrail in hikingTrails)
                 {
                     ShowInfo(hikingTrail);
                 }
+            }
+            catch (DestinationNotFoundException)
+            {
+                Console.WriteLine("They are no hiking trails with that leve of difficulty");
             }
             catch (Exception ex)
             {
@@ -184,10 +147,10 @@ namespace NatureBlog.Services
         {
             try
             {
-                IEnumerable<Seaside> seasides = GetAllSeaside();
-                seasides = seasides.Where(x => x.IsGuarded);
+                List<Seaside> seasides = GetAllSeaside();
+                seasides = seasides.Where(x => x.IsGuarded).ToList();
                 if (seasides.Count() < 0)
-                    throw new DestinationNotFoundException("There are no elements in the collection");
+                    throw new DestinationNotFoundException("There are no such elements in the collection");
 
                 foreach (Seaside seaside in seasides)
                 {
@@ -196,7 +159,7 @@ namespace NatureBlog.Services
             }
             catch (DestinationNotFoundException)
             {
-                Console.WriteLine($"There are no destination in that fullfils  conditions");
+                Console.WriteLine($"There are no destination in that fullfils this conditions");
             }
             catch (Exception ex)
             {
@@ -208,8 +171,8 @@ namespace NatureBlog.Services
         {
             try
             {
-                IEnumerable<Park> parks = GetAllParks();
-                parks = parks.Where(x => x.HasPlayground == hasPlayground && x.IsDogFriendly == isDogFriendly);
+                List<Park> parks = GetAllParks();
+                parks = parks.Where(x => x.HasPlayground == hasPlayground && x.IsDogFriendly == isDogFriendly).ToList();
 
                 if (parks.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements on the collection");
@@ -254,11 +217,11 @@ namespace NatureBlog.Services
             }
         }
 
-        public IEnumerable<Destination> SearchDestination(string searchWord)
+        public List<Destination> SearchDestination(string searchWord)
         {
             try
             {
-                IEnumerable<Destination> destinations = AllDestinations.Where(d => d.Name.Contains(searchWord));
+                List<Destination> destinations = AllDestinations.Where(d => d.Name.Contains(searchWord)).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("No elements that fullfil this condition!");
 
@@ -353,64 +316,12 @@ namespace NatureBlog.Services
             Console.WriteLine($"The park is dog friendly");
         }
 
-        public void AddUmbrellaPrices(Seaside seaside, double umbrellaPrice)
-        {
-            if (!seaside.OffersUmbrella)
-                seaside.OffersUmbrella = true;
-            seaside.UmbrellaPrice = umbrellaPrice;
-        }
-
         public void ShowUmbrellaPrices(Seaside seaside)
         {
             if (seaside.OffersUmbrella)
                 Console.WriteLine($"An umbrella could be rented for {seaside.UmbrellaPrice:C}");
             else
                 Console.WriteLine(" destination doesn't offer umbrellas");
-        }
-
-        public void RateDestination(Destination destination, int ratingValue, User user)
-        {
-            try
-            {
-                if (ratingValue <= 0 || ratingValue > 5)
-                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (user == null)
-                    throw new ArgumentNullException("User field is missing!");
-
-                destination.RateDestination(user, ratingValue);
-
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void ChangeDifficulty(HikingTrail hikingTrail)
-        {
-            int difficulty;
-            try
-            {
-                bool result = int.TryParse(Console.ReadLine(), out difficulty);
-                if (!result)
-                    throw new FormatException("Incorrect input");
-                if (difficulty == 1 || difficulty == 2 || difficulty == 3)
-                    hikingTrail.SetDifficulty(difficulty);
-                else
-                    throw new OutOfRangeException("Input should be from 1 to 3");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
     }
 }

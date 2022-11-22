@@ -10,7 +10,6 @@ namespace NatureBlog.Services
 {
     internal class CommentService
     {
-
         public void CreateComment(Destination destination, User creator, string text)
         {
             Comment comment = new Comment(creator, text);
