@@ -17,10 +17,10 @@ namespace NatureBlog.Services
             try
             {
                 var condition = from destination in AllDestinations orderby destination.GetVististors().Count select destination;
-                
+
                 foreach (Destination destination in condition.Take(10))
                 {
-                    destination.ShowInfo();
+                    ShowInfo(destination);
                 }
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace NatureBlog.Services
                     throw new DestinationNotFoundException();
                 return destination;
             }
-            catch(DestinationNotFoundException)
+            catch (DestinationNotFoundException)
             {
                 Console.WriteLine($"No {name} destination in the data base");
                 return null;
@@ -172,7 +172,7 @@ namespace NatureBlog.Services
 
                 foreach (HikingTrail hikingTrail in hikingTrails)
                 {
-                    hikingTrail.ShowInfo();
+                    ShowInfo(hikingTrail);
                 }
             }
             catch (Exception ex)
@@ -192,12 +192,12 @@ namespace NatureBlog.Services
 
                 foreach (Seaside seaside in seasides)
                 {
-                    seaside.ShowInfo();
+                    ShowInfo(seaside);
                 }
             }
             catch (DestinationNotFoundException)
             {
-                Console.WriteLine($"There are no destination in that fullfils this conditions");
+                Console.WriteLine($"There are no destination in that fullfils  conditions");
             }
             catch (Exception ex)
             {
@@ -217,12 +217,12 @@ namespace NatureBlog.Services
 
                 foreach (Park park in parks)
                 {
-                    park.ShowInfo();
+                    ShowInfo(park);
                 }
             }
             catch (DestinationNotFoundException)
             {
-                Console.WriteLine($"The are no destinations in that fullfils this conditions");
+                Console.WriteLine($"The are no destinations in that fullfils  conditions");
             }
             catch (Exception ex)
             {
@@ -239,7 +239,7 @@ namespace NatureBlog.Services
                 {
                     foreach (Destination destination in destinations)
                     {
-                        destination.ShowInfo();
+                        ShowInfo(destination);
                     }
                 }
                 else
@@ -293,7 +293,7 @@ namespace NatureBlog.Services
                     throw new ArgumentOutOfRangeException("Invalid condition");
 
                 foreach (var destination in AllDestinations)
-                    destination.ShowInfo();
+                    ShowInfo(destination);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -302,6 +302,115 @@ namespace NatureBlog.Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ShowInfo(Destination destination)
+        {
+            Console.WriteLine(destination.Name);
+            try
+            {
+                int ratingScore = destination.RatingScore;
+                Console.WriteLine($"{destination.Name} rating is {ratingScore}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("No one has voted yet");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine(destination.Description);
+                Console.WriteLine(destination.Region);
+            }
+        }
+
+        public void ShowFullInformation(HikingTrail hikingTrail)
+        {
+            ShowInfo(hikingTrail);
+
+            Console.WriteLine($"Difficulty: {hikingTrail.GetDifficulty()}");
+            Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
+        }
+
+        public void ShowFullInformation(Seaside seaside)
+        {
+            ShowInfo(seaside);
+
+            if (seaside.IsGuarded)
+                Console.WriteLine("The beach is guarded by a lifeguard");
+            else
+                Console.WriteLine("The beach isn't guarded by a lifeguarld.");
+        }
+
+        public void ShowFullInformation(Park park)
+        {
+            ShowInfo(park);
+
+            Console.WriteLine($"The park has a children's playground.");
+            Console.WriteLine($"The park is dog friendly");
+        }
+
+        public void AddUmbrellaPrices(Seaside seaside, double umbrellaPrice)
+        {
+            if (!seaside.OffersUmbrella)
+                seaside.OffersUmbrella = true;
+            seaside.UmbrellaPrice = umbrellaPrice;
+        }
+
+        public void ShowUmbrellaPrices(Seaside seaside)
+        {
+            if (seaside.OffersUmbrella)
+                Console.WriteLine($"An umbrella could be rented for {seaside.UmbrellaPrice:C}");
+            else
+                Console.WriteLine(" destination doesn't offer umbrellas");
+        }
+
+        public void RateDestination(Destination destination, int ratingValue, User user)
+        {
+            try
+            {
+                if (ratingValue <= 0 || ratingValue > 5)
+                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
+                if (user == null)
+                    throw new ArgumentNullException("User field is missing!");
+
+                destination.RateDestination(user, ratingValue);
+
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ChangeDifficulty(HikingTrail hikingTrail)
+        {
+            int difficulty;
+            try
+            {
+                bool result = Int32.TryParse(Console.ReadLine(), out difficulty);
+                if (!result)
+                    throw new FormatException("Incorrect input");
+                if (difficulty == 1 || difficulty == 2 || difficulty == 3)
+                    hikingTrail.SetDifficulty(difficulty);
+                else
+                    throw new OutOfRangeException("Input should be from 1 to 3");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

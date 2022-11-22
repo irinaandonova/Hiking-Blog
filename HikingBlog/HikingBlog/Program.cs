@@ -1,5 +1,4 @@
 ﻿using NatureBlog;
-using NatureBlog.Extensions;
 using NatureBlog.Models;
 using NatureBlog.Services;
 using System;
@@ -14,9 +13,6 @@ try
     DownloadDestination download = new DownloadDestination();
     download.SaveDestination(park);
     download.CompressStream(park);
-    
-    
-    
 }
 catch (Exception ex)
 {

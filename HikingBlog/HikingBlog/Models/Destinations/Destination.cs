@@ -83,7 +83,6 @@ namespace NatureBlog.Models
             }
         }
 
-
         public void CalcRatingScore(Destination destination)
         {
             try
