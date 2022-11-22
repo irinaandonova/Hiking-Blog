@@ -1,5 +1,4 @@
 ﻿using NatureBlog.Exceptions;
-using NatureBlog.Extensions;
 using NatureBlog.Models;
 using System;
 using System.Collections.Generic;
