@@ -12,25 +12,6 @@ namespace NatureBlog.Services.DestinationServices
     {
         public List<Destination> AllDestinations = DestinationsList.GetInstance().AllDestinations;
 
-        public void AddDestination(Destination destination)
-        {
-            try
-            {
-                AllDestinations.Add(destination);
-                if (!AllDestinations.Contains(destination))
-                    throw new NotImplementedException("Element not added successfully!");
-            }
-            catch (NotImplementedException)
-            {
-                Console.WriteLine("Creation of destination failed"!);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-
         public void RemoveDestination(string name)
         {
             try
@@ -60,7 +41,7 @@ namespace NatureBlog.Services.DestinationServices
                 seaside.OffersUmbrella = true;
             seaside.UmbrellaPrice = umbrellaPrice;
         }
-        /*
+        
         public void RateDestination(Destination destination, int ratingValue, User user)
         {
             try
@@ -94,17 +75,16 @@ namespace NatureBlog.Services.DestinationServices
             {
                 bool result = int.TryParse(Console.ReadLine(), out difficulty);
                 if (!result)
-                    throw new FormatException("Incorrect input");
+                    throw new FormatException("Incorrect input!");
                 if (difficulty == 1 || difficulty == 2 || difficulty == 3)
                     hikingTrail.SetDifficulty(difficulty);
                 else
-                    throw new OutOfRangeException("Input should be from 1 to 3");
+                    throw new OutOfRangeException("Input should be from 1 to 3!");
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        */
     }
 }
