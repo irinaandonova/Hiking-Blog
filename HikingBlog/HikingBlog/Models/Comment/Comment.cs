@@ -6,12 +6,13 @@ namespace NatureBlog.Models
 {
     public class Comment
     {
-        public Comment(User creator, string text)
+        public Comment(User creator, string text, Destination destination)
         {
             Creator = creator;
             Text = text;
             Date = DateTime.Now;
             Id = Creator.Username + Date.ToString();
+            Destination = destination;  
         }
         public string Id { get; }
 
@@ -21,11 +22,6 @@ namespace NatureBlog.Models
 
         public DateTime Date { get; }
 
-        public void ShowComment()
-        {
-            Console.WriteLine(Date.ToString());
-            Console.WriteLine(Creator.Username);
-            Console.WriteLine(Text);
-        }
+        public Destination Destination { get; set; }    
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NatureBlog.Services
 {
@@ -67,6 +68,13 @@ namespace NatureBlog.Services
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public void ShowComment(Comment comment)
+        {
+            Console.WriteLine(comment.Date.ToString());
+            Console.WriteLine(comment.Creator.Username);
+            Console.WriteLine(comment.Text);
         }
     }
 }
