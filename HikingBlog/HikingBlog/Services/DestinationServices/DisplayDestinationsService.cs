@@ -229,7 +229,7 @@ namespace NatureBlog.Services.DestinationServices
             }
             catch (DestinationNotFoundException)
             {
-                Console.WriteLine($"The are no destinations that contain {searchWord} in their name!");
+                Console.WriteLine($"The are no destinations that contain '{searchWord}' in their name!");
                 return null;
             }
             catch (Exception ex)
@@ -252,8 +252,10 @@ namespace NatureBlog.Services.DestinationServices
                 else if (condition == "descending difficulty")
                     AllDestinations.Sort((a, b) => a.Difficulty - b.Difficulty);
                 else
-                    throw new ArgumentOutOfRangeException("Invalid condition");
+                    throw new ArgumentOutOfRangeException("Invalid condition!");
 
+                if (AllDestinations.Count() < 0)
+                    throw new DestinationNotFoundException("No destinations in the collection!");
                 foreach (var destination in AllDestinations)
                     ShowInfo(destination);
             }
@@ -285,7 +287,6 @@ namespace NatureBlog.Services.DestinationServices
             }
             finally
             {
-                Console.WriteLine(destination.Description);
                 Console.WriteLine(destination.Region);
             }
         }

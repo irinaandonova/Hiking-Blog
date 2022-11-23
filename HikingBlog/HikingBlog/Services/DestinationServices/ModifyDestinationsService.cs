@@ -60,7 +60,7 @@ namespace NatureBlog.Services.DestinationServices
                 seaside.OffersUmbrella = true;
             seaside.UmbrellaPrice = umbrellaPrice;
         }
-
+        /*
         public void RateDestination(Destination destination, int ratingValue, User user)
         {
             try
@@ -105,5 +105,6 @@ namespace NatureBlog.Services.DestinationServices
                 throw new Exception(ex.Message);
             }
         }
+        */
     }
 }
