@@ -14,8 +14,6 @@ namespace NatureBlog.Services
 
         private static DestinationsList _instance;
 
-        // We now have a lock object that will be used to synchronize threads
-        // during first access to the Singleton.
         private static readonly object _lock = new object();
 
         public static DestinationsList GetInstance()
