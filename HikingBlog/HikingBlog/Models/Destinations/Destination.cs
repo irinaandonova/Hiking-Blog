@@ -1,4 +1,5 @@
 ﻿using NatureBlog.Models.Destinations;
+using NatureBlog.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace NatureBlog.Models
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
+                AllDestinations.Add(this);
             }
             catch (ArgumentNullException)
             {
@@ -41,6 +43,7 @@ namespace NatureBlog.Models
 
         public string Region { get; }
 
+        public List<Destination> AllDestinations = DestinationsList.GetInstance().AllDestinations;
 
     }
 }
