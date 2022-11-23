@@ -9,7 +9,7 @@ namespace NatureBlog.Models.Destinations
 {
     public class IDestination<Destination>
     {
-        private int RatingScore { get; set; }
+        private string RatingScore { get; set; } = "No one has voted yet!";
 
         private Dictionary<string, Comment> Comments { get; set; } = new Dictionary<string, Comment> { };
 
@@ -27,7 +27,7 @@ namespace NatureBlog.Models.Destinations
 
         public List<User> GetVististors() => Visitors;
 
-        public int GetRatingScore() => RatingScore;
+        public string GetRatingScore() => RatingScore;
 
         public void ShowComments()
         {
@@ -55,7 +55,8 @@ namespace NatureBlog.Models.Destinations
         {
             try
             {
-                RatingScore = (int)Ratings.Values.Average();
+                RatingScore = ((int)Ratings.Values.Average()).ToString();
+               
             }
             catch (DivideByZeroException)
             {
