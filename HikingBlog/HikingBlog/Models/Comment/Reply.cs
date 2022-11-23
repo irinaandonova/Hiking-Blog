@@ -8,7 +8,7 @@ namespace NatureBlog.Models
 {
     internal class Reply : Comment
     {
-        public Reply(User creator, string text, string mainCommentId): base(creator, text)
+        public Reply(User creator, string text, string mainCommentId, Destination destination): base(creator, text, destination)
         {
             mainCommentId = MainCommentId;
         }
