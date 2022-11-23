@@ -27,6 +27,8 @@ namespace NatureBlog.Models.Destinations
 
         public List<User> GetVististors() => Visitors;
 
+        public int GetRatingScore() => RatingScore;
+
         public void ShowComments()
         {
             foreach (KeyValuePair<string, Comment> comment in Comments)

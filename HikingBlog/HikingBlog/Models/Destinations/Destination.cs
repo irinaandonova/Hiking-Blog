@@ -1,4 +1,5 @@
-﻿using NatureBlog.Models.Destinations;
+﻿using NatureBlog.Exceptions;
+using NatureBlog.Models.Destinations;
 using NatureBlog.Services;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace NatureBlog.Models
 {
-    public abstract class Destination: IDestination<Destination>
+    public abstract class Destination : IDestination<Destination>
     {
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
@@ -19,6 +20,8 @@ namespace NatureBlog.Models
                 ImageUrl = imageUrl;
                 Region = region;
                 AllDestinations.Add(this);
+                if (!AllDestinations.Contains(this))
+                    throw new DestinationNotFoundException("The destination wasn't added successfully to database!");
             }
             catch (ArgumentNullException)
             {
