@@ -10,11 +10,19 @@ namespace NatureBlog.Services
 {
     internal class CommentService
     {
-        public void CreateComment(Destination destination, User creator, string text)
+        public void CreateComment(Destination destination, User creator, string text, string? mainCommentId)
         {
-            Comment comment = new Comment(creator, text);
-            string id = comment.Id;
-            destination.AddComment(id, comment);
+            if (mainCommentId == null)
+            {
+                Comment comment = new Comment(creator, text);
+                string id = comment.Id;
+                destination.AddComment(id, comment);
+            }
+            else
+            {
+                Reply reply = new Reply(creator, text, mainCommentId);
+                destination.AddComment(reply.Id, reply);
+            }
         }
 
         public void DeleteComment(Destination destination, User creator, string id)
