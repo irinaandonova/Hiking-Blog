@@ -1,5 +1,6 @@
 ﻿using NatureBlog.Exceptions;
 using NatureBlog.Models;
+using NatureBlog.Models.Destinations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -274,7 +275,7 @@ namespace NatureBlog.Services.DestinationServices
             Console.WriteLine(destination.Name);
             try
             {
-                int ratingScore = destination.GetRatingScore();
+                string ratingScore = destination.GetRatingScore();
                 Console.WriteLine($"{destination.Name} rating is {ratingScore}");
             }
             catch (DivideByZeroException)
