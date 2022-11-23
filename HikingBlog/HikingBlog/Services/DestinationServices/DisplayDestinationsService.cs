@@ -274,7 +274,7 @@ namespace NatureBlog.Services.DestinationServices
             Console.WriteLine(destination.Name);
             try
             {
-                int ratingScore = destination.RatingScore;
+                int ratingScore = destination.GetRatingScore();
                 Console.WriteLine($"{destination.Name} rating is {ratingScore}");
             }
             catch (DivideByZeroException)
