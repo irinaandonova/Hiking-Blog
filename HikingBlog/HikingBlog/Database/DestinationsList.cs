@@ -25,13 +25,13 @@ namespace NatureBlog.Database
                     if (_instance == null)
                     {
                         _instance = new DestinationsList();
-                        _instance.AllDestinations = new List<Destination> { };
+                        _instance.AllDestinations = new Dictionary<Guid, Destination> { };
                     }
                 }
             }
             return _instance;
         }
         
-        public List<Destination> AllDestinations;
+        public Dictionary<Guid, Destination> AllDestinations;
     }
 }
