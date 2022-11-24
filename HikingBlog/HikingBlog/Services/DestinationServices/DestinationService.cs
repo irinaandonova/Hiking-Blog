@@ -256,34 +256,43 @@ namespace NatureBlog.Services.DestinationServices
                 if (condition == "alphabetical")
                    result = (from destination in destinations orderby destination.Value.Name ascending select destination.Value).ToList();
                 else if (condition == "reverse alphabetical")
-                    destinations.AllDestinations.Sort((b, a) => b.Name.CompareTo(a.Name));
+                    result = (from destination in destinations orderby destination.Value.Name descending select destination.Value).ToList();
                 else if (condition == "accending difficulty")
-                    destinations.AllDestinations.Sort((a, b) => b.Difficulty - a.Difficulty);
+                    result = (from destination in destinations orderby destination.Value.Difficulty descending select destination.Value).ToList();
                 else if (condition == "descending difficulty")
-                    destinations.AllDestinations.Sort((a, b) => a.Difficulty - b.Difficulty);
+                    result = (from destination in destinations orderby destination.Value.Difficulty ascending select destination.Value).ToList();
                 else
                     throw new ArgumentOutOfRangeException("Invalid condition!");
 
-                if (destinations.AllDestinations.Count() < 0)
+                if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("No destinations in the collection!");
 
-                return destinations.AllDestinations;
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
+                return result;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Exception in the SortDestination Method" + ex.Message);
+                return null;
             }
         }
 
-        public void AddUmbrellaPrices(Seaside seaside, double umbrellaPrice)
+        public void AddUmbrellaPrices(Guid id, double umbrellaPrice)
         {
-            if (!seaside.OffersUmbrella)
-                seaside.OffersUmbrella = true;
-            seaside.UmbrellaPrice = umbrellaPrice;
+            try
+            {
+                Seaside seaside = (Seaside)GetDestination(id);
+                if (!seaside.OffersUmbrella)
+                    seaside.OffersUmbrella = true;
+                seaside.UmbrellaPrice = umbrellaPrice;
+                if(seaside is null)
+                {
+                    throw new DestinationNotFoundException("No destination with the given id found!");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception in the AddUmbrellaPrices Method" + ex.Message);
+            }
         }
 
         public void RateDestination(Destination destination, int ratingValue, User user)
