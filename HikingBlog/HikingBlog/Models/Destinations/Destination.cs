@@ -9,7 +9,7 @@ namespace NatureBlog.Models
 {
     public abstract class Destination
     {
-        private Guid Id;
+        public readonly Guid Id;
 
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
