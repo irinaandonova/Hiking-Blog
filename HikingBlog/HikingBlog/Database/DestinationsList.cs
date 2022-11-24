@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NatureBlog.Database
 {
-    internal class DestinationsList
+    internal class DestinationsList : ISubscription
     {
         private DestinationsList()
         { }
@@ -31,10 +32,10 @@ namespace NatureBlog.Database
             }
             return _instance;
         }
-        public void Attach(ISubscriber subscriber)
-        {
+        
+        
 
-        }
+        
         public List<Destination> AllDestinations;
     }
 }

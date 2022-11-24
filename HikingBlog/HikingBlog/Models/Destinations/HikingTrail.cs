@@ -24,12 +24,8 @@ namespace NatureBlog.Models
             }
         }
 
-        private int Difficulty { get; set; }
+        public int Difficulty { get; set; }
 
         public int HikingDuration { get; set; }
-
-        public int GetDifficulty() => Difficulty;
-
-        public void SetDifficulty(int difficulty) => Difficulty = difficulty;
     }
 }

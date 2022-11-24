@@ -14,6 +14,7 @@ namespace NatureBlog
 {
     internal class DownloadDestination
     {
+
         public void SaveDestination(Destination destination)
         {
             Stream stream = System.IO.File.Create("destination.txt");
@@ -22,64 +23,33 @@ namespace NatureBlog
             sw.WriteLine($"Description: {destination.Description}");
             sw.WriteLine($"Region {destination.Region}");
             sw.WriteLine($"Rating Score: {destination.RatingScore}");
-            sw.Dispose();
         }
-
-        private static void CreateFileToCompress(string line) => File.WriteAllText("text.txt", line);
 
         public void CompressStream(Destination destination)
         {
             try
             {
-                string line = "Description: " + destination.Description;
-                CreateFileToCompress(line);
-                using (FileStream originalFileStream = File.Open("text.txt", FileMode.Open))
-                using (FileStream compressedFileStream = File.Create("compressed.txt"))
-                using (var compressor = new GZipStream(compressedFileStream, CompressionMode.Compress))
-                {
-                    originalFileStream.CopyTo(compressor);
-                }
-
+                SaveDestination(destination);
+                using FileStream originalFileStream = File.Open("destination.txt", FileMode.Open);
+                using FileStream compressedFileStream = File.Create("compressed.gz");
+                using var compressor = new GZipStream(compressedFileStream, CompressionMode.Compress, false);
+                originalFileStream.CopyTo(compressedFileStream);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                using (Aes aes = Aes.Create())
-                {
-
-                    using (FileStream fs = new FileStream("text.txt", FileMode.OpenOrCreate))
-                    {
-                        using (CryptoStream cs = new CryptoStream(fs, aes.CreateEncryptor(), CryptoStreamMode.Write))
-                        {
-
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            using (FileStream fs = new FileStream("text.txt", FileMode.OpenOrCreate))
-            {
-                using (FileStream cs = new FileStream("compressed.txt", FileMode.OpenOrCreate))
-                {
-                    using (GZipStream gs = new GZipStream(cs, CompressionMode.Compress))
-                    {
-                        for (byte i = 0; i < 100; i++)
-                        gs.WriteByte(i);
-                    }
-                }
             }
         }
 
-    }
+        public void DecompressFile()
+        {
+            using FileStream compressedFileStream = File.Open("destination.txt", FileMode.Open);
+            using FileStream outputFileStream = File.Create("decompressed.txt");
+            using var decompressor = new GZipStream(compressedFileStream, CompressionMode.Decompress);
+            decompressor.CopyTo(outputFileStream);
+        }
 
+    }
 }
 
 

@@ -1,6 +1,5 @@
-﻿using NatureBlog.Exceptions;
-using NatureBlog.Models.Destinations;
-using NatureBlog.Services;
+﻿using NatureBlog.Database;
+using NatureBlog.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +7,20 @@ using System.Text;
 
 namespace NatureBlog.Models
 {
-    public abstract class Destination : IDestination<Destination>
+    public abstract class Destination
     {
+        private Guid Id;
+
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
             try
             {
+                Id = Guid.NewGuid();
                 Name = name;
                 Creator = creator;
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
-                AllDestinations.Add(this);
-                if (!AllDestinations.Contains(this))
-                    throw new DestinationNotFoundException("The destination wasn't added successfully to database!");
             }
             catch (ArgumentNullException)
             {
@@ -46,7 +45,12 @@ namespace NatureBlog.Models
 
         public string Region { get; }
 
-        public List<Destination> AllDestinations = DestinationsList.GetInstance().AllDestinations;
+        public int? RatingScore { get; set; } = null;
 
+        public Dictionary<string, Comment> Comments { get; set; } = new Dictionary<string, Comment> { };
+
+        public Dictionary<User, int> Ratings { get; set; } = new Dictionary<User, int> { };
+
+        public List<User> Visitors { get; set; } = new List<User> { };
     }
 }

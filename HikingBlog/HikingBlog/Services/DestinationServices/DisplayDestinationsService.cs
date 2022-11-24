@@ -1,10 +1,11 @@
-﻿using NatureBlog.Exceptions;
+﻿using NatureBlog.Database;
+using NatureBlog.Exceptions;
 using NatureBlog.Models;
-using NatureBlog.Models.Destinations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace NatureBlog.Services.DestinationServices
 {
@@ -16,7 +17,7 @@ namespace NatureBlog.Services.DestinationServices
         {
             try
             {
-                var condition = from destination in AllDestinations orderby destination.GetVististors().Count select destination;
+                var condition = from destination in AllDestinations orderby destination.Visitors.Count select destination;
 
                 foreach (Destination destination in condition.Take(10))
                 {
@@ -272,11 +273,18 @@ namespace NatureBlog.Services.DestinationServices
 
         public void ShowInfo(Destination destination)
         {
-            Console.WriteLine(destination.Name);
+           
+        }
+
+        public void ShowFullInformation(HikingTrail hikingTrail)
+        {
+            Console.WriteLine(hikingTrail.Name);
             try
             {
-                string ratingScore = destination.GetRatingScore();
-                Console.WriteLine($"{destination.Name} rating is {ratingScore}");
+                int? ratingScore = hikingTrail.RatingScore;
+                if (ratingScore is null)
+                    Console.WriteLine("No one has voted yet");
+                Console.WriteLine($"{hikingTrail.Name} rating is {ratingScore}");
             }
             catch (DivideByZeroException)
             {
@@ -288,16 +296,19 @@ namespace NatureBlog.Services.DestinationServices
             }
             finally
             {
-                Console.WriteLine(destination.Region);
+                Console.WriteLine(hikingTrail.Region);
             }
-        }
 
-        public void ShowFullInformation(HikingTrail hikingTrail)
-        {
-            ShowInfo(hikingTrail);
-
-            Console.WriteLine($"Difficulty: {hikingTrail.GetDifficulty()}");
+            Console.WriteLine($"Difficulty: {hikingTrail.Difficulty}");
             Console.WriteLine($"Hiking duration {hikingTrail.HikingDuration}");
+
+            foreach (KeyValuePair<string, Comment> comment in hikingTrail.Comments)
+            {
+                Console.WriteLine(comment);
+                //Console.WriteLine(comment.Date.ToString());
+                //Console.WriteLine(comment.Creator.Username);
+                //Console.WriteLine(comment.Text);
+            }
         }
 
         public void ShowFullInformation(Seaside seaside)

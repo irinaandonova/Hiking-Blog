@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace NatureBlog.Services
@@ -15,14 +16,14 @@ namespace NatureBlog.Services
         {
             if (mainCommentId == null)
             {
-                Comment comment = new Comment(creator, text);
+                Comment comment = new Comment(creator, text, destination);
                 string id = comment.Id;
-                destination.AddComment(id, comment);
+                destination.Comments.Add(id, comment);
             }
             else
             {
-                Reply reply = new Reply(creator, text, mainCommentId);
-                destination.AddComment(reply.Id, reply);
+                Reply reply = new Reply(creator, text, destination, mainCommentId);
+                destination.Comments.Add(reply.Id, reply);
             }
         }
 
@@ -30,9 +31,9 @@ namespace NatureBlog.Services
         {
             try
             {
-                if (!destination.CompareUser(id, creator))
+                if (!destination.Comments.ContainsKey(id))
                     throw new InvalidOperationException("Current user isn't the creator of the comment!");
-                destination.RemoveComment(id);
+                destination.Comments.Remove(id);
             }
             catch (KeyNotFoundException)
             {
@@ -52,9 +53,11 @@ namespace NatureBlog.Services
         {
             try
             {
-                if (!destination.CompareUser(id, creator))
+                if (destination.Comments[id].Creator == creator)
+                    destination.Comments[id].Text = text;
+                else
                     throw new UserNotCreatorException("Current user isn't the creator of the comment!");
-                destination.EditComment(id, text);
+
             }
             catch (ArgumentNullException)
             {
@@ -68,13 +71,6 @@ namespace NatureBlog.Services
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        public void ShowComment(Comment comment)
-        {
-            Console.WriteLine(comment.Date.ToString());
-            Console.WriteLine(comment.Creator.Username);
-            Console.WriteLine(comment.Text);
         }
     }
 }
