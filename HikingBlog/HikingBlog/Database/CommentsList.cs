@@ -25,16 +25,13 @@ namespace NatureBlog.Database
                     if (_instance == null)
                     {
                         _instance = new CommentsList();
-                        _instance.AllComments = new List<Destination> { };
+                        _instance.AllComments = new Dictionary<Guid, Comment> { };
                     }
                 }
             }
             return _instance;
         }
-        public void Attach(ISubscriber subscriber)
-        {
-
-        }
-        public List<Destination> AllComments;
+        
+        public Dictionary<Guid, Comment> AllComments;
     }
 }
