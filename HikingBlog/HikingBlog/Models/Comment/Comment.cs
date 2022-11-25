@@ -6,15 +6,16 @@ namespace NatureBlog.Models
 {
     public class Comment
     {
+        public readonly Guid Id;
+
         public Comment(User creator, string text, Destination destination)
         {
+            Id = Guid.NewGuid();
             Creator = creator;
             Text = text;
             Date = DateTime.Now;
-            Id = Creator.Username + Date.ToString();
-            Destination = destination;  
+            Destination = destination;
         }
-        public string Id { get; }
 
         public User Creator { get; }
 
@@ -22,6 +23,7 @@ namespace NatureBlog.Models
 
         public DateTime Date { get; }
 
-        public Destination Destination { get; set; }    
+        public Destination Destination { get; set; }
+
     }
 }
