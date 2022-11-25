@@ -7,16 +7,15 @@ using System.Text;
 
 namespace NatureBlog.Models
 {
-    public class User : ISubscriber
+    public class User : IUser
     {
+        public readonly Guid Id;
         public User(string username, string email, int hikingSkill)
         {
+            Id = Guid.NewGuid();
             Email = email;
             Username = username;
             HikingSkill = hikingSkill;
-            UserList.GetInstance().AllUsers.Add(this);
-            if (!UserList.GetInstance().AllUsers.Contains(this))
-                throw new UserNotFoundException("User creation failed!");
         }
 
         public string Username { get; set; }
