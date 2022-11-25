@@ -1,4 +1,5 @@
-﻿using NatureBlog.Exceptions;
+﻿using NatureBlog.Database;
+using NatureBlog.Exceptions;
 using NatureBlog.Models;
 using NatureBlog.Services.DestinationServices.Interfaces;
 using System;
@@ -69,7 +70,7 @@ namespace NatureBlog.Services.DestinationServices
 
             try
             {
-                List <Destination> result = (from destination in destinations orderby destination.Value.Visitors.Count ascending select destination.Value).Take(10).ToList();
+                List<Destination> result = (from destination in destinations orderby destination.Value.Visitors.Count ascending select destination.Value).Take(10).ToList();
                 if (result.Count < 1)
                     throw new DestinationNotFoundException("No destinations in database!");
 
@@ -132,7 +133,7 @@ namespace NatureBlog.Services.DestinationServices
                 return destinations;
             }
 
-            
+
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the GetAllHikingTrails Method" + ex.Message);
@@ -183,7 +184,7 @@ namespace NatureBlog.Services.DestinationServices
                 seasides = seasides.Where(x => x.IsGuarded).ToList();
                 if (seasides.Count() < 0)
                     throw new DestinationNotFoundException("There are no destination in that fullfils this conditions");
-                return seasides;   
+                return seasides;
             }
             catch (Exception ex)
             {
@@ -240,7 +241,7 @@ namespace NatureBlog.Services.DestinationServices
 
                 return destinations;
             }
-            
+
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the FilterRegion Method" + ex.Message);
@@ -254,7 +255,7 @@ namespace NatureBlog.Services.DestinationServices
             {
                 List<Destination> result = new List<Destination> { };
                 if (condition == "alphabetical")
-                   result = (from destination in destinations orderby destination.Value.Name ascending select destination.Value).ToList();
+                    result = (from destination in destinations orderby destination.Value.Name ascending select destination.Value).ToList();
                 else if (condition == "reverse alphabetical")
                     result = (from destination in destinations orderby destination.Value.Name descending select destination.Value).ToList();
                 else if (condition == "accending difficulty")
@@ -284,12 +285,12 @@ namespace NatureBlog.Services.DestinationServices
                 if (!seaside.OffersUmbrella)
                     seaside.OffersUmbrella = true;
                 seaside.UmbrellaPrice = umbrellaPrice;
-                if(seaside is null)
+                if (seaside is null)
                 {
                     throw new DestinationNotFoundException("No destination with the given id found!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Exception in the AddUmbrellaPrices Method" + ex.Message);
             }
