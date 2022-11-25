@@ -47,7 +47,7 @@ namespace NatureBlog.Models
 
         public int? RatingScore { get; set; } = null;
 
-        public Dictionary<string, Comment> Comments { get; set; } = new Dictionary<string, Comment> { };
+        public Dictionary<Guid, Comment> Comments { get; set; } = new Dictionary<Guid, Comment> { };
 
         public Dictionary<User, int> Ratings { get; set; } = new Dictionary<User, int> { };
 
