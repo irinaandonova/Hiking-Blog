@@ -295,7 +295,7 @@ namespace NatureBlog.Services.DestinationServices
             }
         }
 
-        public void RateDestination(Destination destination, int ratingValue, User user)
+        public void RateDestination(Guid destinationId, int ratingValue, User user)
         {
             try
             {
@@ -304,33 +304,26 @@ namespace NatureBlog.Services.DestinationServices
                 if (user == null)
                     throw new ArgumentNullException("User field is missing!");
 
-                destination.RateDestination(user, ratingValue);
+                Destination destination = GetDestination(destinationId);
+                if (destination.Ratings.ContainsKey(user))
+                    destination.Ratings[user] = ratingValue;
+                else
+                    destination.Ratings.Add(user, ratingValue);
 
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Exception in the RateDestination Method" + ex.Message);
             }
         }
 
-        public void ChangeDifficulty(HikingTrail hikingTrail)
+        public void ChangeDifficulty(Guid destinationId, int difficulty)
         {
-            int difficulty;
             try
             {
-                bool result = int.TryParse(Console.ReadLine(), out difficulty);
-                if (!result)
-                    throw new FormatException("Incorrect input!");
+                Destination hikingTrail = GetDestination(destinationId);
                 if (difficulty == 1 || difficulty == 2 || difficulty == 3)
-                    hikingTrail.SetDifficulty(difficulty);
+                    hikingTrail.Difficulty = difficulty;
                 else
                     throw new OutOfRangeException("Input should be from 1 to 3!");
             }
@@ -339,7 +332,5 @@ namespace NatureBlog.Services.DestinationServices
                 throw new Exception(ex.Message);
             }
         }
-
-*/
     }
 }
