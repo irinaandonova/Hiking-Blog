@@ -1,5 +1,6 @@
 ﻿using NatureBlog.Exceptions;
 using NatureBlog.Models;
+using NatureBlog.Services.CommentServices.Interfaces;
 using NatureBlog.Services.DestinationServices;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace NatureBlog.Services.CommentServices
 {
-    internal class CommentService
+    internal class CommentService : ICommentService
     {
         public DestinationService destinationService = new DestinationService();
         private readonly Dictionary<Guid, Destination> destinations;
