@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NatureBlog.Models
 {
-    public class Comment
+    public class Comment 
     {
         public readonly Guid Id;
 
