@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lmjC5nviXYeJ2QJcQaGcwSkULAfhjeQdsrj24BXSxIh+DvkoPVepIJFn/3v/e0rj/5+AKhMTy2WCmnacSuHY2Q==",
+  "dgSpecHash": "IXZHmVeGypgpg5z6hnsCkCIikta9WmDAue5J7Hlt3b/jDvtaHr+iUSteQ+4W6cD2+RjbjsTSCvlN8P/7ocnRQg==",
   "success": true,
-  "projectFilePath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\NatureBlog.csproj",
+  "projectFilePath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

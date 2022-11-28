@@ -13,15 +13,15 @@ try
     User user = new User("irina", "irina@", 2);
     Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", true, false);
     Park park1 = new Park("Laytssa", user, "Amazing park", "image.com", "Plovdiv", true, false);
-    DisplayDestinationsService service = new DisplayDestinationsService();
-    service.GetFirstTen();
+    //DisplayDestinationsService service = new DisplayDestinationsService();
+    //service.GetFirstTen();
     DownloadDestination download = new DownloadDestination();
     //download.CompressStream(park);
     //download.DecompressFile();
 
-    DestinationsList.GetInstance().Attach(user);
-    DestinationsList.GetInstance().State = 3;
-    DestinationsList.GetInstance().Notify();
+    //DestinationsList.GetInstance().Attach(user);
+    //DestinationsList.GetInstance().State = 3;
+    //DestinationsList.GetInstance().Notify();
 }
 catch (Exception ex)
 {

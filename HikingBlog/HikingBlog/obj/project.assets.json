@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\NatureBlog.csproj",
-      "projectName": "NatureBlog",
-      "projectPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\NatureBlog.csproj",
+      "projectUniqueName": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
+      "projectName": "WebApi",
+      "projectPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
       "packagesPath": "C:\\Users\\Irina\\.nuget\\packages\\",
       "outputPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\obj\\",
       "projectStyle": "PackageReference",
