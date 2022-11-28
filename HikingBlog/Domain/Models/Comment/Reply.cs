@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NatureBlog.Models
+namespace NatureBlog.Domain.Models
 {
     internal class Reply : Comment
     {

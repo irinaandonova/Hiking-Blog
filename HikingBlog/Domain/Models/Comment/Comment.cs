@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NatureBlog.Models
+namespace NatureBlog.Domain.Models
 {
     public class Comment 
     {

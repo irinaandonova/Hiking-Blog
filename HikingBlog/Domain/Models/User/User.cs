@@ -1,11 +1,4 @@
-﻿using NatureBlog.Database;
-using NatureBlog.Exceptions;
-using NatureBlog.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NatureBlog.Models
+﻿namespace NatureBlog.Domain.Models
 {
     public class User : IUser
     {

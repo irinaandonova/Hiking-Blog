@@ -1,11 +1,11 @@
 ﻿using NatureBlog.Database;
-using NatureBlog.Exceptions;
+using NatureBlog.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NatureBlog.Models
+namespace NatureBlog.Domain.Models
 {
     public abstract class Destination
     {

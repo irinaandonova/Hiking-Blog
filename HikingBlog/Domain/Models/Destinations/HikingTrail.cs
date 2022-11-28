@@ -1,9 +1,10 @@
-﻿using NatureBlog.Exceptions;
+﻿using NatureBlog.Domain.Exceptions;
+using NatureBlog.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NatureBlog.Models
+namespace NatureBlog.Domain.DoModels
 {
     public class HikingTrail : Destination
     {
