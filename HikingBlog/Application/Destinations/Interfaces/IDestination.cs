@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.Destinations.Interfaces
 {
-    internal interface IDestinationService
+    internal interface IDestination
     {
         List<Destination> GetMostVisited(int numberOfDestinations);
 
