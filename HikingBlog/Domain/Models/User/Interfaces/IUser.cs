@@ -14,6 +14,6 @@ namespace NatureBlog.Domain.Models
 
         public int HikingSkill { get; set; }
 
-        //public bool IsSubscribed { get; set; } = false;
+        public bool IsSubscribed { get; set; }
     }
 }

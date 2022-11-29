@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NatureBlog.Domain.Models
 {
-    internal class Reply : Comment
+    public class Reply : Comment
     {
         public Reply(User creator, string text, Destination destination, string mainCommentId) : base(creator, text, destination)
         {
