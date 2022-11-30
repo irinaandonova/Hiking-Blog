@@ -12,7 +12,9 @@ namespace NatureBlog.Domain.Models
             OffersUmbrella = offersUmbrella;
         }
         public bool IsGuarded { get; set; }
+
         public bool OffersUmbrella { get; set; }
+
         public double UmbrellaPrice { get; set; }
     }
 }

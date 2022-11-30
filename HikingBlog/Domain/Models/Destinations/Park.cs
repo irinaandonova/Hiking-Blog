@@ -11,7 +11,9 @@ namespace NatureBlog.Domain.Models
             HasPlayground = hasPlayground;
             IsDogFriendly = isDogFriendly;
         }
+       
         public bool HasPlayground { get; set; }
+        
         public bool IsDogFriendly { get; set; }
     }
 }

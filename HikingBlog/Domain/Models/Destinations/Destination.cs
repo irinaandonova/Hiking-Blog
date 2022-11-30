@@ -1,11 +1,4 @@
-﻿using NatureBlog.Database;
-using NatureBlog.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NatureBlog.Domain.Models
+﻿namespace NatureBlog.Domain.Models
 {
     public abstract class Destination
     {
@@ -13,31 +6,17 @@ namespace NatureBlog.Domain.Models
 
         public Destination(string name, User creator, string description, string imageUrl, string region)
         {
-            try
-            {
                 Id = Guid.NewGuid();
                 Name = name;
                 Creator = creator;
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
-            }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("All fields must be filled!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
         }
 
         public string Name { get; }
 
         public User Creator { get; }
-
-        public int Difficulty { get; set; }
 
         public string Description { get; }
 
