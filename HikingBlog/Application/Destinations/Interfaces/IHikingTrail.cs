@@ -1,6 +1,6 @@
 ﻿using NatureBlog.Application.Destinations.Interfaces;
 
-namespace Application.Destinations.Interfaces
+namespace NatureBlog.Application.Destinations.Interfaces
 {
     internal interface IHikingTrail : IDestination
     {

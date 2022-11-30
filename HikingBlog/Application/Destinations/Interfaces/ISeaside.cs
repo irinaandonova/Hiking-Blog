@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NatureBlog.Application.Destinations.Interfaces;
 
 namespace NatureBlog.Application.Destinations.Interfaces
 {
-    internal interface ISeaside: IDestination
+    internal interface ISeaside : IDestination
     {
-        public bool IsGuarded { get;set; }
+        bool IsGuarded { get; set; }
 
-        public bool OffersUmbrella { get; set; }
-        public double UmbrellaPrice { get; set; }
+        bool OffersUmbrella { get; set; }
+
+        double UmbrellaPrice { get; set; }
     }
 }
