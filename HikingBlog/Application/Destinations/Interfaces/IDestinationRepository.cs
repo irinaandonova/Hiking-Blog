@@ -4,6 +4,14 @@ namespace NatureBlog.Application.Destinations.Interfaces
 {
     public interface IDestinationRepository
     {
+        public Dictionary<Guid, Destination> AllDestinations { get; }
+
+        bool Add(Destination destination);
+
+        bool Delete(Guid Id);
+
+        bool Update(Guid Id, Destination destination);
+
         List<Destination> GetMostVisited();
 
         Destination GetDestination(Guid destinationId);
