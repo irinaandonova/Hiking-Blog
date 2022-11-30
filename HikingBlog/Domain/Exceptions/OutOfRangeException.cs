@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NarureBlog.Domain.Exceptions
+namespace NatureBlog.Domain.Exceptions
 {
-    internal class OutOfRangeException : Exception
+    public class OutOfRangeException : Exception
     {
         public OutOfRangeException()
         {

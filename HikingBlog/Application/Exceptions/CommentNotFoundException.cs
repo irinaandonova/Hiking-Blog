@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NatureBlog.Domain.Exceptions
+namespace NatureBlog.Application.Exceptions
 {
-    internal class CommentNotFoundException : Exception
+    public class CommentNotFoundException : Exception
     {
         public CommentNotFoundException()
         {

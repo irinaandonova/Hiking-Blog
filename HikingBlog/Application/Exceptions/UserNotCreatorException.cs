@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NatureBlog.Domain.Exceptions
+namespace NatureBlog.Application.Exceptions
 {
-    internal class UserNotCreatorException : Exception
+    public class UserNotCreatorException : Exception
     {
         public UserNotCreatorException()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NatureBlog.Domain.Exceptions
 {
-    internal class UserNotFoundException: Exception
+    public class UserNotFoundException: Exception
     {
         public UserNotFoundException()
         {
