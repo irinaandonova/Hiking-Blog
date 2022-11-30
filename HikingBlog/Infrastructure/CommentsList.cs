@@ -1,7 +1,6 @@
-﻿using NatureBlog.Application.Destinations.Interfaces;
-using NatureBlog.Domain.Models;
+﻿using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Infrastructure.Database
+namespace Infrastructure
 {
     internal class CommentsList
     {
@@ -27,7 +26,7 @@ namespace NatureBlog.Infrastructure.Database
             }
             return _instance;
         }
-        
+
         public Dictionary<Guid, Comment> AllComments;
     }
 }

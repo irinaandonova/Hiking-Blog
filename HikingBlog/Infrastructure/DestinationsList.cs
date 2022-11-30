@@ -1,7 +1,7 @@
 ﻿using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Domain.Models;
-using NatureBlog.Domain.Exceptions;
-namespace NatureBlog.Database
+
+namespace Infrastructure
 {
     internal class DestinationsList : IDestinationRepository
     {
@@ -27,14 +27,14 @@ namespace NatureBlog.Database
             }
             return _instance;
         }
-        
+
         public Dictionary<Guid, Destination> AllDestinations;
 
         public bool Add(Destination destination)
         {
             try
             {
-                this.AllDestinations.Add(destination.Id, destination);
+                AllDestinations.Add(destination.Id, destination);
                 return true;
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace NatureBlog.Database
         {
             try
             {
-                this.AllDestinations.Remove(Id);
+                AllDestinations.Remove(Id);
                 return true;
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace NatureBlog.Database
                 if (!AllDestinations.ContainsKey(Id))
                     throw new DestinationNotFoundException("No element found with the given key!");
 
-                this.AllDestinations[Id] = destination;
+                AllDestinations[Id] = destination;
                 return true;
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace NatureBlog.Database
         {
             try
             {
-                List<Seaside> destinations = this.AllDestinations.Where(x => x.Value is Seaside).Select(s => s.Value as Seaside).ToList();
+                List<Seaside> destinations = AllDestinations.Where(x => x.Value is Seaside).Select(s => s.Value as Seaside).ToList();
                 if (AllDestinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
 
@@ -137,7 +137,7 @@ namespace NatureBlog.Database
         {
             try
             {
-                List<HikingTrail> destinations = this.AllDestinations.Where(x => x.Value is HikingTrail).Select(s => s.Value as HikingTrail).ToList();
+                List<HikingTrail> destinations = AllDestinations.Where(x => x.Value is HikingTrail).Select(s => s.Value as HikingTrail).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
                 return destinations;
@@ -155,7 +155,7 @@ namespace NatureBlog.Database
         {
             try
             {
-                List<Park> destinations = this.AllDestinations.Where(x => x.Value is Park).Select(s => s.Value as Park).ToList();
+                List<Park> destinations = AllDestinations.Where(x => x.Value is Park).Select(s => s.Value as Park).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
 
@@ -245,7 +245,7 @@ namespace NatureBlog.Database
         {
             try
             {
-                List<Destination> destinations = this.AllDestinations.Where(d => d.Value.Name.Contains(searchWord)).Select(d => d.Value).ToList();
+                List<Destination> destinations = AllDestinations.Where(d => d.Value.Name.Contains(searchWord)).Select(d => d.Value).ToList();
                 if (destinations.Count() < 0)
                     throw new DestinationNotFoundException("No elements that fullfil this condition!");
 
