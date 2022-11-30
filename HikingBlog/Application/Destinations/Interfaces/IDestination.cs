@@ -1,35 +1,32 @@
 ﻿using NatureBlog.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NatureBlog.Application.Destinations.Interfaces
+namespace Application.Destinations.Interfaces
 {
-    internal interface IDestination
+    public interface IDestination
     {
-        List<Destination> GetMostVisited(int numberOfDestinations);
+        public string Name { get; }
 
-        Destination GetDestination(Guid destinationId);
+        public User Creator { get; }
 
-        List<Seaside> GetSeasides();
+        public int Difficulty { get; set; }
 
-        List<HikingTrail> GetHikingTrails();
+        public string Description { get; }
 
-        List<Park> GetParks();
+        public string ImageUrl { get; }
 
-        List<HikingTrail> FilterHikingTrails(int difficulty);
+        public string Region { get; }
 
-        List<Seaside> FilterSeaside(bool isGuarded);
+        public int? RatingScore { get; set; }
 
-        List<Park> FilterPArk(bool isDogFriendly, bool hasPlayground);
+        public Dictionary<Guid, Comment> Comments { get; set; } 
 
-        List<Destination> FikterByRegeon(string regeon);
+        public Dictionary<User, int> Ratings { get; set; } 
 
-        List<Destination> SearchDestination(string searchWord);
-
-        List<Destination> SortDestinations(string condition);
-
-        bool AddUmbrellaPrices(Guid id, double umbrellaPrice);
-
-        bool RateDestination(Guid destinationId, int ratingValue, User user);
-        
-        bool ChangeDifficulty(Guid destinationId, int difficulty);
+        public List<User> Visitors { get; set; }
     }
 }
