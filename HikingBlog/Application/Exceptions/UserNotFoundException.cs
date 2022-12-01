@@ -1,4 +1,4 @@
-﻿namespace NatureBlog.Domain.Exceptions
+﻿namespace NatureBlog.Application.Exceptions
 {
     internal class UserNotFoundException: Exception
     {
