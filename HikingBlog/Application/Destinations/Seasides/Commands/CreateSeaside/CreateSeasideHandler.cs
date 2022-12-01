@@ -6,11 +6,11 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateDestinatio
 {
     public class CreateSeasideHandler : IRequestHandler<CreateSeasideCommand, bool>
     {
-        private readonly IDestinationRepository _DestinationRepository;
+        private readonly IDestinationRepository _repository;
 
         public CreateSeasideHandler(IDestinationRepository DestinationRepository)
         {
-            _DestinationRepository = DestinationRepository;
+            _repository = DestinationRepository;
         }
 
         public Task<bool> Handle(CreateSeasideCommand command, CancellationToken cancellationToken)
