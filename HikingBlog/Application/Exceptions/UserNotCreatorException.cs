@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NatureBlog.Application.Exceptions
+﻿namespace NatureBlog.Application.Exceptions
 {
-    public class UserNotCreatorException : Exception
+    internal class UserNotCreatorException : Exception
     {
         public UserNotCreatorException()
         {

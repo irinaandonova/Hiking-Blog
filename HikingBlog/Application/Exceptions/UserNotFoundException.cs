@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NatureBlog.Domain.Exceptions
+﻿namespace NatureBlog.Domain.Exceptions
 {
-    public class UserNotFoundException: Exception
+    internal class UserNotFoundException: Exception
     {
         public UserNotFoundException()
         {
