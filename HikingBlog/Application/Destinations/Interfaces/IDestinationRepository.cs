@@ -24,9 +24,9 @@ namespace NatureBlog.Application.Destinations.Interfaces
 
         List<HikingTrail> FilterHikingTrails(int difficulty);
 
-        List<Seaside> FilterSeaside(bool isGuarded);
+        List<Seaside> FilterSeaside(bool isGuarded, bool hasUmbrellas);
 
-        List<Park> FilterPark(bool isDogFriendly, bool hasPlayground);
+        List<Park> FilterParks(bool isDogFriendly, bool hasPlayground);
 
         List<Destination> FilterByRegion(string regeon);
 
