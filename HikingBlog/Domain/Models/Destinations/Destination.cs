@@ -28,7 +28,7 @@
 
         public Dictionary<Guid, Comment> Comments { get; set; } = new Dictionary<Guid, Comment> { };
 
-        public Dictionary<User, int> Ratings { get; set; } = new Dictionary<User, int> { };
+        public Dictionary<Guid, int> Ratings { get; set; } = new Dictionary<Guid, int> { };
 
         public List<User> Visitors { get; set; } = new List<User> { };
     }
