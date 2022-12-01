@@ -30,7 +30,7 @@ namespace NatureBlog.Application.Destinations.Interfaces
 
         List<Destination> FilterByRegion(string regeon);
 
-        List<Destination> SearchDestination(string searchWord);
+        List<Destination> SearchByKeyword(string searchWord);
 
         List<Destination> SortDestinations(string condition);
     }
