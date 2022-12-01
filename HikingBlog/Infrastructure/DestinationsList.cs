@@ -171,7 +171,7 @@ namespace Infrastructure
                 return true;
         }
 
-        public bool ChangeDifficulty(Guid destinationId, int difficulty)
+        public bool ChangeDifficulty(Guid destinationId, int difficulty, Guid userId)
         {
              HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
                 hikingTrail.Difficulty = difficulty;
