@@ -8,7 +8,7 @@
         {
                 Id = Guid.NewGuid();
                 Name = name;
-                Creator = creator;
+                Creator = creator.Id;
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
@@ -16,7 +16,7 @@
 
         public string Name { get; }
 
-        public User Creator { get; }
+        public Guid Creator { get; }
 
         public string Description { get; }
 
