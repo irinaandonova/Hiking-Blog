@@ -2,7 +2,7 @@
 using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Parks.Commands.CreatePark
+namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
     public class CreateParkHandler : IRequestHandler<CreateParkCommand, bool>
     {

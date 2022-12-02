@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
 {
-    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesCommand, List<Seaside>>
+    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<Seaside>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -14,7 +14,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
             _repository = DestinationRepository;
         }
 
-        public Task<List<Seaside>> Handle(GetAllSeasidesCommand command, CancellationToken cancellationToken)
+        public Task<List<Seaside>> Handle(GetAllSeasidesQuery query, CancellationToken cancellationToken)
         {
             try
             {

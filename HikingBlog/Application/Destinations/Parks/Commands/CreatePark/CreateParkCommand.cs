@@ -1,19 +1,19 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Parks.Commands.CreatePark
+namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
     public class CreateParkCommand : IRequest<bool>
     {
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public User Creator { get; }
+        public Guid Creator { get; set; }
 
-        public string Description { get; }
+        public string Description { get; set; }
 
-        public string ImageUrl { get; }
+        public string ImageUrl { get; set; }
 
-        public string Region { get; }
+        public string Region { get; set; }
 
         public int? RatingScore { get; set; } = null;
 

@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Queries.FilterParks
 {
-    public class FilterParksHandler : IRequestHandler<FilterParksCommand, List<Park>>
+    public class FilterParksHandler : IRequestHandler<FilterParksQuery, List<Park>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -14,11 +14,11 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.FilterParks
             _repository = destinationRepository;
         }
 
-        public Task<List<Park>> Handle(FilterParksCommand command)
+        public Task<List<Park>> Handle(FilterParksQuery query, CancellationToken cancellationToken)
         {
             try
             {
-                List<Park> parksList = _repository.FilterParks(command.HasPlayground, command.IsDogFriendly);
+                List<Park> parksList = _repository.FilterParks(query.HasPlayground, query.IsDogFriendly);
 
                 if (parksList.Count() < 0)
                     throw new DestinationNotFoundException("The are no destinations in that fullfils  conditions!");

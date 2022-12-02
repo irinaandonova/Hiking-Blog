@@ -16,6 +16,6 @@ namespace Application.Destinations.Seasides.Commands.UpdateSeaside
 
         public readonly Seaside seaside;
 
-        public User user;
+        public Guid user;
     }
 }

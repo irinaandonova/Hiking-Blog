@@ -33,5 +33,9 @@ namespace NatureBlog.Application.Destinations.Interfaces
         List<Destination> SearchByKeyword(string searchWord);
 
         List<Destination> SortDestinations(string condition);
+
+        bool RateDestination(Guid destinationId, int ratingValue, Guid userId);
+
+        bool AddUmbrellaPrices(Guid destinationId, double price);
     }
 }

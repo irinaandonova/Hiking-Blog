@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using NatureBlog.Application.Destinations.Interfaces;
-using NatureBlog.Domain.Exceptions;
-using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {

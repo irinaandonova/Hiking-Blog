@@ -17,7 +17,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateDestinatio
         {
             try
             {
-                Seaside seaside = new Seaside(command.Name, command.Creator, command.Description, command.ImageUrl, command.Region, command.IsGuarded, command.OffersUmbrella);
+                Seaside seaside = new Seaside(command.Name, command.CreatorId, command.Description, command.ImageUrl, command.Region, command.IsGuarded, command.OffersUmbrella);
                 _repository.Add(seaside);
 
                 return Task.FromResult(true);

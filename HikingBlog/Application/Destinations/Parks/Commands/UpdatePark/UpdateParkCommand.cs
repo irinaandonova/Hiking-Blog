@@ -9,6 +9,6 @@ namespace Application.Destinations.Parks.Commands.UpdatePark
 
         public readonly Park park;
 
-        public User user;
+        public Guid user;
     }
 }
