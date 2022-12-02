@@ -15,7 +15,7 @@ namespace NatureBlog.Application.UnitTests
         public static Mock<IDestinationRepository> CreateDestination()
         {
             User user = new User("irina", "irina@andonova", 1);
-            Seaside seaside = new Seaside("Konstantin and Elena", user, "Amazing beach", "beach.com", "Varna", true, true);
+            Seaside seaside = new Seaside("Konstantin and Elena", System.Guid.NewGuid(), "Amazing beach", "beach.com", "Varna", true, true);
             
             var mockRepo = new Mock<IDestinationRepository>();
 
