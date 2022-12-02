@@ -143,6 +143,8 @@
         "dependencies": {
           "Domain": "1.0.0",
           "MediatR": "11.1.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.0.0",
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Moq": "4.18.2"
         },
         "compile": {
