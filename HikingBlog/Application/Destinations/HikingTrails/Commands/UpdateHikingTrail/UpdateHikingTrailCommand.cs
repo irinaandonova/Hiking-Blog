@@ -14,6 +14,6 @@ namespace Application.Destinations.HikingTrails.Commands.UpdateHikingTrail
 
         public HikingTrail hikingTrail;
 
-        public User user;
+        public Guid user;
     }
 }

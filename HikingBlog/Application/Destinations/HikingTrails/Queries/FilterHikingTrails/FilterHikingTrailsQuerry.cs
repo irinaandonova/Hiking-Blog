@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Destinations.HikingTrails.Queries.FilterHikingTrails
+namespace NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails
 {
-    public class FilterHikingTrailsCommand : IRequest<List<HikingTrail>>
+    public class FilterHikingTrailsQuery : IRequest<List<HikingTrail>>
     {
         public int difficulty;
     }

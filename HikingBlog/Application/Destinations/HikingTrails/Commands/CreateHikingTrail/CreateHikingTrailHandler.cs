@@ -16,7 +16,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
         {
             try
             {
-                HikingTrail hikingTrail = new HikingTrail(command.Name, command.Creator, command.Description, command.ImageUrl, command.Region, command.Difficulty, command.Duration);
+                HikingTrail hikingTrail = new HikingTrail(command.Name, command.CreatorId, command.Description, command.ImageUrl, command.Region, command.Difficulty, command.Duration);
                 _DestinationRepository.Add(hikingTrail);
 
                 return Task.FromResult(true);

@@ -2,15 +2,16 @@
 using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Destinations.HikingTrails.Queries.FilterHikingTrails
+namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails
 {
-    public class FilterHikingTrailsHandler : IRequestHandler<FilterHikingTrailsCommand, List<HikingTrail>>
+    public class FilterHikingTrailsHandler : IRequestHandler<FilterHikingTrailsQuery, List<HikingTrail>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -19,11 +20,11 @@ namespace Application.Destinations.HikingTrails.Queries.FilterHikingTrails
             _repository = destinationRepository;
         }
 
-        public Task<List<HikingTrail>> Handle(FilterHikingTrailsCommand command)
+        public Task<List<HikingTrail>> Handle(FilterHikingTrailsQuery querry, CancellationToken cancellationToken)
         {
             try
             {
-                List<HikingTrail> hikingTrailsList = _repository.FilterHikingTrails(command.difficulty);
+                List<HikingTrail> hikingTrailsList = _repository.FilterHikingTrails(querry.difficulty);
 
                 if (hikingTrailsList.Count() < 0)
                     throw new DestinationNotFoundException("There are no hiking trail elements that fullfil the condition in the collection");

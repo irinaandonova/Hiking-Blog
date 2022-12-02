@@ -10,15 +10,15 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 {
     internal class CreateHikingTrailCommand: IRequest<bool>
     {
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public User Creator { get; }
+        public Guid CreatorId { get; set; }
 
-        public string Description { get; }
+        public string Description { get; set; }
 
-        public string ImageUrl { get; }
+        public string ImageUrl { get; set; }
 
-        public string Region { get; }
+        public string Region { get; set; }
 
         public bool IsGuarded { get; set; }
 

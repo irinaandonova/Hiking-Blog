@@ -1,25 +1,20 @@
-﻿using NatureBlog.Application.Destinations.Interfaces;
-using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
+﻿using MediatR;
+using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
+namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
 {
-    internal class GetAllHikingTrailsHandler
+    public class GetAllHikingTrailsHandler : IRequestHandler<GetAllHikingTrailsQuery, List<HikingTrail>>
     {
         private readonly IDestinationRepository _repository;
 
-        public GetAllSeasidesHandler(IDestinationRepository DestinationRepository)
+        public GetAllHikingTrailsHandler(IDestinationRepository DestinationRepository)
         {
             _repository = DestinationRepository;
         }
 
-        public Task<List<HikingTrail>> Handle(GetAllHikingTrailsCommand command, CancellationToken cancellationToken)
+        public Task<List<HikingTrail>> Handle(GetAllHikingTrailsQuery query, CancellationToken cancellationToken)
         {
             try
             {
