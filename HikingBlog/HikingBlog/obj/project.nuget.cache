@@ -1,17 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "BTIGJnc3+1fKsWy3sw7KCZFgxUgN8k63g4k0yF6Q5NNQKkxEKhkuUD/y++oe+hvJxMh/XV6oUqDDqbHaDYn3vQ==",
+  "dgSpecHash": "xYXKo78GGzOnlMdXk7iYtxp8T6pAELWeqAUjzPyBmy2QFhpzBGrQYbZuAlcQN3x1K9pYKU9hhcWdWzX1FjdzZw==",
   "success": true,
-  "projectFilePath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
+  "projectFilePath": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Irina\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.0.0\\mediatr.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\moq\\4.18.2\\moq.4.18.2.nupkg.sha512",
-    "C:\\Users\\Irina\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.0.0\\mediatr.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\moq\\4.18.2\\moq.4.18.2.nupkg.sha512",
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

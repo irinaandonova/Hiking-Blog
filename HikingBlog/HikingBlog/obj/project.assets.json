@@ -163,6 +163,19 @@
         "runtime": {
           "bin/placeholder/Domain.dll": {}
         }
+      },
+      "Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -352,34 +365,40 @@
       "type": "project",
       "path": "../Domain/Domain.csproj",
       "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure/Infrastructure.csproj",
+      "msbuildProject": "../Infrastructure/Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Application >= 1.0.0",
+      "Infrastructure >= 1.0.0",
       "MediatR >= 11.1.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.0.0",
       "Microsoft.Extensions.DependencyInjection >= 7.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Irina\\.nuget\\packages\\": {},
+    "C:\\Users\\andrey.mitev\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
-      "packagesPath": "C:\\Users\\Irina\\.nuget\\packages\\",
-      "outputPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\obj\\",
+      "projectPath": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
+      "packagesPath": "C:\\Users\\andrey.mitev\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\HikingBlog\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Irina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\andrey.mitev\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -388,14 +407,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\Application\\Application.csproj": {
-              "projectPath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\Application\\Application.csproj"
+            "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\Application\\Application.csproj"
+            },
+            "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\andrey.mitev\\source\\repos\\Personal\\Nature-Blog\\HikingBlog\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }

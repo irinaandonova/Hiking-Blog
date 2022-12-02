@@ -1,6 +1,6 @@
-﻿using Moq;
+﻿using Application.Interfaces;
+using Moq;
 using NatureBlog.Application.Comments.Interfaces;
-using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Domain.Models;
 using System;
 using System.Collections.Generic;

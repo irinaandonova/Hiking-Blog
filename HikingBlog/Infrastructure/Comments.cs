@@ -37,7 +37,7 @@ namespace Infrastructure
 
         public bool CreateComment(Guid destinationId, Guid creatorId, string text)
         {
-            Destination destination = Destinations.GetInstance().GetDestination(destinationId);
+            Destination destination = new Destinations().GetDestination(destinationId);
 
             Comment comment = new Comment(creatorId, text, destination.Id);
             destination.Comments.Add(comment.Id, comment);
@@ -48,7 +48,7 @@ namespace Infrastructure
         public bool DeleteComment(Guid destinationId, Guid commentId)
         {
            
-                Destination destination = Destinations.GetInstance().GetDestination(destinationId);
+                Destination destination = new Destinations().GetDestination(destinationId);
 
                 destination.Comments.Remove(commentId);
             return true;
