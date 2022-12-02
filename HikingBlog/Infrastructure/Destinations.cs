@@ -22,7 +22,7 @@ namespace Infrastructure
                     {
                         _instance = new Destinations();
                         _instance.AllDestinations = new Dictionary<Guid, Destination> { };
-                        Seaside seaside1 = new Seaside("Varna", null, "ksks", "jsk", "Varna", true, true);
+                        Seaside seaside1 = new Seaside("Varna", Guid.NewGuid(), "ksks", "jsk", "Varna", true, true);
 
                         _instance.AllDestinations.Add(seaside1.Id, seaside1);
                     }
