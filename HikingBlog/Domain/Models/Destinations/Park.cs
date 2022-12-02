@@ -2,7 +2,7 @@
 {
     public class Park : Destination
     {
-        public Park(string name, User creator, string description, string imageUrl, string region, bool hasPlayground, bool isDogFriendly) : base(name, creator, description, imageUrl, region)
+        public Park(string name, Guid creator, string description, string imageUrl, string region, bool hasPlayground, bool isDogFriendly) : base(name, creator, description, imageUrl, region)
         {
             HasPlayground = hasPlayground;
             IsDogFriendly = isDogFriendly;

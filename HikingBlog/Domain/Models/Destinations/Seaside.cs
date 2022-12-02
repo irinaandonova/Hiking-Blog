@@ -2,7 +2,7 @@
 {
     public class Seaside : Destination
     {
-        public Seaside(string name, User creator, string description, string imageUrl, string region, bool isGuarded, bool offersUmbrella) : base(name, creator, description, imageUrl, region)
+        public Seaside(string name, Guid creator, string description, string imageUrl, string region, bool isGuarded, bool offersUmbrella) : base(name, creator, description, imageUrl, region)
         {
             IsGuarded = isGuarded;
             OffersUmbrella = offersUmbrella;
