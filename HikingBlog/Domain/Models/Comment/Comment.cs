@@ -8,7 +8,7 @@ namespace NatureBlog.Domain.Models
     {
         public readonly Guid Id;
 
-        public Comment(User creator, string text, Destination destination)
+        public Comment(Guid creator, string text, Guid destination)
         {
             Id = Guid.NewGuid();
             Creator = creator;
@@ -17,13 +17,13 @@ namespace NatureBlog.Domain.Models
             Destination = destination;
         }
 
-        public User Creator { get; }
+        public Guid Creator { get; }
 
         public string Text { get; set; }
 
         public DateTime Date { get; }
 
-        public Destination Destination { get; set; }
+        public Guid Destination { get; set; }
 
     }
 }

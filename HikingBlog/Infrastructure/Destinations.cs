@@ -3,16 +3,16 @@ using NatureBlog.Domain.Models;
 
 namespace Infrastructure
 {
-    internal class DestinationsList : IDestinationRepository
+    internal class Destinations : IDestinationRepository
     {
-        private DestinationsList()
+        private Destinations()
         { }
 
-        private static DestinationsList _instance;
+        private static Destinations _instance;
 
         private static readonly object _lock = new object();
 
-        public static DestinationsList GetInstance()
+        public static Destinations GetInstance()
         {
             if (_instance == null)
             {
@@ -20,7 +20,7 @@ namespace Infrastructure
                 {
                     if (_instance == null)
                     {
-                        _instance = new DestinationsList();
+                        _instance = new Destinations();
                         _instance.AllDestinations = new Dictionary<Guid, Destination> { };
                         Seaside seaside1 = new Seaside("Varna", null, "ksks", "jsk", "Varna", true, true);
 

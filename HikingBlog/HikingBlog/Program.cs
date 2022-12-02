@@ -1,32 +1,40 @@
-﻿using NatureBlog;
-using NatureBlog.Database;
-using NatureBlog.Models;
-using NatureBlog.Services;
-using NatureBlog.Services.DestinationServices;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using NatureBlog.Application.Destinations.Interfaces;
+using NatureBlog.Application.Destinations.Seasides.Commands.CreateDestination;
 using System;
-using System.IO;
-using System.Xml.Linq;
-
-try
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web;
+ static async Task MainFunc(string[] args)
 {
-     
-    User user = new User("irina", "irina@", 2);
-    Park park = new Park("Layta", user, "Amazing park", "image.com", "Plovdiv", true, false);
-    Park park1 = new Park("Laytssa", user, "Amazing park", "image.com", "Plovdiv", true, false);
-    //DisplayDestinationsService service = new DisplayDestinationsService();
-    //service.GetFirstTen();
-    DownloadDestination download = new DownloadDestination();
-    //download.CompressStream(park);
-    //download.DecompressFile();
+    var serviceCollection = new ServiceCollection()
+        .AddMediatR(typeof(IDestinationRepository))
+        .BuildServiceProvider();
 
-    //DestinationsList.GetInstance().Attach(user);
-    //DestinationsList.GetInstance().State = 3;
-    //DestinationsList.GetInstance().Notify();
+    var mediator = serviceCollection.GetRequiredService<IMediator>();
+
+    await mediator.Send(new CreateSeasideCommand
+    {
+        Name = "Konstantin and Elena Beach",
+
+    })
+
+         var orderId = await mediator.Send(new CreateOrderCommand
+         {
+             BuyerName = "TheBuyer",
+             OrderItems = new List<OrderItemDto>
+                {
+                    new() { Quantity = 1, Price = 5, ProductName = "Telefon" },
+                    new() { Quantity = 2, Price = 7, ProductName = "TV" }
+                }
+         });
+
+    Console.WriteLine($"Order created with {orderId}");
+
+
+    var orders = await mediator.Send(new GetOrdersListQuery());
+
+    var productId = await mediator.Send(new CreateProductCommand { Name = "test", Price = 10 });
+    var products = await mediator.Send(new GetProductsListQuery());
 }
-catch (Exception ex)
-{
-    Console.WriteLine(ex.Message);
-}
-//Create comments list and remove comment list from destination
-//Add relationship between models
-//Add comment list to database

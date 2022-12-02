@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "1z3OHHlEHA3nvBiPBNWWYB2IBoxUXCyKFQzn0NTipRkN/Ve9s7LpPy0izupT6U1tHnBcEmro0pjfSvYKYpf8pg==",
+  "dgSpecHash": "IrJNPEhYdZgtFxMoNJu5f8Ss33EzPxQS3bzJiu+zFWb4ShC/isxFrPMAjWG9WjH10ejwJx2i8QSzE841vIaItQ==",
   "success": true,
   "projectFilePath": "E:\\programming\\internship\\project\\Hiking-Blog\\HikingBlog\\HikingBlog\\WebApi.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Irina\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.0.0\\mediatr.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\moq\\4.18.2\\moq.4.18.2.nupkg.sha512",
+    "C:\\Users\\Irina\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

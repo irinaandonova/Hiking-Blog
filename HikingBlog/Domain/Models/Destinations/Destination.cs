@@ -4,11 +4,11 @@
     {
         public readonly Guid Id;
 
-        public Destination(string name, User creator, string description, string imageUrl, string region)
+        public Destination(string name, Guid creator, string description, string imageUrl, string region)
         {
                 Id = Guid.NewGuid();
                 Name = name;
-                Creator = creator.Id;
+                Creator = creator;
                 Description = description;
                 ImageUrl = imageUrl;
                 Region = region;
