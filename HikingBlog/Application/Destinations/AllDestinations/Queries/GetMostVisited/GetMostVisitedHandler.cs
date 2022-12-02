@@ -3,15 +3,10 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Destinations.AllDestinations.Queries.GetMostVisited
+namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    internal class GetMostVisitedHandler : IRequestHandler<GetMostVisitedCommand, List<Destination>>
+    public class GetMostVisitedHandler : IRequestHandler<GetMostVisitedQuery, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -20,7 +15,7 @@ namespace Application.Destinations.AllDestinations.Queries.GetMostVisited
             _repository= destinationRepository;
         }
 
-        public Task<List<Destination>> Handle(GetMostVisitedCommand command, CancellationToken cancellationToken) 
+        public Task<List<Destination>> Handle(GetMostVisitedQuery command, CancellationToken cancellationToken) 
         {
             try 
             {

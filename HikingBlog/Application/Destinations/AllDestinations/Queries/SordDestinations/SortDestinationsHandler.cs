@@ -14,7 +14,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestin
             _repository = destinationRepository;
         }
 
-        public Task<List<Destination>> Handle(SortDestinationsCommand command)
+        public Task<List<Destination>> Handle(SortDestinationsCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -34,3 +34,4 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestin
             }
         }
     }
+}

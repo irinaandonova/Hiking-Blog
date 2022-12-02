@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion
 {
-    public class FilterByRegionHandler : IRequestHandler<FilterRegionCommand, List<Destination>>
+    public class FilterByRegionHandler : IRequestHandler<FilterByRegionQuerry, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
         public FilterByRegionHandler(IDestinationRepository destinationRepository)
@@ -13,14 +13,14 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRe
             _repository = destinationRepository;
         }
 
-        public Task<List<Destination>> Handle (FilterByRegionCommand command)
+        public Task<List<Destination>> Handle (FilterByRegionQuerry querry, CancellationToken cancellationToken)
         {
             try
             {
-                if (string.IsNullOrEmpty(command.Region))
+                if (string.IsNullOrEmpty(querry.Region))
                     throw new ArgumentNullException("Region must be filled!");
 
-                List<Destination> destinations = _repository.FilterByRegion(command.Region);
+                List<Destination> destinations = _repository.FilterByRegion(querry.Region);
                 
                 if (destinations.Count > 0)
                 {

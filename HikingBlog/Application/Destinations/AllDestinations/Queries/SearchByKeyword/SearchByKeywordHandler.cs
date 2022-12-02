@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword
 {
-    public class SearchByKeywordHandler : IRequestHandler<SearchByKeywordCommand, List<Destination>>
+    public class SearchByKeywordHandler : IRequestHandler<SearchByKeywordQuery, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
         public SearchByKeywordHandler(IDestinationRepository destinationRepository)
@@ -13,14 +13,14 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKe
             _repository = destinationRepository;
         }
 
-        public Task<List<Destination>> Handle(SearchByKeywordCommand command)
+        public Task<List<Destination>> Handle(SearchByKeywordQuery query, CancellationToken cancellationToken)
         {
             try
             {
-                if (string.IsNullOrEmpty(command.keyword))
+                if (string.IsNullOrEmpty(query.keyword))
                     throw new ArgumentNullException("Keyword can't be empty string or null!");
 
-                List<Destination> destinations = _repository.SearchByKeyword(command.keyword);
+                List<Destination> destinations = _repository.SearchByKeyword(query.keyword);
                 if (destinations.Count == 0)
                     throw new DestinationNotFoundException("No elements that fullfil this condition!");
 

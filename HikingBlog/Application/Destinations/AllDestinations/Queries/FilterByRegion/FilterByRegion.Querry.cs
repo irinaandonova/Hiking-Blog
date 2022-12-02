@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion
 {
-    public class FilterByRegionCommand: IRequest<List<Destination>>
+    public class FilterByRegionQuerry: IRequest<List<Destination>>
     {
         public string Region;
     }
