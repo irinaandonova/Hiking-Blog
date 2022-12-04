@@ -1,34 +1,13 @@
 ﻿using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Domain.Models;
 
-namespace Infrastructure
+namespace NatureBlog.Infrastructure.Repositories
 {
-    internal class Destinations : IDestinationRepository
+    public class DestinationRepository : IDestinationRepository
     {
-        private Destinations()
-        { }
-
-        private static Destinations _instance;
-
-        private static readonly object _lock = new object();
-
-        public static Destinations GetInstance()
+        public DestinationRepository()
         {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new Destinations();
-                        _instance.AllDestinations = new Dictionary<Guid, Destination> { };
-                        Seaside seaside1 = new Seaside("Varna", Guid.NewGuid(), "ksks", "jsk", "Varna", true, true);
-
-                        _instance.AllDestinations.Add(seaside1.Id, seaside1);
-                    }
-                }
-            }
-            return _instance;
+            AllDestinations = new Dictionary<Guid, Destination> { };
         }
 
         public Dictionary<Guid, Destination> AllDestinations { get; private set; }
@@ -137,46 +116,46 @@ namespace Infrastructure
 
         public List<Destination> SortDestinations(string condition)
         {
-                List<Destination> result = new List<Destination> { };
-                if (condition == "alphabetical")
-                    result = (from destination in AllDestinations orderby destination.Value.Name ascending select destination.Value).ToList();
-                else if (condition == "reverse alphabetical")
-                    result = (from destination in AllDestinations orderby destination.Value.Name descending select destination.Value).ToList();
-                else
-                    throw new ArgumentOutOfRangeException("Invalid condition!");
+            List<Destination> result = new List<Destination> { };
+            if (condition == "alphabetical")
+                result = (from destination in AllDestinations orderby destination.Value.Name ascending select destination.Value).ToList();
+            else if (condition == "reverse alphabetical")
+                result = (from destination in AllDestinations orderby destination.Value.Name descending select destination.Value).ToList();
+            else
+                throw new ArgumentOutOfRangeException("Invalid condition!");
 
-                return result;
+            return result;
         }
 
         public bool AddUmbrellaPrices(Guid id, double umbrellaPrice)
         {
-                Seaside seaside = (Seaside)GetDestination(id);
+            Seaside seaside = (Seaside)GetDestination(id);
 
-                if (!seaside.OffersUmbrella)
-                    seaside.OffersUmbrella = true;
-                seaside.UmbrellaPrice = umbrellaPrice;
+            if (!seaside.OffersUmbrella)
+                seaside.OffersUmbrella = true;
+            seaside.UmbrellaPrice = umbrellaPrice;
 
-                return true;
+            return true;
         }
 
         public bool RateDestination(Guid destinationId, int ratingValue, Guid userId)
         {
-                Destination destination = GetDestination(destinationId);
+            Destination destination = GetDestination(destinationId);
 
-                if (destination.Ratings.ContainsKey(userId))
-                    destination.Ratings[userId] = ratingValue;
-                else
-                    destination.Ratings.Add(userId, ratingValue);
+            if (destination.Ratings.ContainsKey(userId))
+                destination.Ratings[userId] = ratingValue;
+            else
+                destination.Ratings.Add(userId, ratingValue);
 
-                return true;
+            return true;
         }
 
         public bool ChangeDifficulty(Guid destinationId, int difficulty, Guid userId)
         {
-             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
-                hikingTrail.Difficulty = difficulty;
+            HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
+            hikingTrail.Difficulty = difficulty;
 
-                return true;
+            return true;
         }
     }
 }

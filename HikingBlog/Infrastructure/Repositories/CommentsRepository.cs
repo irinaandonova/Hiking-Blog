@@ -3,18 +3,18 @@ using NatureBlog.Domain.Models;
 using NatureBlog.Application.Comments.Interfaces;
 using NatureBlog.Application.Destinations.Interfaces;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories
 {
-    internal class Comments : ICommentRepository
+    internal class CommentsRepository : ICommentRepository
     {
-        private Comments()
+        private CommentsRepository()
         { }
 
-        private static Comments _instance;
+        private static CommentsRepository _instance;
 
         private static readonly object _lock = new object();
 
-        public static Comments GetInstance()
+        public static CommentsRepository GetInstance()
         {
             if (_instance == null)
             {
@@ -22,7 +22,7 @@ namespace Infrastructure
                 {
                     if (_instance == null)
                     {
-                        _instance = new Comments();
+                        _instance = new CommentsRepository();
                         _instance.AllComments = new Dictionary<Guid, Comment> { };
                     }
                 }
@@ -37,7 +37,7 @@ namespace Infrastructure
 
         public bool CreateComment(Guid destinationId, Guid creatorId, string text)
         {
-            Destination destination = Destinations.GetInstance().GetDestination(destinationId);
+            Destination destination = DestinationRepository.GetInstance().GetDestination(destinationId);
 
             Comment comment = new Comment(creatorId, text, destination.Id);
             destination.Comments.Add(comment.Id, comment);
@@ -47,13 +47,13 @@ namespace Infrastructure
 
         public bool DeleteComment(Guid destinationId, Guid commentId)
         {
-           
-                Destination destination = Destinations.GetInstance().GetDestination(destinationId);
 
-                destination.Comments.Remove(commentId);
+            Destination destination = DestinationRepository.GetInstance().GetDestination(destinationId);
+
+            destination.Comments.Remove(commentId);
             return true;
-            }
-            
         }
+
     }
+}
 
