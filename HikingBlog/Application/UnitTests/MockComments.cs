@@ -1,5 +1,5 @@
-﻿using Moq;
-using NatureBlog.Application.Comments.Interfaces;
+﻿using Application.Repositories;
+using Moq;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.UnitTests
