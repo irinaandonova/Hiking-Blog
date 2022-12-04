@@ -1,6 +1,6 @@
 ﻿using NatureBlog.Domain.Models;
 
-namespace Application.Repositories
+namespace NatureBlog.Application.Repositories
 {
     public interface IDestinationRepository
     {

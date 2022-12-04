@@ -1,9 +1,9 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Seasides.Commands.UpdateSeaside
+namespace NatureBlog.Application.Destinations.Seasides.Commands.UpdateSeaside
 {
     public class UpdateSeasideHandler : IRequestHandler<UpdateSeasideCommand, bool>
     {

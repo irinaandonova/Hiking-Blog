@@ -1,8 +1,8 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Parks.Commands.UpdatePark
+namespace NatureBlog.Application.Destinations.Parks.Commands.UpdatePark
 {
     public class UpdateParkHandler
     {

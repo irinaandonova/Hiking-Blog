@@ -4,8 +4,8 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.AddUmbrellaPrice
 {
     public class AddUmbrellaPricesCommand : IRequest<bool>
     {
-        public Guid seasideId;
+        public Guid seasideId { get; }
 
-        public double umbrellaPrice;
+        public double umbrellaPrice { get; set; }
     }
 }

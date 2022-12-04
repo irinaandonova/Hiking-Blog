@@ -1,13 +1,8 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails
 {

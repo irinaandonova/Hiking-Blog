@@ -1,4 +1,4 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
 using NatureBlog.Application.Exceptions;
 

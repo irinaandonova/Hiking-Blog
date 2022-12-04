@@ -1,10 +1,5 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail
 {
@@ -12,7 +7,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
     {
         public string Name { get; set; }
 
-        public Guid CreatorId { get; set; }
+        public Guid CreatorId { get; }
 
         public string Description { get; set; }
 

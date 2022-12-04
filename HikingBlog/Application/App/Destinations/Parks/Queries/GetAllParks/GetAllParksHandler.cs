@@ -1,12 +1,11 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
-using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Parks.Queries.GetAllPark
+namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
 {
-    public class GetAllParksHandler : IRequestHandler<GetAllParksCommand, List<Park>>
+    public class GetAllParksHandler : IRequestHandler<GetAllParksQuery, List<Park>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -15,7 +14,7 @@ namespace Application.Destinations.Parks.Queries.GetAllPark
             _repository = DestinationRepository;
         }
 
-        public Task<List<Park>> Handle(GetAllParksCommand command, CancellationToken cancellationToken)
+        public Task<List<Park>> Handle(GetAllParksQuery query, CancellationToken cancellationToken)
         {
             try
             {

@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace Application.Destinations.Parks.Commands.UpdatePark
+namespace NatureBlog.Application.Destinations.Parks.Commands.UpdatePark
 {
     public class UpdateParkCommand : IRequest<bool>
     {
-        public readonly Guid Id;
+        public Guid Id { get; }
 
-        public readonly Park park;
+        public Park park { get; set; }
 
-        public Guid user;
+        public Guid user { get; }
     }
 }
