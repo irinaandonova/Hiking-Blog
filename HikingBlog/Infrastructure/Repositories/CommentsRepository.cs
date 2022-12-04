@@ -1,43 +1,23 @@
-﻿using NatureBlog.Application.Exceptions;
+﻿using NatureBlog.Application.Comments.Interfaces;
 using NatureBlog.Domain.Models;
-using NatureBlog.Application.Comments.Interfaces;
-using NatureBlog.Application.Destinations.Interfaces;
 
-namespace Infrastructure.Repositories
+namespace NatureBlog.Infrastructure.Repositories
 {
-    internal class CommentsRepository : ICommentRepository
+    public class CommentsRepository : ICommentRepository
     {
-        private CommentsRepository()
-        { }
-
-        private static CommentsRepository _instance;
-
-        private static readonly object _lock = new object();
-
-        public static CommentsRepository GetInstance()
+        public CommentsRepository(DestinationRepository destinationRepository)
         {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new CommentsRepository();
-                        _instance.AllComments = new Dictionary<Guid, Comment> { };
-                    }
-                }
-            }
-            return _instance;
+            AllComments = new Dictionary<Guid, Comment> { };
+            DestinationRepository= destinationRepository;
         }
 
         public Dictionary<Guid, Comment> AllComments;
 
-        private readonly Dictionary<Guid, Destination> destinations;
-        private readonly Dictionary<Guid, Comment> comments;
+        public DestinationRepository DestinationRepository { get; set; }
 
         public bool CreateComment(Guid destinationId, Guid creatorId, string text)
         {
-            Destination destination = DestinationRepository.GetInstance().GetDestination(destinationId);
+            Destination destination = DestinationRepository.GetDestination(destinationId);
 
             Comment comment = new Comment(creatorId, text, destination.Id);
             destination.Comments.Add(comment.Id, comment);
@@ -47,13 +27,11 @@ namespace Infrastructure.Repositories
 
         public bool DeleteComment(Guid destinationId, Guid commentId)
         {
-
-            Destination destination = DestinationRepository.GetInstance().GetDestination(destinationId);
+            Destination destination = DestinationRepository.GetDestination(destinationId);
 
             destination.Comments.Remove(commentId);
             return true;
         }
-
     }
 }
 
