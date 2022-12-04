@@ -1,9 +1,9 @@
-﻿using Application;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using NatureBlog.Application;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
-using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateDestination;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Infrastructure.Repositories;
 using System;
 
