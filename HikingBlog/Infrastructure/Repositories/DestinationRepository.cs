@@ -1,4 +1,4 @@
-﻿using NatureBlog.Application.Destinations.Interfaces;
+﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
