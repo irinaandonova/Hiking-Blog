@@ -1,15 +1,14 @@
-﻿using MediatR;
+﻿using Application;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.Interfaces;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateDestination;
-using System;
-using System.Reflection;
-using System.Threading.Tasks;
 using NatureBlog.Infrastructure.Repositories;
+using System;
 
 var serviceCollection = new ServiceCollection()
-    .AddMediatR(Assembly.GetExecutingAssembly())
+    .AddMediatR(typeof(AssemblyMarker).Assembly)
     .AddScoped(typeof(IDestinationRepository), typeof(DestinationRepository))
     .BuildServiceProvider();
     
