@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateDestination
+namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 {
     public class CreateSeasideCommand : IRequest<bool>
     {

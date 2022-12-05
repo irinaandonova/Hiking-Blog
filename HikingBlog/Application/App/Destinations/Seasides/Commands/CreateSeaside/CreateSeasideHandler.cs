@@ -1,8 +1,8 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateDestination
+namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 {
     public class CreateSeasideHandler : IRequestHandler<CreateSeasideCommand, bool>
     {
