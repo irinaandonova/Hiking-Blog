@@ -1,9 +1,10 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using MediatR;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail
 {
-    internal class CreateHikingTrailHandler
+    public class CreateHikingTrailHandler : IRequestHandler<CreateHikingTrailCommand, bool>
     {
         private readonly IDestinationRepository _DestinationRepository;
 
