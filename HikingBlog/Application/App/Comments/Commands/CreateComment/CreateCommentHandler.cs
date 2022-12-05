@@ -1,14 +1,6 @@
-﻿using Application.Repositories;
-using MediatR;
-using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
-using NatureBlog.Application.Destinations.Interfaces;
+﻿using MediatR;
 using NatureBlog.Application.Exceptions;
-using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NatureBlog.Application.Repositories;
 
 namespace Application.App.Comments.Commands.CreateComment
 {

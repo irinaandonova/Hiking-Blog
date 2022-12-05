@@ -1,6 +1,7 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using MediatR;
 using NatureBlog.Application.Exceptions;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace Application.App.Comments.Commands.DeleteComment
