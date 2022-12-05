@@ -1,4 +1,4 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 

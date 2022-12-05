@@ -1,5 +1,6 @@
-﻿using Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using Moq;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.UnitTests
