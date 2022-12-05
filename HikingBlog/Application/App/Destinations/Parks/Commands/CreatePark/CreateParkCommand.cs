@@ -7,7 +7,7 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
     {
         public string Name { get; set; }
 
-        public Guid Creator { get; }
+        public Guid CreatorId { get; set; }
 
         public string Description { get; set; }
 

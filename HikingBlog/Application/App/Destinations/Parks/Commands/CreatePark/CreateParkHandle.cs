@@ -17,7 +17,7 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
         {
             try
             {
-                Park park = new Park(command.Name, command.Creator, command.Description, command.ImageUrl, command.Region, command.HasPlayground, command.IsDogFriendly);
+                Park park = new Park(command.Name, command.CreatorId, command.Description, command.ImageUrl, command.Region, command.HasPlayground, command.IsDogFriendly);
                 _DestinationRepository.Add(park);
 
                 return Task.FromResult(true);
