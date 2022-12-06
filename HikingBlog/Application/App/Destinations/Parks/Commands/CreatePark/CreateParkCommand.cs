@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
-using NatureBLog.Domain.Models.Region;
 
 namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
