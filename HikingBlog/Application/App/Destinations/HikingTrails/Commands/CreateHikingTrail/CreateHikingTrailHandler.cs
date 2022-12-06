@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail
 {
-    public class CreateHikingTrailHandler : IRequestHandler<CreateHikingTrailCommand, bool>
+    public class CreateHikingTrailHandler : IRequestHandler<CreateHikingTrailCommand, Guid>
     {
         private readonly IDestinationRepository _DestinationRepository;
 
@@ -13,19 +13,19 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
             _DestinationRepository = DestinationRepository;
         }
 
-        public Task<bool> Handle(CreateHikingTrailCommand command, CancellationToken cancellationToken)
+        public Task<Guid> Handle(CreateHikingTrailCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                HikingTrail hikingTrail = new HikingTrail(command.Name, command.CreatorId, command.Description, command.ImageUrl, command.Region, command.Difficulty, command.Duration);
+                HikingTrail hikingTrail = new HikingTrail { Name = command.Name, Creator = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, Region = command.Region, Difficulty = command.Difficulty, HikingDuration = command.Duration };
                 _DestinationRepository.Add(hikingTrail);
 
-                return Task.FromResult(true);
+                return Task.FromResult(hikingTrail.Id);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return Task.FromResult(false);
+                return Task.FromResult(Guid.Empty);
             }
         }
     }
