@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NatureBlog.Domain.Models;
+using NatureBlog.Infrastructure.EntityConfiguration;
 
 namespace NatureBlog.Infrastructure.AppDBContext
 {
@@ -16,16 +17,17 @@ namespace NatureBlog.Infrastructure.AppDBContext
             optionsBuilder.UseSqlServer(ConnectionString);
             base.OnConfiguring(optionsBuilder);
         }
-        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Destination>()
-                .HasKey(d => d.Id);
+            modelBuilder.Entity<Destination>().ToTable("Destinations");
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+            modelBuilder.Entity<Region>().ToTable("Regions");
+            modelBuilder.Entity<Rating>().ToTable("Ratings");
 
-            modelBuilder.Entity<Comment>()
-                .HasKey(c => c.Id);
-                
+            modelBuilder.ApplyConfiguration(new DestinationConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new RegionConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingConfiguration());
         }
-        */
     }
 }
