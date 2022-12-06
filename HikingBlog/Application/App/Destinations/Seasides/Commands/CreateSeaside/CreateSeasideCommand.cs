@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
+using NatureBlog.Domain.Models.Rating;
 using NatureBLog.Domain.Models.Region;
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
