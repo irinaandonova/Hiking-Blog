@@ -1,11 +1,11 @@
-﻿using NatureBlog.Application.Repositories;
-using MediatR;
+﻿using MediatR;
 using NatureBlog.Application.Exceptions;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination
 {
-    internal class GetDestinationHandler: IRequestHandler<GetDestinationQuery, Destination>
+    public class GetDestinationHandler: IRequestHandler<GetDestinationQuery, Destination>
     {
         private readonly IDestinationRepository _repository;
 

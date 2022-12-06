@@ -1,10 +1,9 @@
-﻿using NatureBlog.Application.Repositories;
-using MediatR;
+﻿using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
-namespace Application.App.Comments.Commands.DeleteComment
+namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
 {
     public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, bool>
     {
@@ -20,15 +19,17 @@ namespace Application.App.Comments.Commands.DeleteComment
         {
             try
             {
-                Destination destination = _destinationRepository.GetDestination(command.destinationId);
-                if (!destination.Comments.ContainsKey(command.commentId))
+                Destination destination = _destinationRepository.GetDestination(command.DestinationId);
+                if (!destination.Comments.Contains(command.CommentId))
                     throw new CommentNotFoundException("No comment found with the given id!");
-                if (destination.Comments[command.commentId].Creator != command.creatorId)
+                
+                if (command.Comment.Creator != command.CreatorId)
                     throw new UserNotCreatorException("Current user isn't the creator of the comment!");
-
-                bool response = _repository.DeleteComment(command.destinationId, command.commentId);
+                
+                bool response = _repository.DeleteComment(command.DestinationId, command.CommentId);
                 if (!response)
                     throw new ModificationFailedException("Creating a comment was unsuccessful!");
+                
                 return Task.FromResult(true);
             }
             catch (ArgumentNullException)

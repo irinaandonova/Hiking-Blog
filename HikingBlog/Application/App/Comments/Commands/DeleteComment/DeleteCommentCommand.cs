@@ -1,16 +1,11 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.App.Comments.Commands.DeleteComment
+using NatureBlog.Domain.Models;
+namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
 {
     public class DeleteCommentCommand : IRequest<bool>
     {
-        public Guid destinationId;
-        public Guid creatorId;
-        public Guid commentId;
+        public Guid DestinationId { get; set; }
+        public Guid CreatorId { get; set; }
+        public Guid CommentId { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetMostVisitedQuery: IRequest<List<Destination>>
+    public class GetMostVisited: IRequest<List<Destination>>
     {
     }
 }

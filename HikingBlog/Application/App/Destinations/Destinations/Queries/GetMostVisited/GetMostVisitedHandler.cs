@@ -1,12 +1,11 @@
-﻿using NatureBlog.Application.Repositories;
-using MediatR;
-using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
+﻿using MediatR;
 using NatureBlog.Application.Exceptions;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetMostVisitedHandler : IRequestHandler<GetMostVisitedQuery, List<Destination>>
+    public class GetMostVisitedHandler : IRequestHandler<GetMostVisited, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
 
@@ -15,7 +14,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
             _repository= destinationRepository;
         }
 
-        public Task<List<Destination>> Handle(GetMostVisitedQuery command, CancellationToken cancellationToken) 
+        public Task<List<Destination>> Handle(GetMostVisited command, CancellationToken cancellationToken) 
         {
             try 
             {
