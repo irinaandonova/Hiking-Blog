@@ -1,4 +1,4 @@
-﻿using NatureBLog.Domain.Models.Region;
+﻿using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Domain.Models
 {

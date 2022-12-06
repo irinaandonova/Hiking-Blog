@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NatureBlog.Domain.Models.Rating;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {

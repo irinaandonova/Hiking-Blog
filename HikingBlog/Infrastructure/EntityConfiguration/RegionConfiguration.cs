@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NatureBLog.Domain.Models.Region;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {
@@ -20,10 +20,6 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             regionBuilder.HasMany(x => x.Destinations)
                 .WithOne(x => x.Region);
-
-                
-                  
-
         }
     }
 }

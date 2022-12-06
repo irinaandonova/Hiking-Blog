@@ -1,6 +1,6 @@
 ﻿using NatureBlog.Domain.Models;
 
-namespace NatureBLog.Domain.Models.Region
+namespace NatureBlog.Domain.Models
 {
     public class Region
     {

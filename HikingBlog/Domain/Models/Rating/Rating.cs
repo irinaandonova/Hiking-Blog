@@ -1,4 +1,4 @@
-﻿namespace NatureBlog.Domain.Models.Rating
+﻿namespace NatureBlog.Domain.Models
 {
     public class Rating
     {

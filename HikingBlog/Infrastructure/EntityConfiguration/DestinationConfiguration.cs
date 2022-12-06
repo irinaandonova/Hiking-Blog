@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NatureBlog.Domain.Models;
-using NatureBLog.Domain.Models.Region;
-using System.Security.Cryptography.X509Certificates;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {
@@ -34,13 +32,6 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             destinationConfiguration.HasMany(x => x.Visitors)
                 .WithMany(x => x.VisitedDestinations);
-
-
-
-
-
-
-
         }
     }
 }
