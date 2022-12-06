@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
+using NatureBLog.Domain.Models.Region;
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 {
@@ -13,7 +14,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 
         public string ImageUrl { get; set; }
 
-        public string Region { get; set;  }
+        public Region Region { get; set;  }
 
         public bool IsGuarded { get; set; }
 
@@ -23,10 +24,10 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 
         public int? RatingScore { get; set; } = null;
 
-        public Dictionary<Guid, Comment> Comments { get; set; } = new Dictionary<Guid, Comment> { };
+        public ICollection<Comment> Comments { get; set; }
 
-        public Dictionary<User, int> Ratings { get; set; } = new Dictionary<User, int> { };
+        public ICollection<Rating> Ratings { get; set; }
 
-        public List<User> Visitors { get; set; } = new List<User> { };
+        public ICollection<User> Visitors { get; set; } = new List<User> { };
     }
 }

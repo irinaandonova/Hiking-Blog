@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
-    public class CreateParkHandler : IRequestHandler<CreateParkCommand, bool>
+    public class CreateParkHandler : IRequestHandler<CreateParkCommand, Guid>
     {
         private readonly IDestinationRepository _DestinationRepository;
 
@@ -13,19 +13,19 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
             _DestinationRepository = DestinationRepository;
         }
 
-        public Task<bool> Handle(CreateParkCommand command, CancellationToken cancellationToken)
+        public Task<Guid> Handle(CreateParkCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                Park park = new Park(command.Name, command.CreatorId, command.Description, command.ImageUrl, command.Region, command.HasPlayground, command.IsDogFriendly);
+                Park park = new Park { Name = command.Name, Creator = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, Region = command.Region, HasPlayground = command.HasPlayground, IsDogFriendly = command.IsDogFriendly };
                 _DestinationRepository.Add(park);
 
-                return Task.FromResult(true);
+                return Task.FromResult(park.Id);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return Task.FromResult(false);
+                return Task.FromResult(Guid.Empty);
             }
         }
     }
