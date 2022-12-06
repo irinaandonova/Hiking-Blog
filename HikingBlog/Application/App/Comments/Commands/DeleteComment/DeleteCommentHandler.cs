@@ -20,10 +20,11 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
             try
             {
                 Destination destination = _destinationRepository.GetDestination(command.DestinationId);
-                if (!destination.Comments.Contains(command.CommentId))
+                Comment comment = destination.Comments.SingleOrDefault(x => x.Id == command.CommentId);
+                if (comment is null)
                     throw new CommentNotFoundException("No comment found with the given id!");
                 
-                if (command.Comment.Creator != command.CreatorId)
+                if (comment.Creator.Id != command.CreatorId)
                     throw new UserNotCreatorException("Current user isn't the creator of the comment!");
                 
                 bool response = _repository.DeleteComment(command.DestinationId, command.CommentId);
