@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
-    public class CommentsRepository : ICommentRepository
+    public class CommentsRepository
     {
         public CommentsRepository(DestinationRepository destinationRepository)
         {
@@ -14,13 +14,13 @@ namespace NatureBlog.Infrastructure.Repositories
         public Dictionary<Guid, Comment> AllComments;
 
         public DestinationRepository DestinationRepository { get; set; }
-
+        /*
         public bool CreateComment(Guid destinationId, Guid creatorId, string text)
         {
             Destination destination = DestinationRepository.GetDestination(destinationId);
 
-            Comment comment = new Comment(creatorId, text, destination.Id);
-            destination.Comments.Add(comment.Id, comment);
+            Comment comment = new Comment { Destination = Guid.NewGuid(), Text = text };
+            destination.Comments.Add(comment.Id);
 
             return true;
         }
@@ -32,6 +32,7 @@ namespace NatureBlog.Infrastructure.Repositories
             destination.Comments.Remove(commentId);
             return true;
         }
+        */
     }
 }
 

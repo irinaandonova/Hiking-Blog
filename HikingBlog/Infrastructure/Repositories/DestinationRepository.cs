@@ -10,7 +10,7 @@ namespace NatureBlog.Infrastructure.Repositories
             AllDestinations = new Dictionary<Guid, Destination> { };
         }
 
-        public Dictionary<Guid, Destination> AllDestinations { get; private set; }
+        public Dictionary<Guid, Destination> AllDestinations { get; set; }
 
         public bool Add(Destination destination)
         {
@@ -24,9 +24,10 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool Update(Guid Id, Destination destination)
+        public bool Update(Guid destinationId, string name, string description, string imageUrl, string region)
         {
-            AllDestinations[Id] = destination;
+            Destination destination = AllDestinations[destinationId];
+            destination.Name = name;
             return true;
         }
 
@@ -102,7 +103,7 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public List<Destination> FilterByRegion(string region)
         {
-            List<Destination> destinations = AllDestinations.Where(d => d.Value.Region == region).Select(d => d.Value).ToList();
+            List<Destination> destinations = AllDestinations.Where(d => d.Value.Region.Name == region).Select(d => d.Value).ToList();
 
             return destinations;
         }
@@ -140,13 +141,14 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public bool RateDestination(Guid destinationId, int ratingValue, Guid userId)
         {
+            /*
             Destination destination = GetDestination(destinationId);
 
             if (destination.Ratings.ContainsKey(userId))
                 destination.Ratings[userId] = ratingValue;
             else
                 destination.Ratings.Add(userId, ratingValue);
-
+            */
             return true;
         }
 

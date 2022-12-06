@@ -2,10 +2,10 @@
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.UnitTests
+namespace NatureBlog.Application.UnitTest    
 {
     public class MockDestinations
-    {
+    {/*
         public static Mock<IDestinationRepository> CreateDestination()
         {
             User user = new User("irina", "irina@andonova", 1);
@@ -21,6 +21,6 @@ namespace NatureBlog.Application.UnitTests
             mockRepo.Setup(r => r.Delete(System.Guid.Empty)).Returns(false);
 
             return mockRepo;
-        }
+        }*/
     }
 }
