@@ -10,7 +10,7 @@ namespace NatureBlog.Application.Repositories
 
         bool Delete(Guid Id);
 
-        bool Update(Guid Id, Destination destination);
+        bool Update(Guid Id, string name, string description, string imageUrl, string region);
 
         List<Destination> GetMostVisited();
 
