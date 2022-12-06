@@ -2,11 +2,6 @@
 {
     public class Seaside : Destination
     {
-        public Seaside(string name, Guid creator, string description, string imageUrl, string region, bool isGuarded, bool offersUmbrella) : base(name, creator, description, imageUrl, region)
-        {
-            IsGuarded = isGuarded;
-            OffersUmbrella = offersUmbrella;
-        }
         public bool IsGuarded { get; set; }
 
         public bool OffersUmbrella { get; set; }

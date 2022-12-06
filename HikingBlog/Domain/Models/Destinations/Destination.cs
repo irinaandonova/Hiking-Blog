@@ -1,32 +1,24 @@
-﻿namespace NatureBlog.Domain.Models
+﻿using NatureBLog.Domain.Models.Region;
+
+namespace NatureBlog.Domain.Models
 {
     public abstract class Destination
     {
         public readonly Guid Id;
 
-        public Destination(string name, Guid creator, string description, string imageUrl, string region)
-        {
-                Id = Guid.NewGuid();
-                Name = name;
-                Creator = creator;
-                Description = description;
-                ImageUrl = imageUrl;
-                Region = region;
-        }
+        public string Name { get; set; }
 
-        public string Name { get; }
+        public Guid Creator { get; set; }
 
-        public Guid Creator { get; }
+        public string Description { get; set; }
 
-        public string Description { get; }
+        public string ImageUrl { get; set; }
 
-        public string ImageUrl { get; }
-
-        public string Region { get; }
+        public Region Region { get; set; }
 
         public int? RatingScore { get; set; } = null;
 
-        public Dictionary<Guid, Comment> Comments { get; set; } = new Dictionary<Guid, Comment> { };
+        public ICollection<Comment> Comments { get; set; } = null;
 
         public Dictionary<Guid, int> Ratings { get; set; } = new Dictionary<Guid, int> { };
 

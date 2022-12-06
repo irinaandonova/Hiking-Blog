@@ -1,15 +1,8 @@
 ﻿namespace NatureBlog.Domain.Models
 {
-    public class User : IUser
+    public class User 
     {
         public readonly Guid Id;
-        public User(string username, string email, int hikingSkill)
-        {
-            Id = Guid.NewGuid();
-            Email = email;
-            Username = username;
-            HikingSkill = hikingSkill;
-        }
 
         public string Username { get; set; }
 
@@ -17,7 +10,8 @@
 
         public int HikingSkill { get; set; }
 
-        public bool IsSubscribed { get; set; } = false;
+        public ICollection<Comment> Comments { get; set; }
 
+        public ICollection<Destination> VisitedDestinations { get; set; }
     }
 }

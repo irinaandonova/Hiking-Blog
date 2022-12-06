@@ -6,24 +6,15 @@ namespace NatureBlog.Domain.Models
 {
     public class Comment 
     {
-        public readonly Guid Id;
+        public Guid Id { get; set; } = Guid.NewGuid();  
 
-        public Comment(Guid creator, string text, Guid destination)
-        {
-            Id = Guid.NewGuid();
-            Creator = creator;
-            Text = text;
-            Date = DateTime.Now;
-            Destination = destination;
-        }
-
-        public Guid Creator { get; }
+        public User Creator { get; set; }
 
         public string Text { get; set; }
 
-        public DateTime Date { get; }
+        public DateTime Date { get; set; }
 
-        public Guid Destination { get; set; }
+        public Destination Destination { get; set; }
 
     }
 }
