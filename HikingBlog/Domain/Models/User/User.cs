@@ -2,7 +2,7 @@
 {
     public class User 
     {
-        public readonly Guid Id;
+        public Guid Id { get; set; }
 
         public string Username { get; set; }
 

@@ -20,8 +20,8 @@ namespace NatureBlog.Domain.Models
 
         public ICollection<Comment> Comments { get; set; } = null;
 
-        public Dictionary<Guid, int> Ratings { get; set; } = new Dictionary<Guid, int> { };
+        public ICollection<Rating> Ratings { get; set; } 
 
-        public List<User> Visitors { get; set; } = new List<User> { };
+        public ICollection<User> Visitors { get; set; } 
     }
 }
