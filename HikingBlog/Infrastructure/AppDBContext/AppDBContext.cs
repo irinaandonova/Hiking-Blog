@@ -23,11 +23,18 @@ namespace NatureBlog.Infrastructure.AppDBContext
             modelBuilder.Entity<Comment>().ToTable("Comments");
             modelBuilder.Entity<Region>().ToTable("Regions");
             modelBuilder.Entity<Rating>().ToTable("Ratings");
+            modelBuilder.Entity<Seaside>().ToTable("Seasides");
+            modelBuilder.Entity<HikingTrail>().ToTable("HikingTrails");
+            modelBuilder.Entity<Park>().ToTable("Parks");
 
             modelBuilder.ApplyConfiguration(new DestinationConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new RegionConfiguration());
             modelBuilder.ApplyConfiguration(new RatingConfiguration());
+            modelBuilder.ApplyConfiguration(new SeasideConfiguration());
+            modelBuilder.ApplyConfiguration(new HikingTrailConfuguration());
+            modelBuilder.ApplyConfiguration(new ParkConfiguration());
+
         }
     }
 }
