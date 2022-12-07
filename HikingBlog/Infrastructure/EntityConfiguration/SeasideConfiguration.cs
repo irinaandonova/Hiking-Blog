@@ -8,7 +8,9 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Seaside> seasideBuilder)
         {
-            seasideBuilder.HasKey(x => x.Id);
+            seasideBuilder.ToTable(nameof(Seaside));
+
+            seasideBuilder.HasBaseType<Destination>();
 
             seasideBuilder.Property<bool>(x => x.OffersUmbrella)
                 .IsRequired();

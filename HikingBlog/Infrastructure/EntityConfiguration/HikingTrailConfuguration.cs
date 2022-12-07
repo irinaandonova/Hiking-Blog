@@ -8,7 +8,9 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<HikingTrail> hikingTrailBuiler)
         {
-            hikingTrailBuiler.HasKey(x => x.Id);
+            hikingTrailBuiler.ToTable(nameof(HikingTrail));
+
+            hikingTrailBuiler.HasBaseType<Destination>();
 
             hikingTrailBuiler.Property<int>(x => x.HikingDuration)
                 .IsRequired();                

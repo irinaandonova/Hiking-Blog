@@ -14,6 +14,8 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Comment> commentBuilder)
         {
+            commentBuilder.ToTable(nameof(Comment));
+
             commentBuilder.HasKey(x => x.Id);
 
             commentBuilder.Property<string>(x => x.Text)

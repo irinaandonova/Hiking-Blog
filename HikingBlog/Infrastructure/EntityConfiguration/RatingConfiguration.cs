@@ -8,6 +8,8 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Rating> entityTypeBuilder)
         {
+            entityTypeBuilder.ToTable(nameof(Rating));
+
             entityTypeBuilder.HasKey(x => x.UserId);
 
             entityTypeBuilder.Property<int>(x => x.RatingValue)

@@ -8,6 +8,8 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Region> regionBuilder)
         {
+            regionBuilder.ToTable(nameof(Region));
+
             regionBuilder.HasKey(x => x.Id);
 
             regionBuilder.Property<string>(x => x.Name)

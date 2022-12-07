@@ -8,24 +8,26 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Destination> destinationConfiguration)
         {
+            destinationConfiguration.ToTable(nameof(Destination));
+
             destinationConfiguration.HasKey(x => x.Id);
 
             destinationConfiguration.Property<string>(x => x.Name)
                  .IsRequired()
                  .HasMaxLength(60);
-                
+
             destinationConfiguration.Property<string>(x => x.Description)
                 .IsRequired()
                 .HasMaxLength(560);
 
             destinationConfiguration.Property<string>(x => x.ImageUrl)
                 .IsRequired()
-                .HasMaxLength (500);
+                .HasMaxLength(500);
 
             destinationConfiguration.HasOne(x => x.Region)
                 .WithMany(x => x.Destinations)
                 .HasForeignKey(x => x.Id);
-                
+
             destinationConfiguration.HasMany(x => x.Comments)
                 .WithOne(x => x.Destination)
                 .HasForeignKey(x => x.Id);

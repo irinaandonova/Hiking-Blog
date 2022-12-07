@@ -13,6 +13,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> userBuilder)
         {
+            userBuilder.ToTable(nameof(User));
             userBuilder.HasKey(x => x.Id);
 
             userBuilder.Property<string>(x => x.Username)

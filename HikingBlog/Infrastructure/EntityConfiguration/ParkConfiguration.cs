@@ -8,7 +8,9 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Park> parkBuilder)
         {
-            parkBuilder.HasKey(x => x.Id);
+            parkBuilder.ToTable(nameof(Park));
+
+            parkBuilder.HasBaseType<Destination>();
 
             parkBuilder.Property<bool>(x => x.IsDogFriendly)
                 .IsRequired();
