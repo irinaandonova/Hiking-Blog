@@ -8,14 +8,10 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Rating> entityTypeBuilder)
         {
-            entityTypeBuilder.HasKey(x => x.User);
+            entityTypeBuilder.HasKey(x => x.UserId);
 
-            entityTypeBuilder.Property(x => x.User)
+            entityTypeBuilder.Property<int>(x => x.RatingValue)
                 .IsRequired();
-
-            entityTypeBuilder.Property(x => x.RatingValue)
-                .IsRequired();
-
         }
     }
 }

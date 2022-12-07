@@ -10,12 +10,11 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             hikingTrailBuiler.HasKey(x => x.Id);
 
-            hikingTrailBuiler.Property(x => x.HikingDuration)
+            hikingTrailBuiler.Property<int>(x => x.HikingDuration)
                 .IsRequired();                
 
-            hikingTrailBuiler.Property(x => x.Difficulty)
+            hikingTrailBuiler.Property<int>(x => x.Difficulty)
                 .IsRequired();
-
         }
     }
 }

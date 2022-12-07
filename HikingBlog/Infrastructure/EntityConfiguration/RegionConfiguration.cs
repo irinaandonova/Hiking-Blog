@@ -10,16 +10,17 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             regionBuilder.HasKey(x => x.Id);
 
-            regionBuilder.Property(x => x.Name)
+            regionBuilder.Property<string>(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(60);
 
-            regionBuilder.Property(x => x.Cordinates)
+            regionBuilder.Property<string>(x => x.Cordinates)
                 .IsRequired()
                 .HasMaxLength(60);
 
             regionBuilder.HasMany(x => x.Destinations)
-                .WithOne(x => x.Region);
+                .WithOne(x => x.Region)
+                .HasForeignKey(x => x.Id);
         }
     }
 }

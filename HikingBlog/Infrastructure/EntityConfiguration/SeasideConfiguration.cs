@@ -10,13 +10,13 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             seasideBuilder.HasKey(x => x.Id);
 
-            seasideBuilder.Property(x => x.OffersUmbrella)
+            seasideBuilder.Property<bool>(x => x.OffersUmbrella)
                 .IsRequired();
 
-            seasideBuilder.Property(x => x.IsGuarded) 
+            seasideBuilder.Property<bool>(x => x.IsGuarded) 
                 .IsRequired();
 
-            seasideBuilder.Property(x => x.UmbrellaPrice);
+            seasideBuilder.Property<double>(x => x.UmbrellaPrice);
         }
     }
 }

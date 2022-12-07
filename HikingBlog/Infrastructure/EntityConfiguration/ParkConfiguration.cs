@@ -10,10 +10,10 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             parkBuilder.HasKey(x => x.Id);
 
-            parkBuilder.Property(x => x.IsDogFriendly)
+            parkBuilder.Property<bool>(x => x.IsDogFriendly)
                 .IsRequired();
 
-            parkBuilder.Property(x => x.HasPlayground)
+            parkBuilder.Property<bool>(x => x.HasPlayground)
                 .IsRequired();
 
         }

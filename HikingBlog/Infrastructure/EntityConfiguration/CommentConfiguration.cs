@@ -16,7 +16,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             commentBuilder.HasKey(x => x.Id);
 
-            commentBuilder.Property(x => x.Text)
+            commentBuilder.Property<string>(x => x.Text)
                 .IsRequired()
                 .HasMaxLength(300);
 

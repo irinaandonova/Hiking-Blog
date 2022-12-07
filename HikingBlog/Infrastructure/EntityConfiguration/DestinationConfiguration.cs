@@ -28,7 +28,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
                 
             destinationConfiguration.HasMany(x => x.Comments)
                 .WithOne(x => x.Destination)
-                .HasForeignKey(x => x.Destination.Id);
+                .HasForeignKey(x => x.Id);
 
             destinationConfiguration.HasMany(x => x.Visitors)
                 .WithMany(x => x.VisitedDestinations);
