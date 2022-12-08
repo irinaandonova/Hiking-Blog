@@ -2,8 +2,8 @@
 
 namespace NatureBlog.Application.Repositories
 {
-    public interface IRegion
+    public interface IUserRepository
     {
-        public Task Add(Region region);
+        Task Add(User user);
     }
 }
