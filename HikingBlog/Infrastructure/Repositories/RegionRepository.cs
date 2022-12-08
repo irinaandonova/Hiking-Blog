@@ -18,6 +18,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public async Task Add(Region region)
         {
              await _dbContext.Regions.AddAsync(region);
+            _dbContext.SaveChanges();   
         }
     }
 }

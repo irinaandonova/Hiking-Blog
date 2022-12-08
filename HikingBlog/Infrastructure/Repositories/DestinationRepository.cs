@@ -14,6 +14,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public async Task Add(HikingTrail destination)
         {
             await _dbContext.Destinations.AddAsync(destination);
+            _dbContext.SaveChanges();
         }
 
 

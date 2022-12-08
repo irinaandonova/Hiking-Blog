@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NatureBlog.Application;
 using NatureBlog.Application.App;
+using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Infrastructure;
 using NatureBlog.Infrastructure.Repositories;
@@ -16,6 +17,7 @@ try
         .AddMediatR(typeof(AssemblyMarker).Assembly)
         .AddScoped(typeof(IDestinationRepository), typeof(DestinationRepository))
         .AddScoped(typeof(IRegion), typeof(RegionRepository))
+        .AddDbContext<AppDBContext>()
         .BuildServiceProvider();
 
 
@@ -26,18 +28,17 @@ try
         Name = "Rila",
         Cordinates = "1728:762"
     });
-    /*
+    
     await mediator.Send(new CreateHikingTrailCommand
     {
         Name = "Seven Rila lakes",
         CreatorId = Guid.NewGuid(),
         Description = "Great hiking Trail",
         ImageUrl = "img.com",
-        Region = region,
         Difficulty = 2,
         Duration = 180
     });
-    */
+    
 }
 catch(Exception ex)
 {

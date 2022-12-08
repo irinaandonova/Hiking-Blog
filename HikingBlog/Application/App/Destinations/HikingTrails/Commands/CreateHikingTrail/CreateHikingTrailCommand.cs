@@ -13,7 +13,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 
         public string ImageUrl { get; set; }
 
-        public Region Region { get; set; }
+        //public Region Region { get; set; }
 
         public int Difficulty { get; set; }
 
