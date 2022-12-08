@@ -15,6 +15,8 @@ namespace NatureBlog.Infrastructure
 
         public DbSet<Region> Regions => Set<Region>();
 
+        public DbSet<User> Users => Set<User>();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConnectionString);
