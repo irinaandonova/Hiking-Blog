@@ -13,19 +13,19 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
             _DestinationRepository = DestinationRepository;
         }
 
-        public Task<Guid> Handle(CreateHikingTrailCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateHikingTrailCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                HikingTrail hikingTrail = new HikingTrail { Name = command.Name, Creator = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, Region = command.Region, Difficulty = command.Difficulty, HikingDuration = command.Duration };
-                _DestinationRepository.Add(hikingTrail);
+                HikingTrail hikingTrail = new HikingTrail { Name = command.Name, Creator = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, Difficulty = command.Difficulty, HikingDuration = command.Duration };
+                await _DestinationRepository.Add(hikingTrail);
 
-                return Task.FromResult(hikingTrail.Id);
+                return hikingTrail.Id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return Task.FromResult(Guid.Empty);
+                return Guid.Empty;
             }
         }
     }

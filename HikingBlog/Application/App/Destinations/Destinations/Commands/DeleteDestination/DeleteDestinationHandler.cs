@@ -4,6 +4,7 @@ using NatureBlog.Application.Exceptions;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination
 {
+    /*
     public class DeleteDestinationHandler : IRequestHandler<DeleteDestinationCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -12,7 +13,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
         {
             _repository = DestinationRepository;
         }
-
+        
         public Task<bool> Handle(DeleteDestinationCommand command, CancellationToken cancellationToken)
         {
             try
@@ -30,5 +31,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
                 return Task.FromResult(false);
             }
         }
+        
     }
+    */
 }

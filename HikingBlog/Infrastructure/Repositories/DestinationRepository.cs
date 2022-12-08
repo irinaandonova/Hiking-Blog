@@ -5,19 +5,20 @@ namespace NatureBlog.Infrastructure.Repositories
 {
     public class DestinationRepository : IDestinationRepository
     {
-        public DestinationRepository()
+        private readonly AppDBContext _dbContext;
+       public DestinationRepository (AppDBContext dbContext)
         {
-            AllDestinations = new Dictionary<Guid, Destination> { };
+            _dbContext = dbContext;
         }
 
-        public Dictionary<Guid, Destination> AllDestinations { get; set; }
-
-        public bool Add(Destination destination)
+        public async Task Add(HikingTrail destination)
         {
-            AllDestinations.Add(destination.Id, destination);
-            return true;
+            await _dbContext.Destinations.AddAsync(destination);
+            _dbContext.SaveChanges();
         }
 
+
+        /*
         public bool Delete(Guid Id)
         {
             AllDestinations.Remove(Id);
@@ -141,14 +142,14 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public bool RateDestination(Guid destinationId, int ratingValue, Guid userId)
         {
-            /*
+            
             Destination destination = GetDestination(destinationId);
 
             if (destination.Ratings.ContainsKey(userId))
                 destination.Ratings[userId] = ratingValue;
             else
                 destination.Ratings.Add(userId, ratingValue);
-            */
+            
             return true;
         }
 
@@ -159,5 +160,6 @@ namespace NatureBlog.Infrastructure.Repositories
 
             return true;
         }
+    */
     }
 }

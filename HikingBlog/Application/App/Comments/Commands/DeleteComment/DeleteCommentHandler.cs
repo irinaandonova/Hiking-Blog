@@ -4,7 +4,7 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
-{
+{/*
     public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, bool>
     {
         private readonly ICommentRepository _repository;
@@ -44,5 +44,5 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
                 return Task.FromResult(false);
             }
         }
-    }
+    }*/
 }

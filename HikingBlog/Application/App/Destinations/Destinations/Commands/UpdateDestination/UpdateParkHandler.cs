@@ -5,6 +5,7 @@ using MediatR;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDestination
 {
+    /*
     public class UpdateDestinationHandler : IRequestHandler<UpdateDestinationCommand, bool>
     {
         public readonly IDestinationRepository _repository;
@@ -36,4 +37,5 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDe
             }
         }
     }
+    */
 }

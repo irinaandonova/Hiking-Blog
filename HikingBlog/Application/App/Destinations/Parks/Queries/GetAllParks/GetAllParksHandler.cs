@@ -4,7 +4,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
-{
+{/*
     public class GetAllParksHandler : IRequestHandler<GetAllParksQuery, List<Park>>
     {
         private readonly IDestinationRepository _repository;
@@ -32,5 +32,5 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
                 return null;
             }
         }
-    }
+    }*/
 }

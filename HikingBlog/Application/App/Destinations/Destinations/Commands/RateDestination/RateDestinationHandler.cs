@@ -3,6 +3,7 @@ using MediatR;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {
+    /*
     public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -33,5 +34,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
                 return Task.FromResult(false);
             }
         }
-    }
+    }*/
 }

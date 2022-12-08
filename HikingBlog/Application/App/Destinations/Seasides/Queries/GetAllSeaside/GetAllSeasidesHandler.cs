@@ -4,7 +4,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
-{
+{/*
     public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<Seaside>>
     {
         private readonly IDestinationRepository _repository;
@@ -32,5 +32,5 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
                 return null;
             }
         }
-    }
+    }*/
 }

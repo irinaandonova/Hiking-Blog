@@ -4,7 +4,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.AddUmbrellaPrices
-{
+{/*
     public class AddUmbrellaPricesHandler : IRequestHandler<AddUmbrellaPricesCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -37,5 +37,6 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.AddUmbrellaPrice
                 return Task.FromResult(false);
             }
         }
-    }
+    
+    }*/
 }

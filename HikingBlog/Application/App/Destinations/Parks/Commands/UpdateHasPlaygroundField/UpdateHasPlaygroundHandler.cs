@@ -4,7 +4,7 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygroundField
-{
+{/*
     public class UpdateHasPlaygroundHandler : IRequestHandler<UpdateHasPlaygroundCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -40,5 +40,5 @@ namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygr
                 return Task.FromResult(false);
             }
         }
-    }
+    }*/
 }

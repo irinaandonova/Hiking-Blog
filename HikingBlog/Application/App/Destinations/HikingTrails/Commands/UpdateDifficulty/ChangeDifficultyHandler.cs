@@ -4,7 +4,7 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
-{
+{/*
     public class ChangeDifficultyHandler : IRequestHandler<ChangeDifficultyCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -42,5 +42,5 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDiffic
                 return Task.FromResult(false);
             }
         }
-    }
+    }*/
 }

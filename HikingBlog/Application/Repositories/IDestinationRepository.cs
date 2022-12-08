@@ -4,9 +4,9 @@ namespace NatureBlog.Application.Repositories
 {
     public interface IDestinationRepository
     {
-        public Dictionary<Guid, Destination> AllDestinations { get; }
+        Task Add(HikingTrail destination);
 
-        bool Add(Destination destination);
+        /*
 
         bool Delete(Guid Id);
 
@@ -37,5 +37,6 @@ namespace NatureBlog.Application.Repositories
         bool RateDestination(Guid destinationId, int ratingValue, Guid userId);
 
         bool AddUmbrellaPrices(Guid destinationId, double price);
+        */
     }
 }

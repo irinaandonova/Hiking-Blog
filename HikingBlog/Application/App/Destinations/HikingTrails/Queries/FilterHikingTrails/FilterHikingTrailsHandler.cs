@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails
-{
+{/*
     public class FilterHikingTrailsHandler : IRequestHandler<FilterHikingTrailsQuery, List<HikingTrail>>
     {
         private readonly IDestinationRepository _repository;
@@ -17,6 +17,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingT
 
         public Task<List<HikingTrail>> Handle(FilterHikingTrailsQuery querry, CancellationToken cancellationToken)
         {
+            
             try
             {
                 List<HikingTrail> hikingTrailsList = _repository.FilterHikingTrails(querry.difficulty);
@@ -32,5 +33,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingT
                 return null;
             }
         }
-    }
+            }
+            */
+    
 }

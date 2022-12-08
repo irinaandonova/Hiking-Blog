@@ -5,6 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword
 {
+    /*
     public class SearchByKeywordHandler : IRequestHandler<SearchByKeywordQuery, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
@@ -33,5 +34,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKe
                 return null;
             }
         }
-    }
+    }*/
 }
