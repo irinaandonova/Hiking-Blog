@@ -4,7 +4,7 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination
-{
+{/*
     public class GetDestinationHandler: IRequestHandler<GetDestinationQuery, Destination>
     {
         private readonly IDestinationRepository _repository;
@@ -30,5 +30,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestina
                 return null;
             }
         }
-    }
+    }*/
 }

@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 using NatureBlog.Infrastructure.EntityConfiguration;
 using System.Reflection;
 //Add configurations
-namespace NatureBlog.Infrastructure.AppDBContext
+namespace NatureBlog.Infrastructure
 {
     public class AppDBContext : DbContext
     {
@@ -12,6 +12,8 @@ namespace NatureBlog.Infrastructure.AppDBContext
         public DbSet<Destination> Destinations => Set<Destination>();
 
         public DbSet<Comment> Comments => Set<Comment>();
+
+        public DbSet<Region> Regions => Set<Region>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

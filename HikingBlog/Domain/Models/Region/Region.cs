@@ -10,6 +10,6 @@ namespace NatureBlog.Domain.Models
 
         public string Cordinates { get; set; }
 
-        public ICollection<Destination> Destinations { get; set; }
+        public ICollection<Destination> Destinations { get; set; } = null;
     }
 }

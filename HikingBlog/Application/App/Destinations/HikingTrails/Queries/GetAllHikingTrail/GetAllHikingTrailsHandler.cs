@@ -4,7 +4,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
-{
+{/*
     public class GetAllHikingTrailsHandler : IRequestHandler<GetAllHikingTrailsQuery, List<HikingTrail>>
     {
         private readonly IDestinationRepository _repository;
@@ -32,5 +32,5 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
                 return null;
             }
         }
-    }
+    }*/
 }

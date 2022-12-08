@@ -3,7 +3,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside
-{
+{/*
     public class FilterSeasidesHandler
     {
         private readonly IDestinationRepository _repository;
@@ -30,5 +30,5 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside
                 return null;
             }
         }
-    }
+    }*/
 }

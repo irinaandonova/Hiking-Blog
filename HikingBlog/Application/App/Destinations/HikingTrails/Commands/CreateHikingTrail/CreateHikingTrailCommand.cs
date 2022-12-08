@@ -23,7 +23,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 
         public ICollection<Comment> Comments { get; set; } = null;
 
-        public ICollection<Rating> Ratings { get; set; }
+        public ICollection<Rating> Ratings { get; set; } = null;
 
         public ICollection<User> Visitors { get; set; } = null;
     }

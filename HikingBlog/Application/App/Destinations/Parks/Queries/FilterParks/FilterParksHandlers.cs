@@ -5,6 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Queries.FilterParks
 {
+    /*
     public class FilterParksHandler : IRequestHandler<FilterParksQuery, List<Park>>
     {
         private readonly IDestinationRepository _repository;
@@ -16,6 +17,7 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.FilterParks
 
         public Task<List<Park>> Handle(FilterParksQuery query, CancellationToken cancellationToken)
         {
+            
             try
             {
                 List<Park> parksList = _repository.FilterParks(query.HasPlayground, query.IsDogFriendly);
@@ -31,5 +33,7 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.FilterParks
                 return null;
             }
         }
-    }
+            }
+            */
+    
 }

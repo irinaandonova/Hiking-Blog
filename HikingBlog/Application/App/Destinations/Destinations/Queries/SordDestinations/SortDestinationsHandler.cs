@@ -5,6 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations
 {
+    /*
     public class SortDestinationsHandler : IRequestHandler<SortDestinationsQuery, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
@@ -33,4 +34,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestin
             }
         }
     }
+    */
 }
