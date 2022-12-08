@@ -6,9 +6,9 @@ namespace NatuteBlog.Application.Regions
 {
     public class CreateRegionHandler : IRequestHandler<CreateRegionCommand, bool>
     {
-        private readonly IRegion _repository;
+        private readonly IRegionRepository _repository;
 
-        public CreateRegionHandler(IRegion RegionRepository)
+        public CreateRegionHandler(IRegionRepository RegionRepository)
         {
             _repository = RegionRepository;
         }
