@@ -9,6 +9,6 @@ namespace NatureBlog.Application.Repositories
 {
     public interface IRegion
     {
-        public bool Add(Region region);
+        public Task Add(Region region);
     }
 }

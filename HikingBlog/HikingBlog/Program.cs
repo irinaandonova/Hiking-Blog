@@ -13,7 +13,7 @@ using System.Reflection;
 try
 {
     var serviceCollection = new ServiceCollection()
-        .AddMediatR(Assembly.GetExecutingAssembly())
+        .AddMediatR(typeof(AssemblyMarker).Assembly)
         .AddScoped(typeof(IDestinationRepository), typeof(DestinationRepository))
         .AddScoped(typeof(IRegion), typeof(RegionRepository))
         .BuildServiceProvider();
