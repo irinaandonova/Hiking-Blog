@@ -8,9 +8,10 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
-    public class RegionRepository : IRegion
+    public class RegionRepository : IRegionRepository
     {
         private readonly AppDBContext _dbContext;
+
         public RegionRepository(AppDBContext dbContext)
         {
             _dbContext = dbContext;
