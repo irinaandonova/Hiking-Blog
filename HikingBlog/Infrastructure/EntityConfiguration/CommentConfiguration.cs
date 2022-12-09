@@ -24,11 +24,13 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             commentBuilder.HasOne(x => x.Creator)
                 .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.Id);
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
             commentBuilder.HasOne(x => x.Destination)
                 .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.Id);
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

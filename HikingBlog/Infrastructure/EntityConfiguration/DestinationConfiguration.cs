@@ -24,16 +24,18 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
                 .IsRequired()
                 .HasMaxLength(500);
 
+            destinationConfiguration.HasOne(x => x.Creator);
+
             destinationConfiguration.HasOne(x => x.Region)
                 .WithMany(x => x.Destinations)
-                .HasForeignKey(x => x.Id);
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.SetNull);
 
             destinationConfiguration.HasMany(x => x.Comments)
                 .WithOne(x => x.Destination)
-                .HasForeignKey(x => x.Id);
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            destinationConfiguration.HasMany(x => x.Visitors)
-                .WithMany(x => x.VisitedDestinations);
         }
     }
 }

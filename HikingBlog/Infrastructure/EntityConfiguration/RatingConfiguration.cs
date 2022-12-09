@@ -6,14 +6,15 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 {
     public class RatingConfiguration: IEntityTypeConfiguration<Rating>
     {
-        public void Configure(EntityTypeBuilder<Rating> entityTypeBuilder)
+        public void Configure(EntityTypeBuilder<Rating> ratingBuilder)
         {
-            entityTypeBuilder.ToTable(nameof(Rating));
+            ratingBuilder.ToTable(nameof(Rating));
 
-            entityTypeBuilder.HasKey(x => x.UserId);
+            ratingBuilder.HasKey(x => x.Id);
 
-            entityTypeBuilder.Property<int>(x => x.RatingValue)
+            ratingBuilder.Property<int>(x => x.RatingValue)
                 .IsRequired();
+
         }
     }
 }

@@ -24,8 +24,10 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
                 .IsRequired()
                 .HasMaxLength(161);
 
-            userBuilder.HasMany(x => x.VisitedDestinations)
-                .WithMany(x => x.Visitors);
+            userBuilder.HasMany(x => x.Comments)
+                .WithOne(x => x.Creator)
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

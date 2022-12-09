@@ -22,7 +22,8 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             regionBuilder.HasMany(x => x.Destinations)
                 .WithOne(x => x.Region)
-                .HasForeignKey(x => x.Id);
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
