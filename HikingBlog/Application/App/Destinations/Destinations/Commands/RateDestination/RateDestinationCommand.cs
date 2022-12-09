@@ -4,10 +4,10 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
 {
     public class RateDestinationCommand : IRequest<bool>
     {
-        public Guid destinationId { get; }
+        public int destinationId { get; }
 
         public int ratingValue { get; set; }
 
-        public Guid userId { get; }
+        public int userId { get; }
     }
 }

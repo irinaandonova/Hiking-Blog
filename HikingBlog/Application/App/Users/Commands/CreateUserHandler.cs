@@ -22,7 +22,7 @@ namespace NatureBlog.Application.App.Users
                 if (command.HikingSkill < 1 || command.HikingSkill > 3)
                     throw new OutOfRangeException("Hiking level must be between 1 and 3!");
 
-                User user = new User { Id = Guid.NewGuid(), Username = command.Username, Email = command.Email, HikingSkill = command.HikingSkill};
+                User user = new User {  Username = command.Username, Email = command.Email, HikingSkill = command.HikingSkill};
                 _userRepository.Add(user);
 
                 return Task.FromResult(true);

@@ -4,6 +4,6 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
 {
     public class DeleteDestinationCommand: IRequest<bool>
     {
-        public Guid Id { get; }
+        public int Id { get; set; }
     }
 }

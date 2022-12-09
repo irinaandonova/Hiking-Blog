@@ -5,7 +5,7 @@ using MediatR;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDestination
 {
-    /*
+    
     public class UpdateDestinationHandler : IRequestHandler<UpdateDestinationCommand, bool>
     {
         public readonly IDestinationRepository _repository;
@@ -23,10 +23,10 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDe
 
                 if (destination is null)
                     throw new DestinationNotFoundException("No destination with given id");
-                if (destination.Creator == command.UserId)
+                if (destination.Creator.Id == command.User.Id)
                     _repository.Update(command.DestinationId, command.Name, command.Description, command.ImageUrl, command.Region);
                 else
-                    throw new DestinationNotFoundException("No destination with given id!");
+                    throw new UserNotCreatorException("Currenty user is not the creator of the destination");
 
                 return Task.FromResult(true);
             }
@@ -37,5 +37,4 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDe
             }
         }
     }
-    */
 }

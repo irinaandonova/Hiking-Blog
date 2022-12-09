@@ -1,14 +1,15 @@
 ﻿using NatureBlog.Domain.Models;
+using NatureBlog.Domain.Models.Destinations;
 
 namespace NatureBlog.Domain.Models
 {
     public abstract class Destination
     {
-        public readonly Guid Id;
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public Guid Creator { get; set; }
+        public User Creator { get; set; }
 
         public string Description { get; set; }
 
@@ -22,6 +23,6 @@ namespace NatureBlog.Domain.Models
 
         public ICollection<Rating> Ratings { get; set; } 
 
-        public ICollection<User> Visitors { get; set; } 
+        public ICollection<UserVisitedDestinations> Visitors { get; set; } 
     }
 }

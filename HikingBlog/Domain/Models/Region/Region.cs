@@ -4,7 +4,7 @@ namespace NatureBlog.Domain.Models
 {
     public class Region
     {
-        public Guid Id;
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

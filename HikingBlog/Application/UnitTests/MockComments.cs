@@ -6,9 +6,10 @@ using NatureBlog.Domain.Models;
 namespace NatureBlog.Application.UnitTests
 {
     public class MockComments
-    {
+    {/*
         public static Mock<ICommentRepository> CreateComment()
         {
+            
             var mockRepo = new Mock<ICommentRepository>();
 
             mockRepo.Setup(r => r.CreateComment(System.Guid.NewGuid(), System.Guid.NewGuid(), "amzaing")).Returns(true);
@@ -20,8 +21,8 @@ namespace NatureBlog.Application.UnitTests
             mockRepo.Setup(r => r.DeleteComment(System.Guid.Empty, System.Guid.NewGuid())).Returns(false);
             mockRepo.Setup(r => r.DeleteComment(System.Guid.NewGuid(), System.Guid.Empty)).Returns(false);
             mockRepo.Setup(r => r.DeleteComment(System.Guid.Empty, System.Guid.Empty)).Returns(false);
-
+            
             return mockRepo;
         }
-    }
+    */}
 }

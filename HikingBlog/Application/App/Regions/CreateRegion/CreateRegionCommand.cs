@@ -9,7 +9,5 @@ namespace NatuteBlog.Application.Regions
 
         public string Cordinates { get; set; }
 
-        public ICollection<Destination> Destinations { get; set; }
-
     }
 }

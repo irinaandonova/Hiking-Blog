@@ -17,7 +17,7 @@ namespace NatuteBlog.Application.Regions
         {
             try
             {
-                Region region = new Region { Id = Guid.NewGuid(), Name = command.Name, Cordinates = command.Cordinates };
+                Region region = new Region { Name = command.Name, Cordinates = command.Cordinates };
                 _repository.Add(region);
                 return Task.FromResult(true);
             }

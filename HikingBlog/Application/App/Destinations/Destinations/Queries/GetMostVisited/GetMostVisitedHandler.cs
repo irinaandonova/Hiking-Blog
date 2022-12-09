@@ -4,7 +4,7 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
-{/*
+{
     public class GetMostVisitedHandler : IRequestHandler<GetMostVisited, List<Destination>>
     {
         private readonly IDestinationRepository _repository;
@@ -30,5 +30,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
                 return null;
             }
         }
-    }*/
+    }
 }

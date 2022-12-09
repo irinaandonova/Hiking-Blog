@@ -1,8 +1,10 @@
-﻿namespace NatureBlog.Domain.Models
+﻿using NatureBlog.Domain.Models.Destinations;
+
+namespace NatureBlog.Domain.Models
 {
     public class User 
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Username { get; set; }
 
@@ -12,6 +14,7 @@
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Destination> VisitedDestinations { get; set; }
+        public ICollection<UserVisitedDestinations> VisitedDestinations { get; set; }
+
     }
 }

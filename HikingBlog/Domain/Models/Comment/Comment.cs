@@ -6,7 +6,7 @@ namespace NatureBlog.Domain.Models
 {
     public class Comment 
     {
-        public Guid Id { get; set; } = Guid.NewGuid();  
+        public int Id { get; set; } 
 
         public User Creator { get; set; }
 

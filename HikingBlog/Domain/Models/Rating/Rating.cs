@@ -2,7 +2,9 @@
 {
     public class Rating
     {
-        public Guid UserId { get; set; }
+        public int Id { get; set; }
+        
+        public User User { get; set; }
 
         public int RatingValue { get; set; }
     }

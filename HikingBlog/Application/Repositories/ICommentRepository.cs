@@ -4,10 +4,10 @@ namespace NatureBlog.Application.Repositories
 {
     public interface ICommentRepository
     {
-        bool CreateComment(Guid destinationId, Guid creatorId, string text);
+        bool CreateComment(int destinationId, int creatorId, string text);
 
-        bool DeleteComment(Guid destinationId, Guid commentId);
+        bool DeleteComment(int destinationId, int commentId);
 
-        //bool EditCommentMethod(Guid destinationId, Guid commentId, string text);
+        bool EditCommentMethod(int destinationId, int commentId, string text);
     }
 }

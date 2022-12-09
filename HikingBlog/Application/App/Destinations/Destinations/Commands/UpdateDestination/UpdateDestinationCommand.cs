@@ -5,16 +5,16 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDe
 {
     public class UpdateDestinationCommand : IRequest<bool>
     {
-        public Guid DestinationId { get; set; }
+        public int DestinationId { get; set; }
 
         public string Name { get; set; }
 
-        public Guid UserId { get; set; }
+        public User User { get; set; }
 
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public string Region { get; set; }
+        public Region Region { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {
-    /*
+    
     public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, bool>
     {
         private readonly IDestinationRepository _repository;
@@ -19,10 +19,8 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
             {
                 if (command.ratingValue <= 0 || command.ratingValue > 5)
                     throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (command.userId == Guid.Empty)
+                if (command.userId == 0)
                     throw new ArgumentNullException("User field is missing!");
-
-                
                 
                 bool response = _repository.RateDestination(command.destinationId, command.ratingValue, command.userId);
                 
@@ -34,5 +32,5 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
                 return Task.FromResult(false);
             }
         }
-    }*/
+    }
 }

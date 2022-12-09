@@ -5,6 +5,6 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestina
 {
     public class GetDestinationQuery: IRequest<Destination>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

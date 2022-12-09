@@ -3,11 +3,11 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
-    public class CreateParkCommand : IRequest<Guid>
+    public class CreateParkCommand : IRequest<int>
     {
         public string Name { get; set; }
 
-        public Guid CreatorId { get; set; }
+        public User Creator { get; set; }
 
         public string Description { get; set; }
 
@@ -19,7 +19,7 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 
         public ICollection<Comment> Comments { get; set; } = null;
 
-        public Dictionary<User, int> Ratings { get; set; } = new Dictionary<User, int> { };
+        public ICollection<Rating> Ratings { get; set; } = null;
 
         public ICollection<User> Visitors { get; set; } = null;
 

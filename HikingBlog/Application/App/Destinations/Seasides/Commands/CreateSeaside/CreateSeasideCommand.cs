@@ -7,7 +7,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
     {
         public string Name { get; set; }
 
-        public Guid CreatorId { get; set; }
+        public User Creator { get; set; }
 
         public string Description { get; set; }
 

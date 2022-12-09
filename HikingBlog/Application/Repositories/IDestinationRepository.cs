@@ -6,37 +6,34 @@ namespace NatureBlog.Application.Repositories
     {
         Task Add(HikingTrail destination);
 
-        /*
+        bool Delete(int Id);
 
-        bool Delete(Guid Id);
+        Destination GetDestination(int destinationId);
 
-        bool Update(Guid Id, string name, string description, string imageUrl, string region);
-
+        bool Update(int Id, string name, string description, string imageUrl, Region region);
+        
         List<Destination> GetMostVisited();
 
-        Destination GetDestination(Guid destinationId);
-
         List<Seaside> GetAllSeasides();
-
+        
         List<HikingTrail> GetAllHikingTrails();
 
         List<Park> GetAllParks();
-
+        
         List<HikingTrail> FilterHikingTrails(int difficulty);
-
+        
         List<Seaside> FilterSeaside(bool isGuarded, bool hasUmbrellas);
 
         List<Park> FilterParks(bool isDogFriendly, bool hasPlayground);
 
-        List<Destination> FilterByRegion(string regeon);
+        List<Destination> FilterByRegion(Region region);
 
         List<Destination> SearchByKeyword(string searchWord);
 
         List<Destination> SortDestinations(string condition);
 
-        bool RateDestination(Guid destinationId, int ratingValue, Guid userId);
+        bool RateDestination(int destinationId, int ratingValue, int userId);
 
-        bool AddUmbrellaPrices(Guid destinationId, double price);
-        */
+        bool AddUmbrellaPrices(int destinationId, double price);
     }
 }
