@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NatureBlog.Domain.Models;
+using NatureBlog.Domain.Models.Destinations;
 using NatureBlog.Infrastructure.EntityConfiguration;
 using System.Reflection;
 //Add configurations
@@ -16,6 +17,8 @@ namespace NatureBlog.Infrastructure
         public DbSet<Region> Regions => Set<Region>();
 
         public DbSet<User> Users => Set<User>();
+
+        public DbSet<UserVisitedDestinations> VisitedDestinations => Set<UserVisitedDestinations>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
