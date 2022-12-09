@@ -10,7 +10,7 @@ using NatureBlog.Domain.Models.Destinations;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {
-    public class VisitedDestinationsConfiguration : IEntityTypeConfiguration<UserVisitedDestinations>
+    public class UserVisitedDestinationsConfiguration : IEntityTypeConfiguration<UserVisitedDestinations>
     {
         public void Configure(EntityTypeBuilder<UserVisitedDestinations> visitedDestinationsBuilder)
         {
@@ -28,16 +28,16 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             visitedDestinationsBuilder.Property<Destination>(x => x.Destination)
                 .IsRequired();
-
+            
             visitedDestinationsBuilder.HasOne(x => x.User)
                 .WithMany(x => x.VisitedDestinations)
-                .HasForeignKey(x => x.DestinationId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-                
+                .HasForeignKey(x => x.DestinationId);
+                //.OnDelete(DeleteBehavior.SetNull);
+
             visitedDestinationsBuilder.HasOne(x => x.Destination)
                 .WithMany(x => x.Visitors)
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .HasForeignKey(x => x.UserId);
+                //.OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
