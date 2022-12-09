@@ -6,7 +6,7 @@ namespace NatureBlog.Infrastructure.Repositories
     public class DestinationRepository : IDestinationRepository
     {
         private readonly AppDBContext _dbContext;
-       public DestinationRepository (AppDBContext dbContext)
+        public DestinationRepository(AppDBContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -16,44 +16,44 @@ namespace NatureBlog.Infrastructure.Repositories
             await _dbContext.Destinations.AddAsync(destination);
             _dbContext.SaveChanges();
         }
-
-
-        /*
-        public bool Delete(Guid Id)
+        
+        public bool Delete(int Id)
         {
-            AllDestinations.Remove(Id);
+            Destination destination = GetDestination(Id);
+            _dbContext.Destinations.Remove(destination);
+            _dbContext.SaveChanges();
             return true;
         }
-
-        public bool Update(Guid destinationId, string name, string description, string imageUrl, string region)
+        public Destination GetDestination(int id)
         {
-            Destination destination = AllDestinations[destinationId];
+            return (Destination)_dbContext.Destinations.Select(x => x.Id == id);
+           
+        }
+        
+        public bool Update(int destinationId, string name, string description, string imageUrl, Region region)
+        {
+            Destination destination = GetDestination(destinationId);
             destination.Name = name;
+            destination.Description = description;
+            destination.ImageUrl = imageUrl;
+            destination.Region = region;
+
+            _dbContext.SaveChanges();
             return true;
         }
-
+        
         public List<Destination> GetMostVisited()
         {
-            List<Destination> result = (from destination in AllDestinations orderby destination.Value.Visitors.Count ascending select destination.Value).Take(10).ToList();
+            List<Destination> result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList(); 
 
             return result;
         }
 
-        public Destination GetDestination(Guid id)
-        {
-            if (AllDestinations.ContainsKey(id))
-            {
-                Destination destination = AllDestinations[id];
-
-                return destination;
-            }
-            else
-                return null;
-        }
+        
 
         public List<Seaside> GetAllSeasides()
         {
-            List<Seaside> destinations = AllDestinations.Where(x => x.Value is Seaside).Select(s => s.Value as Seaside).ToList();
+            List<Seaside> destinations = _dbContext.Destinations.Where(x => x is Seaside).Select(s => s as Seaside).ToList();
 
             return destinations;
         }
@@ -62,8 +62,9 @@ namespace NatureBlog.Infrastructure.Repositories
         {
             try
             {
-                List<HikingTrail> destinations = AllDestinations.Where(x => x.Value is HikingTrail).Select(s => s.Value as HikingTrail).ToList();
-                return destinations;
+                List<HikingTrail> hikingTrails = _dbContext.Destinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).ToList();
+
+                return hikingTrails;
             }
             catch (Exception ex)
             {
@@ -74,11 +75,11 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public List<Park> GetAllParks()
         {
-            List<Park> destinations = AllDestinations.Where(x => x.Value is Park).Select(s => s.Value as Park).ToList();
+            List<Park> parks = _dbContext.Destinations.Where(x => x is Park).Select(s => s as Park).ToList();
 
-            return destinations;
+            return parks;
         }
-
+        
         public List<HikingTrail> FilterHikingTrails(int difficulty)
         {
             List<HikingTrail> hikingTrails = GetAllHikingTrails().Where(d => d.Difficulty == difficulty).ToList();
@@ -102,16 +103,16 @@ namespace NatureBlog.Infrastructure.Repositories
             return parks;
         }
 
-        public List<Destination> FilterByRegion(string region)
+        public List<Destination> FilterByRegion(Region region)
         {
-            List<Destination> destinations = AllDestinations.Where(d => d.Value.Region.Name == region).Select(d => d.Value).ToList();
+            List<Destination> destinations = _dbContext.Destinations.Where(d => d.Region.Id == region.Id).Select(d => d).ToList();
 
             return destinations;
         }
 
         public List<Destination> SearchByKeyword(string searchWord)
         {
-            List<Destination> destinations = AllDestinations.Where(d => d.Value.Name.Contains(searchWord)).Select(d => d.Value).ToList();
+            List<Destination> destinations = _dbContext.Destinations.Where(d => d.Name.Contains(searchWord)).Select(d => d).ToList();
 
             return destinations;
         }
@@ -120,16 +121,16 @@ namespace NatureBlog.Infrastructure.Repositories
         {
             List<Destination> result = new List<Destination> { };
             if (condition == "alphabetical")
-                result = (from destination in AllDestinations orderby destination.Value.Name ascending select destination.Value).ToList();
+                result = _dbContext.Destinations.OrderBy(x => x.Name).ToList();
             else if (condition == "reverse alphabetical")
-                result = (from destination in AllDestinations orderby destination.Value.Name descending select destination.Value).ToList();
+                result = _dbContext.Destinations.OrderByDescending(x => x.Name).ToList();   
             else
                 throw new ArgumentOutOfRangeException("Invalid condition!");
 
             return result;
         }
 
-        public bool AddUmbrellaPrices(Guid id, double umbrellaPrice)
+        public bool AddUmbrellaPrices(int id, double umbrellaPrice)
         {
             Seaside seaside = (Seaside)GetDestination(id);
 
@@ -140,26 +141,25 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool RateDestination(Guid destinationId, int ratingValue, Guid userId)
+        public bool RateDestination(int destinationId, int ratingValue, int userId)
         {
-            
-            Destination destination = GetDestination(destinationId);
 
-            if (destination.Ratings.ContainsKey(userId))
-                destination.Ratings[userId] = ratingValue;
+            Destination destination = GetDestination(destinationId);
+            Rating rating = (Rating)destination.Ratings.Select(x => x.User.Id == userId);
+            if (rating is not null)
+                rating.RatingValue = ratingValue;
             else
-                destination.Ratings.Add(userId, ratingValue);
-            
+                destination.Ratings.Add(rating);
+
             return true;
         }
 
-        public bool ChangeDifficulty(Guid destinationId, int difficulty, Guid userId)
+        public bool ChangeDifficulty(int destinationId, int difficulty, int userId)
         {
             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
             hikingTrail.Difficulty = difficulty;
 
             return true;
         }
-    */
     }
 }

@@ -1,38 +1,45 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
     public class CommentsRepository
     {
-        public CommentsRepository(DestinationRepository destinationRepository)
-        {
-            AllComments = new Dictionary<Guid, Comment> { };
-            DestinationRepository= destinationRepository;
-        }
+        private readonly AppDBContext _dbContext;
 
-        public Dictionary<Guid, Comment> AllComments;
+        public CommentsRepository(AppDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public DestinationRepository DestinationRepository { get; set; }
-        /*
-        public bool CreateComment(Guid destinationId, Guid creatorId, string text)
+        
+        public bool CreateComment(int destinationId, int creatorId, string text)
         {
             Destination destination = DestinationRepository.GetDestination(destinationId);
 
-            Comment comment = new Comment { Destination = Guid.NewGuid(), Text = text };
-            destination.Comments.Add(comment.Id);
+            Comment comment = new Comment { Destination = destination, Text = text };
+            destination.Comments.Add(comment);
+            _dbContext.SaveChanges();
 
             return true;
         }
 
-        public bool DeleteComment(Guid destinationId, Guid commentId)
+        public bool DeleteComment(int destinationId, int commentId)
         {
             Destination destination = DestinationRepository.GetDestination(destinationId);
+            Comment comment = GetComment(commentId);
+            destination.Comments.Remove(comment);
+            _dbContext.SaveChanges();
 
-            destination.Comments.Remove(commentId);
             return true;
         }
-        */
+        
+        public Comment GetComment(int commentId)
+        {
+            return (Comment)_dbContext.Comments.Select(x => x.Id == commentId);
+        }
     }
 }
 
