@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NatureBlog.Domain.Models;
-using NatureBlog.Domain.Models.Destinations;
-using NatureBlog.Infrastructure.EntityConfiguration;
 using System.Reflection;
 //Add configurations
 namespace NatureBlog.Infrastructure
