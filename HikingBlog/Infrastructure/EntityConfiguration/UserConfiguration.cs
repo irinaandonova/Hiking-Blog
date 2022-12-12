@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {
@@ -13,7 +8,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> userBuilder)
         {
-            
+
             userBuilder.ToTable(nameof(User));
             userBuilder.HasKey(x => x.Id);
 
@@ -24,10 +19,9 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             userBuilder.Property<string>(x => x.Email)
                 .IsRequired()
                 .HasMaxLength(161);
-            /*
+
             userBuilder.HasMany(u => u.VisitedDestinations)
-                .WithMany(d => d.Visitors);*/
-                
-          }
+                .WithMany(d => d.Visitors);
+        }
     }
 }

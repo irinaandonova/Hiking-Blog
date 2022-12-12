@@ -11,7 +11,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             regionBuilder.ToTable(nameof(Region));
 
             regionBuilder.HasKey(x => x.Id);
-            
+
 
             regionBuilder.Property<string>(x => x.Name)
                 .IsRequired()
@@ -20,11 +20,6 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             regionBuilder.Property<string>(x => x.Cordinates)
                 .IsRequired()
                 .HasMaxLength(60);
-
-            regionBuilder.HasMany(x => x.Destinations)
-                .WithOne(x => x.Region)
-                .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
