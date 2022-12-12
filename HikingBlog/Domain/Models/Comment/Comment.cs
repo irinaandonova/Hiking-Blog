@@ -10,11 +10,16 @@ namespace NatureBlog.Domain.Models
 
         public User Creator { get; set; }
 
+        public int CreatorId { get; set; }
+
         public string Text { get; set; }
 
         public DateTime Date { get; set; }
 
         public Destination Destination { get; set; }
 
+        public int DestinationId { get; set; }
+    
+    
     }
 }

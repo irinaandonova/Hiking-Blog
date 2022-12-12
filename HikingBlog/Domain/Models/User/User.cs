@@ -14,7 +14,7 @@ namespace NatureBlog.Domain.Models
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<UserVisitedDestinations> VisitedDestinations { get; set; }
+        public ICollection<Destination> VisitedDestinations { get; set; }
 
     }
 }

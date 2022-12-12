@@ -23,6 +23,6 @@ namespace NatureBlog.Domain.Models
 
         public ICollection<Rating> Ratings { get; set; } 
 
-        public ICollection<UserVisitedDestinations> Visitors { get; set; } 
+        public ICollection<User> Visitors { get; set; } 
     }
 }
