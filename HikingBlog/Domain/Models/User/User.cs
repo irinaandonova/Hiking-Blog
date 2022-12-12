@@ -1,6 +1,4 @@
-﻿using NatureBlog.Domain.Models.Destinations;
-
-namespace NatureBlog.Domain.Models
+﻿namespace NatureBlog.Domain.Models
 {
     public class User 
     {

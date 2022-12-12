@@ -1,7 +1,4 @@
-﻿using NatureBlog.Domain.Models;
-using NatureBlog.Domain.Models.Destinations;
-
-namespace NatureBlog.Domain.Models
+﻿namespace NatureBlog.Domain.Models
 {
     public abstract class Destination
     {
