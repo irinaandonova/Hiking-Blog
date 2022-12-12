@@ -11,12 +11,24 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task Add(HikingTrail destination)
+        public async Task AddHikingTrail(HikingTrail destination)
         {
             await _dbContext.Destinations.AddAsync(destination);
             _dbContext.SaveChanges();
         }
-        
+
+        public async Task AddSeaside(Seaside destination)
+        {
+            await _dbContext.Destinations.AddAsync(destination);
+            _dbContext.SaveChanges();
+        }
+
+        public async Task AddPark(Park destination)
+        {
+            await _dbContext.Destinations.AddAsync(destination);
+            _dbContext.SaveChanges();
+        }
+
         public bool Delete(int Id)
         {
             Destination destination = GetDestination(Id);
@@ -158,6 +170,14 @@ namespace NatureBlog.Infrastructure.Repositories
         {
             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
             hikingTrail.Difficulty = difficulty;
+
+            return true;
+        }
+
+        public bool UpdatePlayground(int destinationId, bool hasPlayground)
+        {
+            Park park = (Park)GetDestination(destinationId);
+            park.HasPlayground = hasPlayground;
 
             return true;
         }
