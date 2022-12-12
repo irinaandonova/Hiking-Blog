@@ -16,20 +16,22 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             commentBuilder.ToTable(nameof(Comment));
 
-            commentBuilder.HasKey(x => x.Id);
+            commentBuilder.HasKey(x => x.Id); 
 
             commentBuilder.Property<string>(x => x.Text)
                 .IsRequired()
                 .HasMaxLength(300);
 
+            commentBuilder.Property<DateTime>(x => x.Date).IsRequired();
+
             commentBuilder.HasOne(x => x.Creator)
                 .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.CreatorId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             commentBuilder.HasOne(x => x.Destination)
                 .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.Id)
+                .HasForeignKey(x => x.DestinationId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

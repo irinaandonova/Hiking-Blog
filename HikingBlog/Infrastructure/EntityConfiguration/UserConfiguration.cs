@@ -13,6 +13,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> userBuilder)
         {
+            
             userBuilder.ToTable(nameof(User));
             userBuilder.HasKey(x => x.Id);
 
@@ -23,11 +24,10 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             userBuilder.Property<string>(x => x.Email)
                 .IsRequired()
                 .HasMaxLength(161);
-
-            userBuilder.HasMany(x => x.Comments)
-                .WithOne(x => x.Creator)
-                .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-        }
+            /*
+            userBuilder.HasMany(u => u.VisitedDestinations)
+                .WithMany(d => d.Visitors);*/
+                
+          }
     }
 }

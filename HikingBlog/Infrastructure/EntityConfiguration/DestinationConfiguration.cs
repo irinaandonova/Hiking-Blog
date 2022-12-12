@@ -29,7 +29,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             destinationConfiguration.HasOne(x => x.Region)
                 .WithMany(x => x.Destinations)
                 .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             destinationConfiguration.HasMany(x => x.Comments)
                 .WithOne(x => x.Destination)
