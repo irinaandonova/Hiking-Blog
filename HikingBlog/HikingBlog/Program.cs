@@ -1,44 +1,43 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NatureBlog.Application;
-using NatureBlog.Application.App;
-using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Infrastructure;
 using NatureBlog.Infrastructure.Repositories;
-using NatuteBlog.Application.Regions;
 using System;
-using System.Reflection;
+using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
+using NatuteBlog.Application.Regions;
 
 try
 {
     var serviceCollection = new ServiceCollection()
         .AddMediatR(typeof(AssemblyMarker).Assembly)
         .AddScoped(typeof(IDestinationRepository), typeof(DestinationRepository))
-        .AddScoped(typeof(IRegion), typeof(RegionRepository))
+        .AddScoped(typeof(IRegionRepository), typeof(RegionRepository))
+        .AddScoped(typeof(IUserRepository), typeof(UserRepository))
         .AddDbContext<AppDBContext>()
         .BuildServiceProvider();
 
 
     var mediator = serviceCollection.GetRequiredService<IMediator>();
+    /*
+    await mediator.Send(new CreateHikingTrailCommand
+    {
+        Name = "Seven Rila Lakes",
+        Description = "Amazing trail",
+        CreatorId = Guid.Parse(9A39DC77-08E8-4204-A3CF-A304D05F2597),
+        ImageUrl = "img.com",
+        Region = Guid.Parse("9E3B6769 - F222 - 4915 - BC9A - 8C2928BC80F9"),
+        Difficulty = 2,
+        Duration = 90
+    });
+ */
 
     await mediator.Send(new CreateRegionCommand
     {
-        Name = "Rila",
-        Cordinates = "1728:762"
+        Name = "Pirin",
+        Cordinates = " 41°32'34.4\"N 23°33'34.3\"E"
     });
-    
-    await mediator.Send(new CreateHikingTrailCommand
-    {
-        Name = "Seven Rila lakes",
-        CreatorId = Guid.NewGuid(),
-        Description = "Great hiking Trail",
-        ImageUrl = "img.com",
-        Difficulty = 2,
-        Duration = 180
-    });
-    
 }
 catch(Exception ex)
 {

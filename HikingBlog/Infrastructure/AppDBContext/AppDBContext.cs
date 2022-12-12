@@ -18,11 +18,18 @@ namespace NatureBlog.Infrastructure
 
         public DbSet<User> Users => Set<User>();
 
-        public DbSet<UserVisitedDestinations> VisitedDestinations => Set<UserVisitedDestinations>();
+        public DbSet<HikingTrail> HikingTrails => Set<HikingTrail>();
 
+        public DbSet<Seaside> Seasides => Set<Seaside>();
+
+        public DbSet<Park> Parks => Set<Park>();
+
+        public DbSet<UserVisitedDestinations> UserVisitedDestinations => Set<UserVisitedDestinations>();
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.EnableDetailedErrors();
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
