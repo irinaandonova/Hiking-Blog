@@ -24,7 +24,7 @@ namespace NatureBlog.Infrastructure
 
         public DbSet<Park> Parks => Set<Park>();
 
-        public DbSet<UserVisitedDestinations> UserVisitedDestinations => Set<UserVisitedDestinations>();
+        //public DbSet<UserVisitedDestinations> UserVisitedDestinations => Set<UserVisitedDestinations>();
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
