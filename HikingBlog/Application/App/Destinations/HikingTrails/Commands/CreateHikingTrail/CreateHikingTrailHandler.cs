@@ -6,11 +6,11 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 {
     public class CreateHikingTrailHandler : IRequestHandler<CreateHikingTrailCommand, int?>
     {
-        private readonly IDestinationRepository _DestinationRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateHikingTrailHandler(IDestinationRepository DestinationRepository)
+        public CreateHikingTrailHandler(IUnitOfWork unitOfWork)
         {
-            _DestinationRepository = DestinationRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<int?> Handle(CreateHikingTrailCommand command, CancellationToken cancellationToken)
@@ -18,8 +18,9 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
             try
             {
                 HikingTrail hikingTrail = new HikingTrail { Name = command.Name, Creator = command.Creator, Description = command.Description, ImageUrl = command.ImageUrl, Region = command.Region, Difficulty = command.Difficulty, HikingDuration = command.Duration };
-                await _DestinationRepository.Add(hikingTrail);
-
+                
+                await _unitOfWork.DestinationRepository.AddHikingTrail(hikingTrail);
+                await _unitOfWork.Save();
                 return hikingTrail.Id;
             }
             catch (Exception ex)

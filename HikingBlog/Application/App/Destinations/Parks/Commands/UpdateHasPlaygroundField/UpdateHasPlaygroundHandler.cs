@@ -4,41 +4,39 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygroundField
-{/*
+{
     public class UpdateHasPlaygroundHandler : IRequestHandler<UpdateHasPlaygroundCommand, bool>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateHasPlaygroundHandler(IDestinationRepository destinationRepository)
+        public UpdateHasPlaygroundHandler(IUnitOfWork unitOfWork)
         {
-            _repository= destinationRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Handle(UpdateHasPlaygroundCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateHasPlaygroundCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                Park park  = (Park)_repository.GetDestination(command.DestinationId);
+                Park park =  (Park)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
 
-                if (park.Creator != command.UserId)
+                if (park.Creator.Id != command.UserId)
                     throw new UserNotCreatorException("Current user didn't create this destination!");
-                if (command.UserId == Guid.Empty)
-                    throw new ArgumentNullException("User id field is missing!");
-                if (command.DestinationId == Guid.Empty)
-                    throw new ArgumentNullException("Destination id fields is empty!");
+               
 
-                park.HasPlayground = command.HasPlayground;
+                _unitOfWork.DestinationRepository.UpdatePlayground(command.DestinationId, command.HasPlayground);
+                await _unitOfWork.Save();
 
                 if (park.HasPlayground != command.HasPlayground)
                     throw new ModificationFailedException("Playground change failed!");
 
-                return Task.FromResult(true);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the UpdateHasPlayground Method! " + ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
-    }*/
+    }
 }

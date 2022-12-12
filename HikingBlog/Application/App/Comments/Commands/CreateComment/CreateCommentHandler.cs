@@ -6,29 +6,29 @@ namespace Application.App.Comments.Commands.CreateComment
 {
     public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, bool>
     {
-        private readonly ICommentRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateCommentHandler(ICommentRepository commentRepository)
+        public CreateCommentHandler(IUnitOfWork unitOfWork)
         {
-
-            _repository = commentRepository;
+            _unitOfWork= unitOfWork;                
         }
 
-        public Task<bool> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                bool response = _repository.CreateComment(command.destinationId, command.creatorId, command.text);
+                bool response = _unitOfWork.CommentRepository.CreateComment(command.destinationId, command.creatorId, command.text);
+                await _unitOfWork.Save();
 
                 if (response)
-                    return Task.FromResult(true);
+                    return true;
                 else
                     throw new ModificationFailedException("Creating a comment was unsuccessful!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in CreateComment Method" + ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
     }

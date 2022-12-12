@@ -4,7 +4,12 @@ namespace NatureBlog.Application.Repositories
 {
     public interface IDestinationRepository
     {
-        Task Add(HikingTrail destination);
+        Task AddHikingTrail(HikingTrail destination);
+
+        Task AddPark(Park destination);
+
+        Task AddSeaside(Seaside destination);
+
 
         bool Delete(int Id);
 
@@ -35,5 +40,9 @@ namespace NatureBlog.Application.Repositories
         bool RateDestination(int destinationId, int ratingValue, int userId);
 
         bool AddUmbrellaPrices(int destinationId, double price);
+
+        bool ChangeDifficulty(int destinationId, int difficulty, int userId);
+
+        bool UpdatePlayground(int destinationId, bool hasPlayground);
     }
 }

@@ -4,43 +4,37 @@ using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
-{/*
+{
     public class ChangeDifficultyHandler : IRequestHandler<ChangeDifficultyCommand, bool>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ChangeDifficultyHandler(IDestinationRepository destinationRepository)
+        public ChangeDifficultyHandler(IUnitOfWork unitOfWork)
         {
-            _repository = destinationRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Handle(ChangeDifficultyCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(ChangeDifficultyCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                HikingTrail hikingTrail = (HikingTrail)_repository.GetDestination(command.DestinationId);
+                HikingTrail hikingTrail = (HikingTrail)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
 
-                if (hikingTrail.Creator != command.UserId)
+                if (hikingTrail.Creator.Id != command.UserId)
                     throw new UserNotCreatorException("Current user didn't create this destination!");
-                if (command.UserId == Guid.Empty)
-                    throw new ArgumentNullException("User id field is missing!");
-                if (command.DestinationId == Guid.Empty)
-                    throw new ArgumentNullException("Destination id fields is empty!");
                 if (command.Difficulty < 1 || command.Difficulty > 3)
                     throw new OutOfRangeException("Input should be from 1 to 3!");
 
-                hikingTrail.Difficulty = command.Difficulty;
+                _unitOfWork.DestinationRepository.ChangeDifficulty(command.DestinationId, command.Difficulty, command.UserId);
+                await _unitOfWork.Save();
 
-                if (hikingTrail.Difficulty != command.Difficulty)
-                    throw new ModificationFailedException("Difficulty change failed!");
-
-                return Task.FromResult(true);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the ChangeDifficulty Method! " + ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
-    }*/
+    }
 }

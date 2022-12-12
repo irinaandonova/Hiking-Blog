@@ -7,24 +7,25 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
 
     public class DeleteDestinationHandler : IRequestHandler<DeleteDestinationCommand, bool>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteDestinationHandler(IDestinationRepository DestinationRepository)
+        public DeleteDestinationHandler(IUnitOfWork unitOfWork)
         {
-            _repository = DestinationRepository;
+            _unitOfWork= unitOfWork;
         }
 
-        public Task<bool> Handle(DeleteDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                _repository.Delete(command.Id);
-                return Task.FromResult(true);
+                _unitOfWork.CommentRepository.DeleteComment(command.Id, command.DestonationId);
+                await _unitOfWork.Save();
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Delete Method:" + ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
     }

@@ -7,13 +7,13 @@ namespace NatureBlog.Application.App.Users
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand, bool>
     {
-        private readonly IUserRepository _userRepository;
-        public CreateUserHandler(IUserRepository userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public CreateUserHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -23,14 +23,16 @@ namespace NatureBlog.Application.App.Users
                     throw new OutOfRangeException("Hiking level must be between 1 and 3!");
 
                 User user = new User {  Username = command.Username, Email = command.Email, HikingSkill = command.HikingSkill};
-                _userRepository.Add(user);
 
-                return Task.FromResult(true);
+                await _unitOfWork.UserRepository.Add(user);
+                await _unitOfWork.Save();
+
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Excetion in the Add User method: ", ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
     }

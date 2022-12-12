@@ -6,8 +6,8 @@ namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygr
     {
         public bool HasPlayground { get; set; }
 
-        public Guid DestinationId { get; set; }
+        public int DestinationId { get; set; }
 
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -6,26 +6,28 @@ namespace NatuteBlog.Application.Regions
 {
     public class CreateRegionHandler : IRequestHandler<CreateRegionCommand, bool>
     {
-        private readonly IRegionRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateRegionHandler(IRegionRepository RegionRepository)
+        public CreateRegionHandler(IUnitOfWork unitOfWork)
         {
-            _repository = RegionRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Handle(CreateRegionCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateRegionCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 Region region = new Region { Name = command.Name, Cordinates = command.Cordinates };
-                _repository.Add(region);
-                return Task.FromResult(true);
+
+                await _unitOfWork.RegionRepository.Add(region);
+                await _unitOfWork.Save();
+
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return Task.FromResult(false);
-
+                return false;
             }
 
         }

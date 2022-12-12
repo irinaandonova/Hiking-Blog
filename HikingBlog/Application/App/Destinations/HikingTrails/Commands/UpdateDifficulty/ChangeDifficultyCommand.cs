@@ -4,10 +4,10 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDiffic
 {
     public class ChangeDifficultyCommand : IRequest<bool>
     {
-        public Guid DestinationId { get; set; }
+        public int DestinationId { get; set; }
 
         public int Difficulty { get; set; }
 
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

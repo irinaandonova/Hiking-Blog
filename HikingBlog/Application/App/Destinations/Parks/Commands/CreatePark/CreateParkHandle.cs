@@ -6,26 +6,28 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
     public class CreateParkHandler : IRequestHandler<CreateParkCommand, int>
     {
-        private readonly IDestinationRepository _DestinationRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateParkHandler(IDestinationRepository DestinationRepository)
+
+        public CreateParkHandler(IUnitOfWork unitOfWork)
         {
-            _DestinationRepository = DestinationRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateParkCommand command, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateParkCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 Park park = new Park { Name = command.Name, Creator = command.Creator, Description = command.Description, ImageUrl = command.ImageUrl, Region = command.Region, HasPlayground = command.HasPlayground, IsDogFriendly = command.IsDogFriendly };
-                //_DestinationRepository.Add(park);
+                await _unitOfWork.DestinationRepository.AddPark(park);
+                await _unitOfWork.Save();
 
-                return Task.FromResult(park.Id);
+                return park.Id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return Task.FromResult(0);
+                return 0;
             }
         }
     }

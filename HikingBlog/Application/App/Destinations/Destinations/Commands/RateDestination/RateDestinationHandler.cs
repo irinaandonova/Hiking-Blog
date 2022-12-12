@@ -6,30 +6,31 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
     
     public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, bool>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RateDestinationHandler(IDestinationRepository destinationRepository)
+        public RateDestinationHandler(IUnitOfWork unitOfWork)
         {
-            _repository = destinationRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                if (command.ratingValue <= 0 || command.ratingValue > 5)
+                if (command.RatingValue <= 0 || command.RatingValue > 5)
                     throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (command.userId == 0)
+                if (command.UserId == 0)
                     throw new ArgumentNullException("User field is missing!");
                 
-                bool response = _repository.RateDestination(command.destinationId, command.ratingValue, command.userId);
-                
-                return Task.FromResult(response);
+                bool response = _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
+                await _unitOfWork.Save();
+
+                return response;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the RateDestination Method! " + ex.Message);
-                return Task.FromResult(false);
+                return false;
             }
         }
     }
