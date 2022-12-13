@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
-    public class CreateParkCommand : IRequest<int>
+    public class CreateParkCommand : IRequest<int?>
     {
         public string Name { get; set; }
 

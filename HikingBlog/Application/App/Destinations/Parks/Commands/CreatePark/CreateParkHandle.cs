@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 {
-    public class CreateParkHandler : IRequestHandler<CreateParkCommand, int>
+    public class CreateParkHandler : IRequestHandler<CreateParkCommand, int?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,7 +14,7 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateParkCommand command, CancellationToken cancellationToken)
+        public async Task<int?> Handle(CreateParkCommand command, CancellationToken cancellationToken)
         {
             try
             {
