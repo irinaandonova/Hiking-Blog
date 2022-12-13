@@ -10,10 +10,14 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             ratingBuilder.ToTable(nameof(Rating));
 
-            ratingBuilder.HasKey(x => x.Id);
-
-            ratingBuilder.Property<int>(x => x.RatingValue)
+            ratingBuilder.Property(r => r.Id)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
+            
+            ratingBuilder.Property(x => x.RatingValue)
                 .IsRequired();
+
+            
 
         }
     }

@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace NatureBlog.Infrastructure.EntityConfiguration
 {
@@ -16,13 +10,15 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             commentBuilder.ToTable(nameof(Comment));
 
-            commentBuilder.HasKey(x => x.Id); 
+            commentBuilder.Property(c => c.Id)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
 
-            commentBuilder.Property<string>(x => x.Text)
+            commentBuilder.Property(x => x.Text)
                 .IsRequired()
                 .HasMaxLength(300);
 
-            commentBuilder.Property<DateTime>(x => x.Date).IsRequired();
+            commentBuilder.Property(x => x.Date).IsRequired();
 
             commentBuilder.HasOne(x => x.Creator)
                 .WithMany(x => x.Comments)

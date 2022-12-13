@@ -10,32 +10,31 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
         {
             destinationConfiguration.ToTable(nameof(Destination));
 
-            destinationConfiguration.HasKey(x => x.Id);
+            destinationConfiguration.Property(d => d.Id)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
 
-            destinationConfiguration.Property<string>(x => x.Name)
+            destinationConfiguration.Property(d => d.Name)
                  .IsRequired()
                  .HasMaxLength(60);
 
-            destinationConfiguration.Property<string>(x => x.Description)
+            destinationConfiguration.Property(d => d.Description)
                 .IsRequired()
                 .HasMaxLength(560);
 
-            destinationConfiguration.Property<string>(x => x.ImageUrl)
+            destinationConfiguration.Property(d => d.ImageUrl)
                 .IsRequired()
                 .HasMaxLength(500);
 
-            destinationConfiguration.HasOne(x => x.Creator);
+            destinationConfiguration.HasOne(d => d.Creator)
+                .WithMany(u => u.CreatedDestinations)
+                .HasForeignKey(d => d.CreatorId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            destinationConfiguration.HasOne(x => x.Region)
-                .WithMany(x => x.Destinations)
-                .HasForeignKey(x => x.Id)
+            destinationConfiguration.HasOne(d => d.Region)
+                .WithMany(d => d.Destinations)
+                .HasForeignKey(d => d.RegionId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            destinationConfiguration.HasMany(x => x.Comments)
-                .WithOne(x => x.Destination)
-                .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }
