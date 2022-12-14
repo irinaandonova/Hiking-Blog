@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bqjJ9K7Os334PUfXZGiSB4pU20Yz8GevoT1S9wo2bMnS+VBIvnHZJjAFLTLQHSQwGaNdmEdNJadY/jQiSyCDog==",
+  "dgSpecHash": "m4w2J3cNjWBkF6yHMoJ5nN+MZpGItKvkdJbd994UEYNdnCR0opXu7MvXgWph6LlJPI+ZcgtRIPrBo0RPlCd6/w==",
   "success": true,
-  "projectFilePath": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Presentation.csproj",
+  "projectFilePath": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Present.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Irina\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Irina\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

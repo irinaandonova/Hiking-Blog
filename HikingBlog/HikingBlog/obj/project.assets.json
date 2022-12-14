@@ -3756,9 +3756,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Presentation.csproj",
-      "projectName": "Presentation",
-      "projectPath": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Presentation.csproj",
+      "projectUniqueName": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Present.csproj",
+      "projectName": "Present",
+      "projectPath": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\Present.csproj",
       "packagesPath": "C:\\Users\\Irina\\.nuget\\packages\\",
       "outputPath": "E:\\programming\\personal projects\\nature blog\\Nature-Blog\\HikingBlog\\HikingBlog\\obj\\",
       "projectStyle": "PackageReference",
@@ -3835,7 +3835,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

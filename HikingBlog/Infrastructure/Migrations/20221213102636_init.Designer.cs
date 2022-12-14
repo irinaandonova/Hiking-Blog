@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NatureBlog.Infrastructure;
 
 #nullable disable
 
 namespace Infrastructure.Migrations
 {
-    //[DbContext(typeof(AppDBContext))]
-    [Migration("20221207122429_init")]
+    [DbContext(typeof(AppDBContext))]
+    [Migration("20221213102636_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -26,11 +27,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DestinationUser", b =>
                 {
-                    b.Property<Guid>("VisitedDestinationsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("VisitedDestinationsId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("VisitorsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("VisitorsId")
+                        .HasColumnType("int");
 
                     b.HasKey("VisitedDestinationsId", "VisitorsId");
 
@@ -41,11 +42,20 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("DestinationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -54,16 +64,24 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comments", (string)null);
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("DestinationId");
+
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Destination", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("Creator")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+
+                    b.Property<int?>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -83,37 +101,53 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("RatingScore")
                         .HasColumnType("int");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Destinations", (string)null);
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("Destination", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Rating", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("DestinationId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DestinationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RatingValue")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("DestinationId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rating", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Region", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cordinates")
                         .IsRequired()
@@ -127,29 +161,33 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Region", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(161)
+                        .HasColumnType("nvarchar(161)");
 
                     b.Property<int>("HikingSkill")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.HikingTrail", b =>
@@ -162,7 +200,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("HikingDuration")
                         .HasColumnType("int");
 
-                    b.ToTable("HikingTrails", (string)null);
+                    b.ToTable("HikingTrail", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Park", b =>
@@ -175,7 +213,7 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsDogFriendly")
                         .HasColumnType("bit");
 
-                    b.ToTable("Parks", (string)null);
+                    b.ToTable("Park", (string)null);
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Seaside", b =>
@@ -191,7 +229,7 @@ namespace Infrastructure.Migrations
                     b.Property<double>("UmbrellaPrice")
                         .HasColumnType("float");
 
-                    b.ToTable("Seasides", (string)null);
+                    b.ToTable("Seaside", (string)null);
                 });
 
             modelBuilder.Entity("DestinationUser", b =>
@@ -211,15 +249,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Comment", b =>
                 {
-                    b.HasOne("NatureBlog.Domain.Models.Destination", "Destination")
-                        .WithMany("Comments")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("NatureBlog.Domain.Models.User", "Creator")
                         .WithMany("Comments")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("NatureBlog.Domain.Models.Destination", "Destination")
+                        .WithMany("Comments")
+                        .HasForeignKey("DestinationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -230,20 +268,40 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Destination", b =>
                 {
+                    b.HasOne("NatureBlog.Domain.Models.User", "Creator")
+                        .WithMany("CreatedDestinations")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("NatureBlog.Domain.Models.Region", "Region")
                         .WithMany("Destinations")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Creator");
 
                     b.Navigation("Region");
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.Rating", b =>
                 {
-                    b.HasOne("NatureBlog.Domain.Models.Destination", null)
+                    b.HasOne("NatureBlog.Domain.Models.Destination", "Destination")
                         .WithMany("Ratings")
-                        .HasForeignKey("DestinationId");
+                        .HasForeignKey("DestinationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NatureBlog.Domain.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Destination");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NatureBlog.Domain.Models.HikingTrail", b =>
@@ -288,6 +346,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("NatureBlog.Domain.Models.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("CreatedDestinations");
                 });
 #pragma warning restore 612, 618
         }
