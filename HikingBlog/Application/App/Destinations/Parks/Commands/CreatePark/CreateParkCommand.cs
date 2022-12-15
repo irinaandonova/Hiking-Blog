@@ -7,6 +7,8 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
     {
         public string Name { get; set; }
 
+        public int CreatorId { get; set; }
+
         public User Creator { get; set; }
 
         public string Description { get; set; }
@@ -15,13 +17,13 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 
         public Region Region { get; set; }
 
-        public int? RatingScore { get; set; } = null;
+        public int? RatingScore { get; set; }
 
-        public ICollection<Comment> Comments { get; set; } = null;
+        public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Rating> Ratings { get; set; } = null;
+        public ICollection<Rating> Ratings { get; set; }
 
-        public ICollection<User> Visitors { get; set; } = null;
+        public ICollection<User> Visitors { get; set; } 
 
         public bool HasPlayground { get; set; }
 

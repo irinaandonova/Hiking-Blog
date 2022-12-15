@@ -7,7 +7,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
     {
         public string Name { get; set; }
 
-        public User Creator { get; set; }
+        public int CreatorId { get; set; }
 
         public string Description { get; set; }
 
@@ -19,12 +19,12 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 
         public int Duration { get; set; }
 
-        public int? RatingScore { get; set; } = null;
+        public int? RatingScore { get; set; }
 
-        public ICollection<Comment> Comments { get; set; } = null;
+        public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Rating> Ratings { get; set; } = null;
+        public ICollection<Rating> Ratings { get; set; }
 
-        public ICollection<User> Visitors { get; set; } = null;
+        public ICollection<User> Visitors { get; set; }
     }
 }

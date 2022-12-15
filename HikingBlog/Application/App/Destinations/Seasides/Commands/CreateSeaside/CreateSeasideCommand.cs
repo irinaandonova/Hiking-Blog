@@ -7,13 +7,17 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
     {
         public string Name { get; set; }
 
+        public int CreatorId { get; set; }
+
         public User Creator { get; set; }
 
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public Region Region { get; set;  }
+        public int RegionId { get; set; }
+
+        public Region Region { get; set; }
 
         public bool IsGuarded { get; set; }
 
@@ -21,12 +25,12 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 
         public double UmbrellaPrice { get; set; }
 
-        public int? RatingScore { get; set; } = null;
+        public int? RatingScore { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Rating> Ratings { get; set; }
 
-        public ICollection<User> Visitors { get; set; } = new List<User> { };
+        public ICollection<User> Visitors { get; set; }
     }
 }
