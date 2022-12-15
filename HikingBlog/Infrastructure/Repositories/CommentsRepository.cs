@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
-    public class CommentsRepository
+    public class CommentsRepository : ICommentRepository
     {
         private readonly AppDBContext _dbContext;
 
@@ -21,7 +21,6 @@ namespace NatureBlog.Infrastructure.Repositories
 
             Comment comment = new Comment { Destination = destination, Text = text };
             destination.Comments.Add(comment);
-            _dbContext.SaveChanges();
 
             return true;
         }
@@ -31,7 +30,6 @@ namespace NatureBlog.Infrastructure.Repositories
             Destination destination = DestinationRepository.GetDestination(destinationId);
             Comment comment = GetComment(commentId);
             destination.Comments.Remove(comment);
-            _dbContext.SaveChanges();
 
             return true;
         }
