@@ -27,7 +27,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return Task.FromResult(new List<Destination> { });
             }
         }
     }
