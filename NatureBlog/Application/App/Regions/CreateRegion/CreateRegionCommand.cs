@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatuteBlog.Application.Regions
 {
-    public class CreateRegionCommand : IRequest<bool>
+    public class CreateRegionCommand : IRequest<Region>
     {
         public string Name { get; set; }
 

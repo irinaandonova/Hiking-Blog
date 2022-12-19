@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatuteBlog.Application.Regions
 {
-    public class CreateRegionHandler : IRequestHandler<CreateRegionCommand, bool>
+    public class CreateRegionHandler : IRequestHandler<CreateRegionCommand, Region>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace NatuteBlog.Application.Regions
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(CreateRegionCommand command, CancellationToken cancellationToken)
+        public async Task<Region> Handle(CreateRegionCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -22,12 +22,12 @@ namespace NatuteBlog.Application.Regions
                 await _unitOfWork.RegionRepository.Add(region);
                 await _unitOfWork.Save();
 
-                return true;
+                return region;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
 
         }
