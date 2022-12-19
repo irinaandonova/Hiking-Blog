@@ -5,10 +5,10 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
+using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Application.Dto.Destination.Park;
+using NatureBlog.Application.Dto.Destination.Seaside;
 using NatureBlog.Domain.Models;
-using NatureBlog.Presenatation.Dto.Destination;
-using Presenatation.Dto.Destination.Park;
-using Presenatation.Dto.Destination.Seaside;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

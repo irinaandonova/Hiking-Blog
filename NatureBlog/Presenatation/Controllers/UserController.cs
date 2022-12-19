@@ -1,8 +1,9 @@
-﻿using AutoMapper;
+﻿using Application.Dto.User;
+using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users;
+using NatureBlog.Application.Dto.User;
 
 namespace Presenatation.Controllers
 {
