@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Users
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, bool>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, User>
     {
         private readonly IUnitOfWork _unitOfWork;
         public CreateUserHandler(IUnitOfWork unitOfWork)
@@ -13,7 +13,7 @@ namespace NatureBlog.Application.App.Users
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public async Task<User> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -27,12 +27,12 @@ namespace NatureBlog.Application.App.Users
                 await _unitOfWork.UserRepository.Add(user);
                 await _unitOfWork.Save();
 
-                return true;
+                return user;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Excetion in the Add User method: ", ex.Message);
-                return false;
+                return null;
             }
         }
     }
