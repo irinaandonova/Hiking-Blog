@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using Application.Dto.Region;
+using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Regions.GetAllRegions;
+using NatureBlog.Application.Dto.Region;
 using NatuteBlog.Application.Regions;
 
 namespace Presenatation.Controllers
