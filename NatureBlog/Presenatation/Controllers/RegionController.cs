@@ -1,5 +1,4 @@
 ﻿using Application.Dto.Region;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Regions.GetAllRegions;
@@ -12,13 +11,11 @@ namespace Presenatation.Controllers
     [ApiController]
     public class RegionController : ControllerBase
     {
-        public readonly IMapper _mapper;
         public readonly IMediator _mediator;
 
-        public RegionController(IMapper mapper, IMediator mediator)
+        public RegionController( IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         // GET: api/<RegionController>
@@ -26,8 +23,7 @@ namespace Presenatation.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllRegionsCommand());
-            var mappedResult = _mapper.Map<List<RegionGetDto>>(result);
-            return Ok(mappedResult);
+            return Ok(result);
         }
 
         // POST api/<RegionController>
@@ -45,8 +41,7 @@ namespace Presenatation.Controllers
             if (result is null)
                 return BadRequest();
 
-            var mappedResult = _mapper.Map<RegionGetDto>(result);
-            return Ok(mappedResult);
+            return Ok(result);
         }
     }
 }

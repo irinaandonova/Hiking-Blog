@@ -5,6 +5,7 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
+using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
 using NatureBlog.Application.Dto.Destination.Park;
 using NatureBlog.Application.Dto.Destination.Seaside;
@@ -18,23 +19,20 @@ namespace Presenatation.Controllers
     [ApiController]
     public class DestinationController : ControllerBase
     {
-        public readonly IMapper _mapper;
         public readonly IMediator _mediator;
 
         public DestinationController(IMapper mapper, IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMostVisited()
         {
             var result = await _mediator.Send(new GetMostVisited());
-            var mapped = _mapper.Map<List<Destination>>(result);
-            return Ok(mapped);
+            return Ok(result);
         }
-
+        /*
         [HttpPost]
         [Route("hiking-trail")]
         public async Task<IActionResult> CreateHikingTrail([FromBody] HikingTrailPostDto hikingTrail)
@@ -101,5 +99,21 @@ namespace Presenatation.Controllers
             var mappedResult = _mapper.Map<SeasideGetDto>(result);
             return Ok(mappedResult);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetHikingTrail([FromRoute] int hikingTrailId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(new GetHikingTrail
+            {
+                Id = hikingTrailId
+            }); 
+
+            return Ok(result);
+        }
+        }*/
     }
-}
+    }

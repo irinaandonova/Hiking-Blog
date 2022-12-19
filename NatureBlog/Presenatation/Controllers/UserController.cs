@@ -1,5 +1,4 @@
 ﻿using Application.Dto.User;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users;
@@ -11,13 +10,11 @@ namespace Presenatation.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public readonly IMapper _mapper;
         public readonly IMediator _mediator;
 
-        public UserController(IMapper mapper, IMediator mediator)
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         // POST api/<UserController>
@@ -36,8 +33,7 @@ namespace Presenatation.Controllers
             if (result is null)
                 return BadRequest("Creating user failed");
 
-            var mappedResult = _mapper.Map<UserGetDto>(result);
-            return Ok(mappedResult);
+            return Ok(result);
         }
     }
 }

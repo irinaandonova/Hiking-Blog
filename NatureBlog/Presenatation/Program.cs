@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using NatureBlog.Application;
 using NatureBlog.Infrastructure;
 using System.Reflection;
-using AutoMapper;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Infrastructure.Repositories;
 using Microsoft.Extensions.Options;
@@ -25,6 +24,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    
 
 
 builder.Services.AddMediatR(typeof(AssemblyMarker).Assembly);
