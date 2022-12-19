@@ -8,6 +8,6 @@ namespace NatureBlog.Application.Repositories
 
         bool DeleteComment(int destinationId, int commentId);
 
-        bool EditCommentMethod(int destinationId, int commentId, string text);
+        //bool EditCommentMethod(int destinationId, int commentId, string text);
     }
 }
