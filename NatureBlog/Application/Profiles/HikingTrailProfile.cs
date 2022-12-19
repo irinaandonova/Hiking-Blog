@@ -10,6 +10,7 @@ namespace NatureBlog.Presenatation.Profiles
         {
             CreateMap<HikingTrailPostDto, HikingTrail>();
             CreateMap<HikingTrail, HikingTrailGetDto>();
+            
         }
     }
 }
