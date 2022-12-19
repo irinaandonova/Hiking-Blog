@@ -56,7 +56,7 @@ namespace NatureBlog.Infrastructure.Repositories
         
         public List<Destination> GetMostVisited()
         {
-            List<Destination> result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList(); 
+            List<Destination> result = (List<Destination>)_dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList(); 
 
             return result;
         }

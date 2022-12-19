@@ -1,11 +1,6 @@
-﻿using NatureBlog.Application.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
@@ -24,9 +19,9 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext.SaveChanges();   
         }
 
-        public async Task<List<Region>> GetAll()
+        public async Task<ICollection<Region>> GetAll()
         {
-            List<Region> result = await _dbContext.Regions.ToListAsync();
+            ICollection<Region> result = await _dbContext.Regions.ToListAsync();
             return result;
         }
     }

@@ -6,7 +6,7 @@ namespace NatureBlog.Application.Repositories
     {
         public Task Add(Region region);
 
-        public Task<List<Region>> GetAll();
+        public Task<ICollection<Region>> GetAll();
 
     }
 }
