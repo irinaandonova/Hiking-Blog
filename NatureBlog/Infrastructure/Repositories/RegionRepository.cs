@@ -16,13 +16,20 @@ namespace NatureBlog.Infrastructure.Repositories
         public async Task Add(Region region)
         {
              await _dbContext.Regions.AddAsync(region);
-            _dbContext.SaveChanges();   
         }
 
         public async Task<List<Region>> GetAll()
         {
             List<Region> result = await _dbContext.Regions.ToListAsync();
             return result;
+        }
+
+        public Task<bool> Delete(int regionId)
+        {
+            Region region = _dbContext.Regions.SingleOrDefault(r => r.Id == regionId);
+            _dbContext.Regions.Remove(region);
+
+            return Task.FromResult(true);
         }
     }
 }

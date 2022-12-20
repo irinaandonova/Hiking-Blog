@@ -8,5 +8,7 @@ namespace NatureBlog.Application.Repositories
 
         public Task<List<Region>> GetAll();
 
+        public Task<bool> Delete(int regionId);
+
     }
 }
