@@ -25,10 +25,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
     
-
-
 builder.Services.AddMediatR(typeof(AssemblyMarker).Assembly);
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(AssemblyMarker).Assembly);
 
 var app = builder.Build();
 
