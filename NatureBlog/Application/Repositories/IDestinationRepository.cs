@@ -10,7 +10,7 @@ namespace NatureBlog.Application.Repositories
 
         Task AddSeaside(Seaside destination);
 
-        bool Delete(int Id);
+        bool Delete(int destinationId);
 
         Destination GetDestination(int destinationId);
 

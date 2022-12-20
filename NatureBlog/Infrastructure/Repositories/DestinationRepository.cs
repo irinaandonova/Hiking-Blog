@@ -14,32 +14,28 @@ namespace NatureBlog.Infrastructure.Repositories
         public async Task AddHikingTrail(HikingTrail destination)
         {
             await _dbContext.Destinations.AddAsync(destination);
-            _dbContext.SaveChanges();
         }
 
         public async Task AddSeaside(Seaside destination)
         {
             await _dbContext.Destinations.AddAsync(destination);
-            _dbContext.SaveChanges();
         }
 
         public async Task AddPark(Park destination)
         {
             await _dbContext.Destinations.AddAsync(destination);
-            _dbContext.SaveChanges();
         }
 
         public bool Delete(int Id)
         {
             Destination destination = GetDestination(Id);
             _dbContext.Destinations.Remove(destination);
-            _dbContext.SaveChanges();
+
             return true;
         }
         public Destination GetDestination(int id)
         {
-            return (Destination)_dbContext.Destinations.Select(x => x.Id == id);
-
+            return (Destination)_dbContext.Destinations.SingleOrDefault(x => x.Id == id);
         }
 
         public bool Update(int destinationId, string name, string description, string imageUrl, Region region)
@@ -50,7 +46,6 @@ namespace NatureBlog.Infrastructure.Repositories
             destination.ImageUrl = imageUrl;
             destination.Region = region;
 
-            _dbContext.SaveChanges();
             return true;
         }
 
@@ -180,6 +175,16 @@ namespace NatureBlog.Infrastructure.Repositories
             park.HasPlayground = hasPlayground;
 
             return true;
+        }
+
+        public HikingTrail GetHikingTrailInfo(int hikingTrailId)
+        {
+            return (HikingTrail)_dbContext.Destinations.SingleOrDefault(ht => ht.Id == hikingTrailId);
+        }
+
+        public Park GetParkInfo(int parkId)
+        {
+            return (Park)_dbContext.Destinations.SingleOrDefault(p => p.Id == parkId);
         }
     }
 }
