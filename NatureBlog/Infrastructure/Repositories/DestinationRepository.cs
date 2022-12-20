@@ -39,9 +39,9 @@ namespace NatureBlog.Infrastructure.Repositories
         public Destination GetDestination(int id)
         {
             return (Destination)_dbContext.Destinations.Select(x => x.Id == id);
-           
+
         }
-        
+
         public bool Update(int destinationId, string name, string description, string imageUrl, Region region)
         {
             Destination destination = GetDestination(destinationId);
@@ -53,15 +53,15 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext.SaveChanges();
             return true;
         }
-        
+
         public List<Destination> GetMostVisited()
         {
-            List<Destination> result = (List<Destination>)_dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList(); 
+            List<Destination> result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList();
 
             return result;
         }
 
-        
+
 
         public List<Seaside> GetAllSeasides()
         {
@@ -91,7 +91,7 @@ namespace NatureBlog.Infrastructure.Repositories
 
             return parks;
         }
-        
+
         public List<HikingTrail> FilterHikingTrails(int difficulty)
         {
             List<HikingTrail> hikingTrails = GetAllHikingTrails().Where(d => d.Difficulty == difficulty).ToList();
@@ -135,7 +135,7 @@ namespace NatureBlog.Infrastructure.Repositories
             if (condition == "alphabetical")
                 result = _dbContext.Destinations.OrderBy(x => x.Name).ToList();
             else if (condition == "reverse alphabetical")
-                result = _dbContext.Destinations.OrderByDescending(x => x.Name).ToList();   
+                result = _dbContext.Destinations.OrderByDescending(x => x.Name).ToList();
             else
                 throw new ArgumentOutOfRangeException("Invalid condition!");
 

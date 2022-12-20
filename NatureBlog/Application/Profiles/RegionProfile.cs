@@ -11,7 +11,6 @@ namespace NatureBlog.Application.Profiles
         {
             CreateMap<RegionPostDto, Region>();
             CreateMap<Region, RegionGetDto>();
-            //CreateMap<Region, RegionGetDto>();
         }
     }
 }
