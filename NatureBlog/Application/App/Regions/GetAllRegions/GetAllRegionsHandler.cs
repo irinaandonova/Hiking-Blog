@@ -6,7 +6,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Regions.GetAllRegions
 {
-    public class GetAllRegionsHandler : IRequestHandler<GetAllRegionsCommand, ICollection<RegionGetDto>>
+    public class GetAllRegionsHandler : IRequestHandler<GetAllRegionsCommand, List<RegionGetDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,11 +17,11 @@ namespace NatureBlog.Application.App.Regions.GetAllRegions
             _mapper = mapper;
         }
 
-        public async Task<ICollection<RegionGetDto>> Handle(GetAllRegionsCommand command, CancellationToken cancellationToken)
+        public async Task<List<RegionGetDto>> Handle(GetAllRegionsCommand command, CancellationToken cancellationToken)
         {
-            ICollection<Region> result = await _unitOfWork.RegionRepository.GetAll();
+            List<Region> result = await _unitOfWork.RegionRepository.GetAll();
 
-            var mappedResult = _mapper.Map<ICollection<RegionGetDto>>(result);
+            var mappedResult = _mapper.Map<List<RegionGetDto>>(result);
             return mappedResult;
 
         }

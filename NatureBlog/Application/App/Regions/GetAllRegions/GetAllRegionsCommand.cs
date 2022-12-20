@@ -3,7 +3,7 @@ using NatureBlog.Application.Dto.Region;
 
 namespace NatureBlog.Application.App.Regions.GetAllRegions
 {
-    public class GetAllRegionsCommand : IRequest<ICollection<RegionGetDto>>
+    public class GetAllRegionsCommand : IRequest<List<RegionGetDto>>
     {
     }
 }
