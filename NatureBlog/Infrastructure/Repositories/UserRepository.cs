@@ -17,10 +17,21 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public User GetUser(int id)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.Id == id);
+        }
         public async Task Add(User user)
         {
-            await _dbContext.Users.AddAsync(user);
-            _dbContext.SaveChanges();
+             await _dbContext.Users.AddAsync(user);
+        }
+
+        public bool Delete(int id)
+        {
+            User user = GetUser(id);
+            _dbContext.Users.Remove(user);
+            
+            return true;
         }
     }
 }
