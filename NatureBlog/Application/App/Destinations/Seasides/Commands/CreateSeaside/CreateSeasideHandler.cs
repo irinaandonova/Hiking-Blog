@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 {
-    public class CreateSeasideHandler : IRequestHandler<CreateSeasideCommand, bool>
+    public class CreateSeasideHandler : IRequestHandler<CreateSeasideCommand, int?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(CreateSeasideCommand command, CancellationToken cancellationToken)
+        public async Task<int?> Handle(CreateSeasideCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -22,12 +22,12 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
                 _unitOfWork.DestinationRepository.AddSeaside(seaside);
                 await _unitOfWork.Save();
 
-                return true;
+                return seaside.Id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return false;
+                return 0;
             }
         }
     }

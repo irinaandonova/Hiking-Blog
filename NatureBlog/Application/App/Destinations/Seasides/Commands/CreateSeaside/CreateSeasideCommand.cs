@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
 {
-    public class CreateSeasideCommand : IRequest<bool>
+    public class CreateSeasideCommand : IRequest<int?>
     {
         public string Name { get; set; }
 

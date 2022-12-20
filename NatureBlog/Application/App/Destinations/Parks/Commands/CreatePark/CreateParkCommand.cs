@@ -15,6 +15,8 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
 
         public string ImageUrl { get; set; }
 
+        public int RegionId { get; set; }
+
         public Region Region { get; set; }
 
         public int? RatingScore { get; set; }
