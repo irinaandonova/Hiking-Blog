@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users;
+using NatureBlog.Application.App.Users.Commands.DeleteUser;
 using NatureBlog.Application.Dto.User;
 
 namespace Presenatation.Controllers
@@ -34,6 +35,18 @@ namespace Presenatation.Controllers
                 return BadRequest("Creating user failed");
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var result = await _mediator.Send(new DeleteUserCommand { Id = id });
+
+            if (result)
+                return Ok();
+
+            return BadRequest();
         }
     }
 }
