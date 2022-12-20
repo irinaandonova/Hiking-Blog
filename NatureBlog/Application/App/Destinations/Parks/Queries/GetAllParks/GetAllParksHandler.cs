@@ -2,19 +2,22 @@
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using NatureBlog.Application.Dto.Destination.Park;
+using AutoMapper;
 
 namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
-{/*
-    public class GetAllParksHandler : IRequestHandler<GetAllParksQuery, List<Park>>
+{
+    public class GetAllParksHandler : IRequestHandler<GetAllParksQuery, List<ParkGetDto>>
     {
         private readonly IDestinationRepository _repository;
-
-        public GetAllParksHandler(IDestinationRepository DestinationRepository)
+        private readonly IMapper _mapper;
+        public GetAllParksHandler(IDestinationRepository DestinationRepository, IMapper mapper)
         {
             _repository = DestinationRepository;
+            _mapper = mapper;
         }
 
-        public Task<List<Park>> Handle(GetAllParksQuery query, CancellationToken cancellationToken)
+        public Task<List<ParkGetDto>> Handle(GetAllParksQuery query, CancellationToken cancellationToken)
         {
             try
             {
@@ -22,8 +25,9 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
 
                 if (allParks.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
+                var mappedResult = _mapper.Map<List<ParkGetDto>>(allParks);
 
-                return Task.FromResult(allParks);
+                return Task.FromResult(mappedResult);
             }
 
             catch (Exception ex)
@@ -32,5 +36,5 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
                 return null;
             }
         }
-    }*/
+    }
 }

@@ -2,19 +2,22 @@
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using NatureBlog.Application.Dto.Destination.HikingTrail;
+using AutoMapper;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
-{/*
-    public class GetAllHikingTrailsHandler : IRequestHandler<GetAllHikingTrailsQuery, List<HikingTrail>>
+{
+    public class GetAllHikingTrailsHandler : IRequestHandler<GetAllHikingTrailsQuery, List<HikingTrailGetDto>>
     {
         private readonly IDestinationRepository _repository;
-
-        public GetAllHikingTrailsHandler(IDestinationRepository DestinationRepository)
+        private readonly IMapper _mapper;
+        public GetAllHikingTrailsHandler(IDestinationRepository DestinationRepository, IMapper mapper)
         {
             _repository = DestinationRepository;
+            _mapper = mapper;
         }
 
-        public Task<List<HikingTrail>> Handle(GetAllHikingTrailsQuery query, CancellationToken cancellationToken)
+        public Task<List<HikingTrailGetDto>> Handle(GetAllHikingTrailsQuery query, CancellationToken cancellationToken)
         {
             try
             {
@@ -23,7 +26,9 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
                 if (allHikingTrails.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
 
-                return Task.FromResult(allHikingTrails);
+                var mappedResult = _mapper.Map<List<HikingTrailGetDto>>(allHikingTrails);
+
+                return Task.FromResult(mappedResult);
             }
 
             catch (Exception ex)
@@ -32,5 +37,5 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
                 return null;
             }
         }
-    }*/
+    }
 }
