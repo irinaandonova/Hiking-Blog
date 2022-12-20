@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHikingTrailInfo;
+using NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
@@ -62,10 +63,20 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
-        // PUT api/<HikingTrailController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("difficulty/{id}")]
+        public async Task<IActionResult> ChangeDifficulty(int id, [FromBody] HikingTrailDifficultyPostDto hikingTrail)
         {
+            var result = await _mediator.Send(new ChangeDifficultyCommand
+            {
+                DestinationId = id,
+                UserId = hikingTrail.UserId,
+                Difficulty = hikingTrail.Difficulty,
+            });
+
+            if (!result)
+                return BadRequest();
+
+            return Ok();
         }
     }
 }
