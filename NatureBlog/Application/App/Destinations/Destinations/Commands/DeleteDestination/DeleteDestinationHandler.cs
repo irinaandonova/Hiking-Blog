@@ -1,6 +1,7 @@
-﻿using NatureBlog.Application.Repositories;
-using MediatR;
+﻿using MediatR;
 using NatureBlog.Application.Exceptions;
+using NatureBlog.Application.Repositories;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination
 {
@@ -8,7 +9,6 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
     public class DeleteDestinationHandler : IRequestHandler<DeleteDestinationCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
-
         public DeleteDestinationHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork= unitOfWork;
@@ -18,7 +18,11 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
         {
             try
             {
-                _unitOfWork.CommentRepository.DeleteComment(command.Id, command.DestonationId);
+                Destination destination = (Destination)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
+                if (destination.CreatorId != command.UserId)
+                    throw new UserNotCreatorException("Current user not creator of the destination!");
+
+                _unitOfWork.DestinationRepository.Delete(command.DestinationId);
                 await _unitOfWork.Save();
                 return true;
             }
