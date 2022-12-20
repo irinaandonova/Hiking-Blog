@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHikingTrailInfo;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
@@ -32,88 +33,5 @@ namespace Presenatation.Controllers
             var result = await _mediator.Send(new GetMostVisited());
             return Ok(result);
         }
-        /*
-        [HttpPost]
-        [Route("hiking-trail")]
-        public async Task<IActionResult> CreateHikingTrail([FromBody] HikingTrailPostDto hikingTrail)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateHikingTrailCommand
-            {
-                Name = hikingTrail.Name,
-                CreatorId = hikingTrail.CreatorId,
-                Description = hikingTrail.Description,
-                ImageUrl = hikingTrail.ImageUrl,
-                RegionId = hikingTrail.RegionId,
-                Difficulty = hikingTrail.Difficulty,
-                Duration = hikingTrail.Duration
-            });
-
-            if (result is null)
-                return BadRequest("Invalid input");
-
-            var mappedResult = _mapper.Map<HikingTrailGetDto>(result);
-            return Ok(mappedResult);
-        }
-
-        [HttpPost]
-        [Route("park")]
-        public async Task<IActionResult> CreatePark([FromBody] ParkPostDto park)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateParkCommand
-            {
-                Name = park.Name,
-                CreatorId = park.CreatorId,
-                Description = park.Description,
-                ImageUrl = park.ImageUrl,
-                HasPlayground = park.HasPlayground,
-                IsDogFriendly = park.IsDogFriendly
-            });
-
-            var mappedResult = _mapper.Map<ParkGetDto>(result);
-            return Ok(mappedResult);
-        }
-
-        [HttpPost]
-        [Route("seaside")]
-        public async Task<IActionResult> CreateSeaside([FromBody] SeasidePostDto seaside)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateSeasideCommand
-            {
-                Name = seaside.Name,
-                CreatorId = seaside.CreatorId,
-                Description = seaside.Description,
-                ImageUrl = seaside.ImageUrl,
-                OffersUmbrella = seaside.OffersUmbrella,
-                IsGuarded = seaside.IsGuarded
-            });
-
-            var mappedResult = _mapper.Map<SeasideGetDto>(result);
-            return Ok(mappedResult);
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetHikingTrail([FromRoute] int hikingTrailId)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new GetHikingTrail
-            {
-                Id = hikingTrailId
-            }); 
-
-            return Ok(result);
-        }
-        }*/
     }
-    }
+}
