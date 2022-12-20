@@ -19,9 +19,9 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext.SaveChanges();   
         }
 
-        public async Task<ICollection<Region>> GetAll()
+        public async Task<List<Region>> GetAll()
         {
-            ICollection<Region> result = await _dbContext.Regions.ToListAsync();
+            List<Region> result = await _dbContext.Regions.ToListAsync();
             return result;
         }
     }
