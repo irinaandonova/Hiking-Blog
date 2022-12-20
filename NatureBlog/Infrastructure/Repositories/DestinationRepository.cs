@@ -161,7 +161,7 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool ChangeDifficulty(int destinationId, int difficulty, int userId)
+        public bool ChangeDifficulty(int destinationId, int difficulty)
         {
             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
             hikingTrail.Difficulty = difficulty;

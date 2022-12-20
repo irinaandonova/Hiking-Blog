@@ -40,7 +40,7 @@ namespace NatureBlog.Application.Repositories
 
         bool AddUmbrellaPrices(int destinationId, double price);
 
-        bool ChangeDifficulty(int destinationId, int difficulty, int userId);
+        bool ChangeDifficulty(int destinationId, int difficulty);
 
         bool UpdatePlayground(int destinationId, bool hasPlayground);
 
