@@ -9,7 +9,8 @@
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
-
+        
+        public int CreatorId { get; set; }
 
         public int RegionId { get; set; }
 
