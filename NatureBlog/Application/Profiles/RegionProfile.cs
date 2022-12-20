@@ -10,7 +10,7 @@ namespace NatureBlog.Application.Profiles
         public RegionProfile()
         {
             CreateMap<RegionPostDto, Region>();
-            CreateMap<ICollection<Region>, RegionGetDto>();
+            CreateMap<Region, RegionGetDto>();
             //CreateMap<Region, RegionGetDto>();
         }
     }
