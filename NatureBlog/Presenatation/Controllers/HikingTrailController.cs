@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHikingTrailInfo;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
+using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,11 +20,15 @@ namespace NatureBlog.Presenatation.Controllers
             _mediator = mediator;
         }
 
-        // GET: api/<HikingTrailController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAllHikingTrails()
         {
-            return new string[] { "value1", "value2" };
+            var result = _mediator.Send(new GetAllHikingTrailsQuery());
+
+            if(result is null)
+                return NotFound();
+
+            return Ok(result);
         }
 
         [HttpGet]
@@ -60,12 +65,6 @@ namespace NatureBlog.Presenatation.Controllers
         // PUT api/<HikingTrailController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<HikingTrailController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
         {
         }
     }

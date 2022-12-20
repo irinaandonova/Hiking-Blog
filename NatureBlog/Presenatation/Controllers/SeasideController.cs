@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
+using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Seaside;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,11 +20,17 @@ namespace Presenatation.Controllers
             _mediator = mediator;
         }
 
-        // GET: api/<SeasideController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAllSeaside()
         {
-            return new string[] { "value1", "value2" };
+            var result = _mediator.Send(new GetAllSeasidesQuery());
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -43,24 +51,6 @@ namespace Presenatation.Controllers
             });
 
             return Ok(result);
-        }
-
-        // POST api/<SeasideController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<SeasideController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SeasideController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
