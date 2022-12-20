@@ -20,12 +20,12 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDiffic
             {
                 HikingTrail hikingTrail = (HikingTrail)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
 
-                if (hikingTrail.Creator.Id != command.UserId)
+                if (hikingTrail.CreatorId != command.UserId)
                     throw new UserNotCreatorException("Current user didn't create this destination!");
                 if (command.Difficulty < 1 || command.Difficulty > 3)
                     throw new OutOfRangeException("Input should be from 1 to 3!");
 
-                _unitOfWork.DestinationRepository.ChangeDifficulty(command.DestinationId, command.Difficulty, command.UserId);
+                _unitOfWork.DestinationRepository.ChangeDifficulty(command.DestinationId, command.Difficulty);
                 await _unitOfWork.Save();
 
                 return true;
