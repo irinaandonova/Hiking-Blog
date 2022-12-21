@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NatureBlog.Application.App.Users.Commands.DeleteUser
 {
-    public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, bool>
+    public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, bool?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,12 +17,14 @@ namespace NatureBlog.Application.App.Users.Commands.DeleteUser
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
+        public async Task<bool?> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                _unitOfWork.UserRepository.Delete(command.Id);
-                _unitOfWork.Save();
+                bool result = _unitOfWork.UserRepository.Delete(command.Id);
+                if (result == false)
+                    return null;
+               await _unitOfWork.Save();
 
                 return true;    
 

@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygroundField
 {
-    public class UpdateHasPlaygroundCommand : IRequest<bool>
+    public class UpdateHasPlaygroundCommand : IRequest<bool?>
     {
         public bool HasPlayground { get; set; }
 

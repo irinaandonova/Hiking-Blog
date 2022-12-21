@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygroundField
 {
-    public class UpdateHasPlaygroundHandler : IRequestHandler<UpdateHasPlaygroundCommand, bool>
+    public class UpdateHasPlaygroundHandler : IRequestHandler<UpdateHasPlaygroundCommand, bool?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,14 +14,14 @@ namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygr
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(UpdateHasPlaygroundCommand command, CancellationToken cancellationToken)
+        public async Task<bool?> Handle(UpdateHasPlaygroundCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 Park park =  (Park)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
 
                 if (park.Creator.Id != command.UserId)
-                    throw new UserNotCreatorException("Current user didn't create this destination!");
+                    return false;
                
 
                 _unitOfWork.DestinationRepository.UpdatePlayground(command.DestinationId, command.HasPlayground);
@@ -35,7 +35,7 @@ namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygr
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the UpdateHasPlayground Method! " + ex.Message);
-                return false;
+                return null;
             }
         }
     }
