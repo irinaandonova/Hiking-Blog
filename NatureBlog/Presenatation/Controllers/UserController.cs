@@ -32,7 +32,7 @@ namespace Presenatation.Controllers
                 HikingSkill = user.HikingSkill
             });
             if (result is null)
-                return BadRequest("Creating user failed");
+                return StatusCode(500);
 
             return Ok(result);
         }
@@ -43,10 +43,13 @@ namespace Presenatation.Controllers
         {
             var result = await _mediator.Send(new DeleteUserCommand { Id = id });
 
-            if (result)
-                return Ok();
+            if (result is null)
+                return NotFound();
 
-            return BadRequest();
+            if (result == false)
+                return StatusCode(500);
+
+            return Ok("User is successfully deleted!");
         }
     }
 }

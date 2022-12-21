@@ -15,7 +15,7 @@ namespace Presenatation.Controllers
     {
         public readonly IMediator _mediator;
 
-        public RegionController( IMediator mediator)
+        public RegionController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -39,7 +39,7 @@ namespace Presenatation.Controllers
                 Cordinates = region.Cordinates
             });
             if (result is null)
-                return BadRequest();
+                return StatusCode(500);
 
             return Ok(result);
         }
@@ -50,10 +50,13 @@ namespace Presenatation.Controllers
         {
             var result = await _mediator.Send(new DeleteRegionCommand { Id = id });
 
-            if(result)
-                return Ok(result);
+            if (result is null)
+                return BadRequest();
 
-            return BadRequest();
+            if(result == false)
+                return StatusCode(500);
+
+            return Ok("Region deleted successfully!");
         }
     }
 }

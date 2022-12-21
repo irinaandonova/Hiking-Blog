@@ -28,9 +28,9 @@ namespace NatureBlog.Presenatation.Controllers
             var result = _mediator.Send(new GetAllHikingTrailsQuery());
 
             if (result is null)
-                return NotFound();
+                return StatusCode(500);
 
-            return Ok(result);
+            return Ok(result.Result);
         }
 
         [HttpGet]
@@ -38,6 +38,10 @@ namespace NatureBlog.Presenatation.Controllers
         public IActionResult GetHikingTrail(int id)
         {
             var result = _mediator.Send(new GetHikingTrailInfoQuery { Id = id });
+
+            if (result is null)
+                return NotFound();
+
             return Ok(result);
         }
 
@@ -77,7 +81,7 @@ namespace NatureBlog.Presenatation.Controllers
             if (!result)
                 return BadRequest();
 
-            return Ok();
+            return Ok("Difficulty sucessfully modified!");
         }
 
         [HttpGet]
@@ -89,6 +93,5 @@ namespace NatureBlog.Presenatation.Controllers
             if (result.Count == 0) return Ok("No such hiking trails");
             return Ok(result);
         }
-
     }
 }

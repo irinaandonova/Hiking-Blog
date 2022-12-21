@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Destinations.Parks.Commands.UpdateHasPlaygroundField;
 using NatureBlog.Application.App.Destinations.Parks.Queries.GetParkInfo;
 using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
 using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
@@ -34,12 +35,11 @@ namespace Presenatation.Controllers
             return Ok(result);
         }
 
-        // GET api/<ParkController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var result = _mediator.Send( new GetParkInfoQuery{ Id = id });
-            if(result == null)
+            var result = _mediator.Send(new GetParkInfoQuery { Id = id });
+            if (result == null)
             {
                 return NotFound();
             }
@@ -68,10 +68,24 @@ namespace Presenatation.Controllers
             return Ok(result);
         }
 
-        // DELETE api/<ParkController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        [Route("{id}/update-has-playground")]
+        public async Task<IActionResult> UpdatePlaygroundField(int id, [FromBody] ParkHasPlaygroundPutDto updatePlayground)
         {
+            var result = await _mediator.Send(new UpdateHasPlaygroundCommand
+            {
+                DestinationId = id,
+                HasPlayground = updatePlayground.HasPlayground,
+                UserId = updatePlayground.UserId
+            });
+
+            if (result is null)
+                return BadRequest();
+
+            if(result == false)
+                return Unauthorized();
+
+            return Ok("Modification sucessfull!");
         }
     }
 }
