@@ -110,9 +110,9 @@ namespace NatureBlog.Infrastructure.Repositories
             return parks;
         }
 
-        public List<Destination> FilterByRegion(Region region)
+        public List<Destination> FilterByRegion(int regionId)
         {
-            List<Destination> destinations = _dbContext.Destinations.Where(d => d.Region.Id == region.Id).Select(d => d).ToList();
+            List<Destination> destinations = _dbContext.Destinations.Where(d => d.RegionId == regionId).ToList();
 
             return destinations;
         }

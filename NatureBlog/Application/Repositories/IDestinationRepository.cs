@@ -30,7 +30,7 @@ namespace NatureBlog.Application.Repositories
 
         List<Park> FilterParks(bool isDogFriendly, bool hasPlayground);
 
-        List<Destination> FilterByRegion(Region region);
+        List<Destination> FilterByRegion(int regionId);
 
         List<Destination> SearchByKeyword(string searchWord);
 
