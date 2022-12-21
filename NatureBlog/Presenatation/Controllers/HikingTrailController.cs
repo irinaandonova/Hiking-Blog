@@ -5,6 +5,7 @@ using NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,7 +27,7 @@ namespace NatureBlog.Presenatation.Controllers
         {
             var result = _mediator.Send(new GetAllHikingTrailsQuery());
 
-            if(result is null)
+            if (result is null)
                 return NotFound();
 
             return Ok(result);
@@ -78,5 +79,16 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("filter-by-difficulty/{difficulty}")]
+        public async Task<IActionResult> GetFilteredHikingTrails(int difficulty)
+        {
+            var result = await _mediator.Send(new FilterHikingTrailsQuery{ Difficulty = difficulty });
+
+            if (result.Count == 0) return Ok("No such hiking trails");
+            return Ok(result);
+        }
+
     }
 }
