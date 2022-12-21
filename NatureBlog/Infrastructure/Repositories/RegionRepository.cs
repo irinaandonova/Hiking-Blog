@@ -24,12 +24,15 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        public Task<bool> Delete(int regionId)
+        public bool Delete(int regionId)
         {
             Region region = _dbContext.Regions.SingleOrDefault(r => r.Id == regionId);
+            if(region is null)
+                return false;
+
             _dbContext.Regions.Remove(region);
 
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

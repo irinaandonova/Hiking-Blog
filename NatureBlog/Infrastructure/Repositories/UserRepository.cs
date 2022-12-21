@@ -29,8 +29,10 @@ namespace NatureBlog.Infrastructure.Repositories
         public bool Delete(int id)
         {
             User user = GetUser(id);
+            if (user is null)
+                return false;
+
             _dbContext.Users.Remove(user);
-            
             return true;
         }
     }
