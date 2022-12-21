@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Seaside;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Presenatation.Controllers
+namespace NatureBlog.Presenatation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +26,7 @@ namespace Presenatation.Controllers
 
             if (result == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return Ok(result);
@@ -49,6 +48,8 @@ namespace Presenatation.Controllers
                 OffersUmbrella = seaside.OffersUmbrella,
                 IsGuarded = seaside.IsGuarded
             });
+            if (result is null)
+                return BadRequest();
 
             return Ok(result);
         }
