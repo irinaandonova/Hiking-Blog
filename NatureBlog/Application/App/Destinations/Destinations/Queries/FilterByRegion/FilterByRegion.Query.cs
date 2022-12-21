@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion
 {
-    public class FilterByRegionQuerry: IRequest<List<Destination>>
+    public class FilterByRegionQuerry: IRequest<List<DestinationGetDto>>
     {
-        public string Region { get; set; }
+        public int RegionId { get; set; }
     }
 }

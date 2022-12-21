@@ -2,33 +2,37 @@
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using AutoMapper;
+using NatureBlog.Application.Dto.Destination.Destination;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion
-{/*
-    public class FilterByRegionHandler : IRequestHandler<FilterByRegionQuerry, List<Destination>>
+{
+    public class FilterByRegionHandler : IRequestHandler<FilterByRegionQuerry, List<DestinationGetDto>>
     {
-        private readonly IDestinationRepository _repository;
-        public FilterByRegionHandler(IDestinationRepository destinationRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public FilterByRegionHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = destinationRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<List<Destination>> Handle (FilterByRegionQuerry querry, CancellationToken cancellationToken)
+        public Task<List<DestinationGetDto>> Handle(FilterByRegionQuerry querry, CancellationToken cancellationToken)
         {
-            
+
             try
             {
-                if (string.IsNullOrEmpty(querry.Region))
-                    throw new ArgumentNullException("Region must be filled!");
+                List<Destination> destinations = _unitOfWork.DestinationRepository.FilterByRegion(querry.RegionId);
 
-                List<Destination> destinations = _repository.FilterByRegion(querry.Region);
-                
                 if (destinations.Count > 0)
                 {
-                    return Task.FromResult(destinations);
+                    var mappedResult = _mapper.Map<List<DestinationGetDto>>(destinations);
+
+                    return Task.FromResult(mappedResult);
                 }
                 else
-                    throw new DestinationNotFoundException("The are no elements in the collection");
+                    return Task.FromResult(new List<DestinationGetDto>());
             }
 
             catch (Exception ex)
@@ -37,7 +41,6 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRe
                 return null;
             }
         }
-           
+
     }
-            */
 }
