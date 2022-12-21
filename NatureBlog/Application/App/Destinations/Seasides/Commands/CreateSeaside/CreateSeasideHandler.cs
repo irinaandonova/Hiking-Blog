@@ -27,7 +27,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Add Method:" + ex.Message);
-                return 0;
+                return null;
             }
         }
     }
