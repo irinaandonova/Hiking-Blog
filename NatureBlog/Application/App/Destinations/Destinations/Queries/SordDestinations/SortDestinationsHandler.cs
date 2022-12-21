@@ -2,30 +2,32 @@
 using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using NatureBlog.Application.Dto.Destination.Destination;
+using AutoMapper;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations
 {
-    /*
-    public class SortDestinationsHandler : IRequestHandler<SortDestinationsQuery, List<Destination>>
+    public class SortDestinationsHandler : IRequestHandler<SortDestinationsQuery, List<DestinationGetDto>>
     {
-        private readonly IDestinationRepository _repository;
-        public SortDestinationsHandler(IDestinationRepository destinationRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public SortDestinationsHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = destinationRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<List<Destination>> Handle(SortDestinationsQuery query, CancellationToken cancellationToken)
+        public Task<List<DestinationGetDto>> Handle(SortDestinationsQuery query, CancellationToken cancellationToken)
         {
             try
             {
-                if (string.IsNullOrEmpty(query.condition))
-                    throw new ArgumentNullException("condition can't be empty string or null!");
-
-                List<Destination> destinations = _repository.SortDestinations(query.condition);
+                List<Destination> destinations = _unitOfWork.DestinationRepository.SortDestinations(query.Condition);
                 if (destinations.Count() < 0)
-                    throw new DestinationNotFoundException("No destinations in the collection!");
+                    return Task.FromResult(new List<DestinationGetDto> { });
 
-                return Task.FromResult(destinations);
+                List<DestinationGetDto> mappedResult = _mapper.Map<List<DestinationGetDto>>(destinations);
+                return Task.FromResult(mappedResult);
             }
             catch (Exception ex)
             {
@@ -34,5 +36,4 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestin
             }
         }
     }
-    */
 }

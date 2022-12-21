@@ -33,6 +33,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRe
                 }
                 else
                     return Task.FromResult(new List<DestinationGetDto>());
+
             }
 
             catch (Exception ex)

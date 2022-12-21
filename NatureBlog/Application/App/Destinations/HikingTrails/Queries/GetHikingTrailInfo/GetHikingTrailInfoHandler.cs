@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -21,8 +22,10 @@ namespace NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHiking
             try
             {
                 HikingTrail hikingTrail = _unitOfWork.DestinationRepository.GetHikingTrailInfo(query.Id);
-                var result = _mapper.Map<HikingTrailGetDto>(hikingTrail);
+                if (hikingTrail is null)
+                    throw new DestinationNotFoundException("No destination with such id");
 
+                var result = _mapper.Map<HikingTrailGetDto>(hikingTrail);
                 return Task.FromResult(result);
             }
 

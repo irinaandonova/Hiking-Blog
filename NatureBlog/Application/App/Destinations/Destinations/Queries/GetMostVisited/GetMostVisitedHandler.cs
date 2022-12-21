@@ -25,7 +25,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
             {
                 List<Destination> result = _repository.GetMostVisited();
                 if (result.Count < 1)
-                    throw new DestinationNotFoundException("No destinations in database!");
+                    return Task.FromResult(new List<DestinationGetDto> { });
 
                 var mapped = _mapper.Map<List<DestinationGetDto>>(result);
 
@@ -34,7 +34,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return Task.FromResult(new List<DestinationGetDto> { });
+                return null;
             }
         }
     }

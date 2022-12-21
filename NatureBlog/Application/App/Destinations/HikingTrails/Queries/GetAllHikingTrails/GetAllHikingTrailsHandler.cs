@@ -24,7 +24,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
                 List<HikingTrail> allHikingTrails = _repository.GetAllHikingTrails();
 
                 if (allHikingTrails.Count() < 0)
-                    throw new DestinationNotFoundException("There are no elements in the collection");
+                    return Task.FromResult(new List<HikingTrailGetDto> { });
 
                 var mappedResult = _mapper.Map<List<HikingTrailGetDto>>(allHikingTrails);
 
