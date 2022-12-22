@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Destinations.HikingTrails.Commands.UpdateDuration;
 using NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHikingTrailInfo;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
@@ -69,9 +70,9 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpPut("difficulty/{id}")]
-        public async Task<IActionResult> ChangeDifficulty(int id, [FromBody] HikingTrailDifficultyPostDto hikingTrail)
+        public async Task<IActionResult> UpdateDifficulty(int id, [FromBody] HikingTrailDifficultyPostDto hikingTrail)
         {
-            var result = await _mediator.Send(new ChangeDifficultyCommand
+            var result = await _mediator.Send(new UpdateDifficultyCommand
             {
                 DestinationId = id,
                 UserId = hikingTrail.UserId,
@@ -84,6 +85,24 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok("Difficulty sucessfully modified!");
         }
 
+        [HttpPut]
+        [Route("duration/{id}")]
+        public async Task<IActionResult> UpdateDuration(int id, [FromBody] HikingTrailDurationPutDto hikingTrailInfo)
+        {
+            var result = await _mediator.Send(new UpdateDurationCommand
+            {
+                DestinationId = id,
+                UserId = hikingTrailInfo.UserId,
+                HikingDuration = hikingTrailInfo.HikingDuration
+            });
+
+            if(result is null) 
+                return BadRequest("Incorrect input");
+            if (result == false)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
         [HttpGet]
         [Route("filter-by-difficulty/{difficulty}")]
         public async Task<IActionResult> GetFilteredHikingTrails(int difficulty)

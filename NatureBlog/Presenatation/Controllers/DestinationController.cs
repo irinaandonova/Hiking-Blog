@@ -21,20 +21,20 @@ namespace NatureBlog.Presenatation.Controllers
     {
         public readonly IMediator _mediator;
 
-        public DestinationController(IMapper mapper, IMediator mediator)
+        public DestinationController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetMostVisited()
+        public async Task<IActionResult> GetMostVisited()
         {
-            var result = _mediator.Send(new GetMostVisited());
+            var result = await _mediator.Send(new GetMostVisitedQuery());
 
             if (result is null)
                 return StatusCode(500);
 
-            return Ok(result.Result);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace NatureBlog.Presenatation.Controllers
 
         [HttpGet]
         [Route("searchq={searchString}")]
-        public async Task<IActionResult> SearchByKeyword(string searchString)
+        public async Task<IActionResult> SearchByString(string searchString)
         {
             if (string.IsNullOrEmpty(searchString))
                 return BadRequest("Search string can't be empty");
