@@ -40,11 +40,13 @@ namespace NatureBlog.Application.Repositories
 
         bool AddUmbrellaPrices(int destinationId, double price);
 
-        bool ChangeDifficulty(int destinationId, int difficulty);
+        bool UpdateDifficulty(int destinationId, int difficulty);
 
-        bool? UpdatePlayground(int destinationId, bool hasPlayground);
+        bool UpdatePlayground(int destinationId, bool hasPlayground);
 
-        bool? UpdateIsDogFriendly(int destinationId, bool isDogFriendly);
+        bool UpdateIsDogFriendly(int destinationId, bool isDogFriendly);
+
+        bool UpdateDuration(int destinationId, int duration);
 
         HikingTrail GetHikingTrailInfo(int destinationId);
 

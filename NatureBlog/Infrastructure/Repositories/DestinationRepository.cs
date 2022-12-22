@@ -165,7 +165,7 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool ChangeDifficulty(int destinationId, int difficulty)
+        public bool UpdateDifficulty(int destinationId, int difficulty)
         {
             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
             hikingTrail.Difficulty = difficulty;
@@ -173,7 +173,7 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool? UpdatePlayground(int destinationId, bool hasPlayground)
+        public bool UpdatePlayground(int destinationId, bool hasPlayground)
         {
             Park park = (Park)GetDestination(destinationId);
             
@@ -181,11 +181,18 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool? UpdateIsDogFriendly(int destinationId, bool hasDogFriendly)
+        public bool UpdateIsDogFriendly(int destinationId, bool hasDogFriendly)
         {
             Park park = (Park)GetDestination(destinationId);
            
             park.IsDogFriendly = hasDogFriendly;
+            return true;
+        }
+
+        public bool UpdateDuration(int destinationId, int duration) {
+            HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
+
+            hikingTrail.HikingDuration= duration;
             return true;
         }
         public HikingTrail GetHikingTrailInfo(int hikingTrailId)
