@@ -36,13 +36,15 @@ namespace NatureBlog.Application.Repositories
 
         List<Destination> SortDestinations(string condition);
 
-        bool RateDestination(int destinationId, int ratingValue, int userId);
+        bool? RateDestination(int destinationId, int ratingValue, int userId);
 
         bool AddUmbrellaPrices(int destinationId, double price);
 
         bool ChangeDifficulty(int destinationId, int difficulty);
 
-        bool UpdatePlayground(int destinationId, bool hasPlayground);
+        bool? UpdatePlayground(int destinationId, bool hasPlayground);
+
+        bool? UpdateIsDogFriendly(int destinationId, bool isDogFriendly);
 
         HikingTrail GetHikingTrailInfo(int destinationId);
 

@@ -148,11 +148,15 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool RateDestination(int destinationId, int ratingValue, int userId)
+        public bool? RateDestination(int destinationId, int ratingValue, int userId)
         {
 
             Destination destination = GetDestination(destinationId);
             Rating rating = (Rating)destination.Ratings.Select(x => x.User.Id == userId);
+
+            if (destination is null)
+                return null;
+
             if (rating is not null)
                 rating.RatingValue = ratingValue;
             else
@@ -169,14 +173,21 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool UpdatePlayground(int destinationId, bool hasPlayground)
+        public bool? UpdatePlayground(int destinationId, bool hasPlayground)
         {
             Park park = (Park)GetDestination(destinationId);
+            
             park.HasPlayground = hasPlayground;
-
             return true;
         }
 
+        public bool? UpdateIsDogFriendly(int destinationId, bool hasDogFriendly)
+        {
+            Park park = (Park)GetDestination(destinationId);
+           
+            park.IsDogFriendly = hasDogFriendly;
+            return true;
+        }
         public HikingTrail GetHikingTrailInfo(int hikingTrailId)
         {
             return (HikingTrail)_dbContext.Destinations.SingleOrDefault(ht => ht.Id == hikingTrailId);
