@@ -7,7 +7,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetMostVisitedHandler : IRequestHandler<GetMostVisited, List<DestinationGetDto>>
+    public class GetMostVisitedHandler : IRequestHandler<GetMostVisitedQuery, List<DestinationGetDto>>
     {
         private readonly IDestinationRepository _repository;
         public readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
 
         }
 
-        public Task<List<DestinationGetDto>> Handle(GetMostVisited command, CancellationToken cancellationToken) 
+        public Task<List<DestinationGetDto>> Handle(GetMostVisitedQuery command, CancellationToken cancellationToken) 
         {
             try 
             {
