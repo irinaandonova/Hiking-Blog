@@ -2,10 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
+using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
+using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Dto.Region;
 using NatureBlog.Application.Dto.User;
 
@@ -51,7 +53,7 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("search?q={searchString}")]
+        [Route("searchq={searchString}")]
         public async Task<IActionResult> SearchByKeyword(string searchString)
         {
             if (string.IsNullOrEmpty(searchString))
@@ -83,6 +85,26 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("{id}/rate")]
+        public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
+        {
+            bool? result = await _mediator.Send(new RateDestinationCommand
+            {
+                DestinationId = id,
+                UserId = rating.UserId,
+                RatingValue = rating.ratingValue
+            });
+
+            if (result is null)
+                return BadRequest("Invalid creator or destination id!");
+
+            if(result == false)
+                return StatusCode(500);
+
+            return Ok("Destination rated successfully!");
+
+        }
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteDestination(int id, [FromBody] UserIdGetDto userId)
