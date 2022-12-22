@@ -1,10 +1,11 @@
 ﻿using NatureBlog.Application.Repositories;
 using MediatR;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {
     
-    public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, bool>
+    public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, bool?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,17 +14,16 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<bool?> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                if (command.RatingValue <= 0 || command.RatingValue > 5)
-                    throw new ArgumentOutOfRangeException("Rating value should be between 1 and 2");
-                if (command.UserId == 0)
-                    throw new ArgumentNullException("User field is missing!");
-                
-                bool response = _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
+                User user = _unitOfWork.UserRepository.GetUser(command.UserId);
+                bool? response = _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
                 await _unitOfWork.Save();
+                
+                if (user is null || response is null)
+                    return null;
 
                 return response;
             }
