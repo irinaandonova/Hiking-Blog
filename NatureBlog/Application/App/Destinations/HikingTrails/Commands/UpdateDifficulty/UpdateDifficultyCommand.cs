@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
 {
-    public class ChangeDifficultyCommand : IRequest<bool>
+    public class UpdateDifficultyCommand : IRequest<bool>
     {
         public int DestinationId { get; set; }
 

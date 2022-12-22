@@ -5,16 +5,16 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
 {
-    public class ChangeDifficultyHandler : IRequestHandler<ChangeDifficultyCommand, bool>
+    public class UpdateDifficultyHandler : IRequestHandler<UpdateDifficultyCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ChangeDifficultyHandler(IUnitOfWork unitOfWork)
+        public UpdateDifficultyHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(ChangeDifficultyCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateDifficultyCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -25,14 +25,14 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDiffic
                 if (command.Difficulty < 1 || command.Difficulty > 3)
                     throw new OutOfRangeException("Input should be from 1 to 3!");
 
-                _unitOfWork.DestinationRepository.ChangeDifficulty(command.DestinationId, command.Difficulty);
+                _unitOfWork.DestinationRepository.UpdateDifficulty(command.DestinationId, command.Difficulty);
                 await _unitOfWork.Save();
 
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the ChangeDifficulty Method! " + ex.Message);
+                Console.WriteLine("Exception in the UpdateDifficulty Method! " + ex.Message);
                 return false;
             }
         }
