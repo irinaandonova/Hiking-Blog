@@ -24,21 +24,21 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllHikingTrails()
+        public async Task<IActionResult> GetAllHikingTrails()
         {
-            var result = _mediator.Send(new GetAllHikingTrailsQuery());
+            var result = await _mediator.Send(new GetAllHikingTrailsQuery());
 
             if (result is null)
                 return StatusCode(500);
 
-            return Ok(result.Result);
+            return Ok(result);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetHikingTrail(int id)
+        public async Task<IActionResult> GetHikingTrail(int id)
         {
-            var result = _mediator.Send(new GetHikingTrailInfoQuery { Id = id });
+            var result = await _mediator.Send(new GetHikingTrailInfoQuery { Id = id });
 
             if (result is null)
                 return NotFound();
@@ -79,8 +79,8 @@ namespace NatureBlog.Presenatation.Controllers
                 Difficulty = hikingTrail.Difficulty,
             });
 
-            if (!result)
-                return BadRequest();
+            if (result is null)
+                return BadRequest("Icorect input or user is not creator!");
 
             return Ok("Difficulty sucessfully modified!");
         }
@@ -97,7 +97,7 @@ namespace NatureBlog.Presenatation.Controllers
             });
 
             if(result is null) 
-                return BadRequest("Incorrect input");
+                return BadRequest("Incorrect input!");
             if (result == false)
                 return StatusCode(500);
 
@@ -109,7 +109,8 @@ namespace NatureBlog.Presenatation.Controllers
         {
             var result = await _mediator.Send(new FilterHikingTrailsQuery{ Difficulty = difficulty });
 
-            if (result.Count == 0) return Ok("No such hiking trails");
+            if (result.Count == 0) return NoContent();
+
             return Ok(result);
         }
     }

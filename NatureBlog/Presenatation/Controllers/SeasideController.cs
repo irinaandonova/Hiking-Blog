@@ -8,7 +8,7 @@ using NatureBlog.Application.Dto.Destination.Seaside;
 
 namespace NatureBlog.Presenatation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/destination/[controller]")]
     [ApiController]
     public class SeasideController : ControllerBase
     {
@@ -20,9 +20,9 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllSeaside()
+        public async Task<IActionResult> GetAllSeaside()
         {
-            var result = _mediator.Send(new GetAllSeasidesQuery());
+            var result = await _mediator.Send(new GetAllSeasidesQuery());
 
             if (result == null)
             {
@@ -53,5 +53,9 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok(result);
         }
+        /*
+        [HttpGet]
+        [Route("filter/")]
+        public async Task<IActionResult> FilterSeaside()*/
     }
 }

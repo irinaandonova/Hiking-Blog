@@ -36,9 +36,9 @@ namespace Presenatation.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = _mediator.Send(new GetParkInfoQuery { Id = id });
+            var result = await _mediator.Send(new GetParkInfoQuery { Id = id });
             if (result == null)
             {
                 return NotFound();
