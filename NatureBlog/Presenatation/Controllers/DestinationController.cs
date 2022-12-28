@@ -54,12 +54,12 @@ namespace NatureBlog.Presenatation.Controllers
 
         [HttpGet]
         [Route("searchq={searchString}")]
-        public async Task<IActionResult> SearchByString(string searchString)
+        public async Task<IActionResult> SearchByDestinationName(string searchString)
         {
             if (string.IsNullOrEmpty(searchString))
                 return BadRequest("Search string can't be empty");
 
-            var result = await _mediator.Send(new SearchByStringQuery { KeyString = searchString });
+            var result = await _mediator.Send(new SearchByDestinationNameQuery { KeyString = searchString });
 
             if (result.Count < 0)
                 return NotFound("No destination, containing this search string");

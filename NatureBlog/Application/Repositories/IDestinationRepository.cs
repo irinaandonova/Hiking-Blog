@@ -32,7 +32,7 @@ namespace NatureBlog.Application.Repositories
 
         List<Destination> FilterByRegion(int regionId);
 
-        List<Destination> SearchByKeyword(string searchWord);
+        List<Destination> SearchByDestinationName(string searchWord);
 
         List<Destination> SortDestinations(string condition);
 
