@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
 {
-    public class UpdateDifficultyHandler : IRequestHandler<UpdateDifficultyCommand, bool>
+    public class UpdateDifficultyHandler : IRequestHandler<UpdateDifficultyCommand, bool?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,16 +14,16 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDiffic
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(UpdateDifficultyCommand command, CancellationToken cancellationToken)
+        public async Task<bool?> Handle(UpdateDifficultyCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 HikingTrail hikingTrail = (HikingTrail)_unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
 
                 if (hikingTrail.CreatorId != command.UserId)
-                    throw new UserNotCreatorException("Current user didn't create this destination!");
+                    return null;
                 if (command.Difficulty < 1 || command.Difficulty > 3)
-                    throw new OutOfRangeException("Input should be from 1 to 3!");
+                    return null;
 
                 _unitOfWork.DestinationRepository.UpdateDifficulty(command.DestinationId, command.Difficulty);
                 await _unitOfWork.Save();
