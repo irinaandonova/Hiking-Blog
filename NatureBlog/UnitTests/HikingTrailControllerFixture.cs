@@ -17,7 +17,7 @@ namespace UnitTests
                 .Verifiable();
 
             var controller = new HikingTrailController(_mockMediator.Object);
-            //await controller.CreateHikingTrail
+            //await controller.CreateHikingTrail()
         }
     }
 }

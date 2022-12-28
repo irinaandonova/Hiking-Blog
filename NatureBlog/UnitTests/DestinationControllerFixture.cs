@@ -37,18 +37,29 @@ namespace UnitTests
 
             _mockMediator.Verify(m => m.Send(It.IsAny<FilterByRegionQuerry>(), It.IsAny<CancellationToken>()), Times.Once);
         }
+        /*
+        [TestMethod]
+        public async Task Filter_By_Region_Result()
+        {
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<FilterByRegionQuerry>(), It.IsAny<CancellationToken>()))
+                .Returns<FilterByRegionQuerry, CancelettaionToken>(async (query, ct)) => {
 
+            }
+        }*/
         [TestMethod]
         public async Task Search_By_String()
         {
             _mockMediator
-                .Setup(m => m.Send(It.IsAny<SearchByStringQuery>(), It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<SearchByDestinationNameQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
 
             var controller = new DestinationController(_mockMediator.Object);
-            await controller.SearchByString("Plovdiv");
+            await controller.SearchByString("Lauta");
 
-            _mockMediator.Verify(m => m.Send(It.IsAny<SearchByStringQuery>(), It.IsAny<CancellationToken>()), Times.Once);
+            _mockMediator.Verify(m => m.Send(It.IsAny<SearchByDestinationNameQuery>(), It.IsAny<CancellationToken>()), Times.Once);
         }
+
+
     }
 }
