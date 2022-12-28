@@ -21,8 +21,8 @@ namespace NatureBlog.Application.App.Destinations.Parks.Queries.GetParkInfo
             try
             {
                Park result =  _unitOfWork.DestinationRepository.GetParkInfo(command.Id);
-                if (result == null)
-                    return Task.FromResult(new ParkGetDto());
+                if (result is null)
+                    return null;
 
                 var mappedResult = _mapper.Map<ParkGetDto>(result);
                 return Task.FromResult(mappedResult);

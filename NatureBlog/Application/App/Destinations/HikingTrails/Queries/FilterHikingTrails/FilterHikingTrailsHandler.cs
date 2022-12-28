@@ -23,10 +23,13 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.FilterHikingT
 
             try
             {
+                if (querry.Difficulty < 0 || querry.Difficulty > 3)
+                    return null;
+
                 List<HikingTrail> hikingTrailsList = _unitOfWork.DestinationRepository.FilterHikingTrails(querry.Difficulty);
 
                 if (hikingTrailsList.Count() < 0)
-                    throw new DestinationNotFoundException("There are no hiking trail elements that fullfil the condition in the collection");
+                    return Task.FromResult(new List<DestinationGetDto>());
 
                 var mappedResult = _mapper.Map<List<DestinationGetDto>>(hikingTrailsList);
                 return Task.FromResult(mappedResult);
