@@ -117,8 +117,9 @@ namespace NatureBlog.Infrastructure.Repositories
             return destinations;
         }
 
-        public List<Destination> SearchByKeyword(string searchWord)
+        public List<Destination> SearchByDestinationName(string searchWord)
         {
+            
             List<Destination> destinations = _dbContext.Destinations.Where(d => d.Name.Contains(searchWord)).Select(d => d).ToList();
 
             return destinations;
