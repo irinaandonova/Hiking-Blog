@@ -9,6 +9,8 @@ namespace NatureBlog.Application.Profiles
         public CommentProfile()
         {
             CreateMap<Comment,CommentGetDto>();
+            CreateMap<CommentPostDto, Comment>();
+            CreateMap<CommentPutDto, Comment>();
         }
     }
 }
