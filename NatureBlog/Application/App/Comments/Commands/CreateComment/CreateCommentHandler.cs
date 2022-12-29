@@ -1,34 +1,38 @@
 ﻿using MediatR;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
+using NatureBlog.Domain.Models;
 
-namespace Application.App.Comments.Commands.CreateComment
+namespace NatureBlog.Application.App.Comments.Commands.CreateComment
 {
-    public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, bool>
+    public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, int?>
     {
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateCommentHandler(IUnitOfWork unitOfWork)
         {
-            _unitOfWork= unitOfWork;                
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
+        public async Task<int?> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                bool response = _unitOfWork.CommentRepository.CreateComment(command.destinationId, command.creatorId, command.text);
+                Comment comment = new Comment { DestinationId = command.DestinationId, CreatorId = command.CreatorId, Text = command.Text };
+
+                _unitOfWork.CommentRepository.CreateComment(comment);
                 await _unitOfWork.Save();
 
-                if (response)
-                    return true;
+                if (comment is not null)
+                    return comment.Id;
+
                 else
-                    throw new ModificationFailedException("Creating a comment was unsuccessful!");
+                    return null;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in CreateComment Method" + ex.Message);
-                return false;
+                return null;
             }
         }
     }

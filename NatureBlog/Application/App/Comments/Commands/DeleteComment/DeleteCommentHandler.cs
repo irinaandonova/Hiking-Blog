@@ -5,7 +5,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
 {
-    public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, bool>
+    public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, bool?>
     {
         private readonly IUnitOfWork _unitOfWork;
         public DeleteCommentHandler(IUnitOfWork unitOfWork)
@@ -13,19 +13,19 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
             _unitOfWork= unitOfWork;
         }
 
-        public async Task<bool> Handle(DeleteCommentCommand command, CancellationToken cancellationToken)
+        public async Task<bool?> Handle(DeleteCommentCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 Destination destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
-                Comment comment = destination.Comments.SingleOrDefault(x => x.Id == command.CommentId);
+                Comment comment = _unitOfWork.CommentRepository.GetComment(command.CommentId);
 
-                if (comment is null)
-                    throw new CommentNotFoundException("No comment found with the given id!");
-                
+                if (destination is null || comment is null)
+                    return null;
+
                 if (comment.Creator.Id != command.CreatorId)
-                    throw new UserNotCreatorException("Current user isn't the creator of the comment!");
-                
+                    return null;
+
                 bool response = _unitOfWork.CommentRepository.DeleteComment(command.DestinationId, command.CommentId);
                 await _unitOfWork.Save();
 
@@ -33,11 +33,6 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
                     throw new ModificationFailedException("Creating a comment was unsuccessful!");
                 
                 return true;
-            }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("Exception in the DeleteComment Method! Insert all values!");
-                return false;
             }
             catch (Exception ex)
             {

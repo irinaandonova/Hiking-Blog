@@ -1,13 +1,13 @@
 ﻿using MediatR;
 
-namespace Application.App.Comments.Commands.CreateComment
+namespace NatureBlog.Application.App.Comments.Commands.CreateComment
 {
-    public class CreateCommentCommand : IRequest<bool>
+    public class CreateCommentCommand : IRequest<int?>
     {
-        public int destinationId;
+        public int DestinationId;
 
-        public string text;
+        public int CreatorId;
 
-        public int creatorId;
+        public string Text;
     }
 }
