@@ -51,5 +51,7 @@ namespace NatureBlog.Application.Repositories
         HikingTrail GetHikingTrailInfo(int destinationId);
 
         Park GetParkInfo(int destinationId);
+
+        List<Comment> GetComments(int destinationId);
     }
 }

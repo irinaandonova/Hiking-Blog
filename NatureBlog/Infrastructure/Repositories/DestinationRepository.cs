@@ -56,8 +56,6 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-
-
         public List<Seaside> GetAllSeasides()
         {
             List<Seaside> destinations = _dbContext.Destinations.Where(x => x is Seaside).Select(s => s as Seaside).ToList();
@@ -119,7 +117,7 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public List<Destination> SearchByDestinationName(string searchWord)
         {
-            
+
             List<Destination> destinations = _dbContext.Destinations.Where(d => d.Name.Contains(searchWord)).Select(d => d).ToList();
 
             return destinations;
@@ -153,15 +151,15 @@ namespace NatureBlog.Infrastructure.Repositories
         {
 
             Destination destination = GetDestination(destinationId);
-            Rating rating = (Rating)destination.Ratings.Select(x => x.User.Id == userId);
-
             if (destination is null)
                 return null;
 
-            if (rating is not null)
-                rating.RatingValue = ratingValue;
-            else
+            Rating rating = (Rating)destination.Ratings.Select(x => x.User.Id == userId);
+
+            if (rating is null)
                 destination.Ratings.Add(rating);
+            else
+                rating.RatingValue = ratingValue;
 
             return true;
         }
@@ -177,7 +175,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public bool UpdatePlayground(int destinationId, bool hasPlayground)
         {
             Park park = (Park)GetDestination(destinationId);
-            
+
             park.HasPlayground = hasPlayground;
             return true;
         }
@@ -185,15 +183,16 @@ namespace NatureBlog.Infrastructure.Repositories
         public bool UpdateIsDogFriendly(int destinationId, bool hasDogFriendly)
         {
             Park park = (Park)GetDestination(destinationId);
-           
+
             park.IsDogFriendly = hasDogFriendly;
             return true;
         }
 
-        public bool UpdateDuration(int destinationId, int duration) {
+        public bool UpdateDuration(int destinationId, int duration)
+        {
             HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
 
-            hikingTrail.HikingDuration= duration;
+            hikingTrail.HikingDuration = duration;
             return true;
         }
         public HikingTrail GetHikingTrailInfo(int hikingTrailId)
@@ -204,6 +203,13 @@ namespace NatureBlog.Infrastructure.Repositories
         public Park GetParkInfo(int parkId)
         {
             return (Park)_dbContext.Destinations.SingleOrDefault(p => p.Id == parkId);
+        }
+
+        public List<Comment> GetComments(int destenitaionId)
+        {
+            Destination destination = GetDestination(destenitaionId);
+            
+            return destination.Comments.ToList();
         }
     }
 }
