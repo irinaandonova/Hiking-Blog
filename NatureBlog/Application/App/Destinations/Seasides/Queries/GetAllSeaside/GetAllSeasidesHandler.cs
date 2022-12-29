@@ -9,11 +9,11 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
 {
     public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<SeasideGetDto>>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public GetAllSeasidesHandler(IDestinationRepository DestinationRepository, IMapper mapper)
+        public GetAllSeasidesHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = DestinationRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -21,10 +21,10 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
         {
             try
             {
-                List<Seaside> allSeasides = _repository.GetAllSeasides();
+                List<Seaside> allSeasides = _unitOfWork.DestinationRepository.GetAllSeasides();
 
                 if (allSeasides.Count() < 0)
-                    throw new DestinationNotFoundException("There are no elements in the collection");
+                    return Task.FromResult(new List<SeasideGetDto>());
 
                 var mappedResult = _mapper.Map<List<SeasideGetDto>>(allSeasides);
                 return Task.FromResult(mappedResult);

@@ -1,26 +1,30 @@
 ﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
+using NatureBlog.Application.Dto.Destination.Destination;
+using AutoMapper;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside
-{/*
+{
     public class FilterSeasidesHandler
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
+        private IMapper _mapper;
 
-        public FilterSeasidesHandler(IDestinationRepository destinationRepository)
+        public FilterSeasidesHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = destinationRepository;
+            _unitOfWork= unitOfWork;
+            _mapper= mapper;
         }
 
-        public Task<List<Seaside>> Handle(FilterSeasidesQuery query)
+        public Task<List<DestinationGetDto>> Handle(FilterSeasidesQuery query)
         {
             try
             {
-                List<Seaside> seasidesList = _repository.FilterSeaside(query.IsGuarded, query.OffersUmbrellas);
+                List<DestinationGetDto> seasidesList = _unitOfWork.DestinationRepository.FilterSeaside(query.IsGuarded, query.OffersUmbrellas);
 
                 if (seasidesList.Count() < 0)
-                    throw new DestinationNotFoundException("There are no destination in that fullfils those conditions!");
+                    return Task.FromResult(new List<DestinationGetDto>());
 
                 return Task.FromResult(seasidesList);
             }
@@ -30,5 +34,5 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside
                 return null;
             }
         }
-    }*/
+    }
 }
