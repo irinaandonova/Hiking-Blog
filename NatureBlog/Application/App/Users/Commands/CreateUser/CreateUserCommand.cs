@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.App.Users
+namespace Application.App.Users.Commands.CreateUser
 {
     public class CreateUserCommand : IRequest<User>
     {

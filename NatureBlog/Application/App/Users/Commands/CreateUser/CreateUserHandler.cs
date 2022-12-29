@@ -3,7 +3,7 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.App.Users
+namespace Application.App.Users.Commands.CreateUser
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand, User>
     {
@@ -17,12 +17,12 @@ namespace NatureBlog.Application.App.Users
         {
             try
             {
-                if (String.IsNullOrEmpty(command.Username) || String.IsNullOrEmpty(command.Email))
+                if (string.IsNullOrEmpty(command.Username) || string.IsNullOrEmpty(command.Email))
                     throw new AllFieldsMustBeFilled("Username or email isn't filled!");
                 if (command.HikingSkill < 1 || command.HikingSkill > 3)
                     throw new OutOfRangeException("Hiking level must be between 1 and 3!");
 
-                User user = new User {  Username = command.Username, Email = command.Email, HikingSkill = command.HikingSkill};
+                User user = new User { Username = command.Username, Email = command.Email, HikingSkill = command.HikingSkill };
 
                 await _unitOfWork.UserRepository.Add(user);
                 await _unitOfWork.Save();
@@ -36,7 +36,7 @@ namespace NatureBlog.Application.App.Users
             }
         }
     }
-        
+
 }
 
 
