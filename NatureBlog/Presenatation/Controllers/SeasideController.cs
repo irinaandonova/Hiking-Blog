@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
+using NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Seaside;
 
@@ -53,9 +54,24 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok(result);
         }
-        /*
+        
         [HttpGet]
-        [Route("filter/")]
-        public async Task<IActionResult> FilterSeaside()*/
+        [Route("filter/{isGuarded}/{offersUbrellas}")]
+        public async Task<IActionResult> FilterSeaside(bool isGuarded, bool offersUmbrella)
+        {
+            var result = await _mediator.Send(new FilterSeasidesQuery
+            {
+                IsGuarded = isGuarded,
+                OffersUmbrellas = offersUmbrella
+            });
+
+            if(result is null)
+                return BadRequest();
+
+            if (result.Count == 0)
+                return NoContent();
+
+            return Ok(result);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Comments.Queries.GetComments;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
@@ -85,6 +86,20 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("{id}/comments")]
+        public async Task<IActionResult> GetDestinationComments(int id)
+        {
+            var result = await _mediator.Send(new GetCommentsQuery { Id = id });
+
+            if (result.Count == 0)
+                return NoContent();
+
+            if(result is null)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
         [HttpPost]
         [Route("{id}/rate")]
         public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
