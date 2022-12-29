@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.App.Comments.Queries.GetComments;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
@@ -11,6 +10,7 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinatio
 using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Dto.Region;
 using NatureBlog.Application.Dto.User;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
