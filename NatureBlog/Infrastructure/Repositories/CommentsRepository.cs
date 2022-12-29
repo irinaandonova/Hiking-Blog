@@ -15,11 +15,10 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public DestinationRepository DestinationRepository { get; set; }
         
-        public bool CreateComment(int destinationId, int creatorId, string text)
+        public bool CreateComment(Comment comment)
         {
-            Destination destination = DestinationRepository.GetDestination(destinationId);
+            Destination destination = DestinationRepository.GetDestination(comment.DestinationId);
 
-            Comment comment = new Comment { Destination = destination, Text = text };
             destination.Comments.Add(comment);
 
             return true;
@@ -34,6 +33,12 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
         
+        public bool EditComment(Comment comment, string text)
+        {
+            comment.Text = text;
+            return true;
+        }
+
         public Comment GetComment(int commentId)
         {
             return (Comment)_dbContext.Comments.Select(x => x.Id == commentId);
