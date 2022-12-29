@@ -21,12 +21,14 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.FilterSeaside
         {
             try
             {
-                List<DestinationGetDto> seasidesList = _unitOfWork.DestinationRepository.FilterSeaside(query.IsGuarded, query.OffersUmbrellas);
+                List<Seaside> seasidesList = _unitOfWork.DestinationRepository.FilterSeaside(query.IsGuarded, query.OffersUmbrellas);
 
                 if (seasidesList.Count() < 0)
                     return Task.FromResult(new List<DestinationGetDto>());
 
-                return Task.FromResult(seasidesList);
+                var mappedResult = _mapper.Map<List<DestinationGetDto>>(seasidesList);
+
+                return Task.FromResult(mappedResult);
             }
             catch (Exception ex)
             {
