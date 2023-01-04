@@ -16,7 +16,7 @@ using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 
 namespace NatureBlog.Presenatation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/destinations")]
     [ApiController]
     public class DestinationController : ControllerBase
     {

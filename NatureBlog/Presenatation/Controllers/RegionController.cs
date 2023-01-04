@@ -9,7 +9,7 @@ using NatuteBlog.Application.Regions;
 
 namespace Presenatation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/regions")]
     [ApiController]
     public class RegionController : ControllerBase
     {

@@ -1,4 +1,5 @@
-﻿using Application.Dto.User;
+﻿using Application.App.Users.Commands.CreateUser;
+using Application.Dto.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users;
@@ -7,7 +8,7 @@ using NatureBlog.Application.Dto.User;
 
 namespace Presenatation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {

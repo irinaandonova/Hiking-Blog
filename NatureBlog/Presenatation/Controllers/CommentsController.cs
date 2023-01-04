@@ -11,7 +11,7 @@ using NatureBlog.Application.Dto.User;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/comments")]
     [ApiController]
     public class CommentsController : ControllerBase
     {

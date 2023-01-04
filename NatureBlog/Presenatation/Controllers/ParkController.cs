@@ -10,7 +10,7 @@ using NatureBlog.Application.Dto.Destination.Park;
 
 namespace Presenatation.Controllers
 {
-    [Route("api/destination/[controller]")]
+    [Route("api/destination/parks")]
     [ApiController]
 
     public class ParkController : ControllerBase

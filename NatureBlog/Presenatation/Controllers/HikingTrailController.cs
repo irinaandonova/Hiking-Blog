@@ -12,7 +12,7 @@ using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrail
 
 namespace NatureBlog.Presenatation.Controllers
 {
-    [Route("api/destination/[controller]")]
+    [Route("api/destination/hiking-trails")]
     [ApiController]
     public class HikingTrailController : ControllerBase
     {

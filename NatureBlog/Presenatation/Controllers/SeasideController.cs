@@ -9,7 +9,7 @@ using NatureBlog.Application.Dto.Destination.Seaside;
 
 namespace NatureBlog.Presenatation.Controllers
 {
-    [Route("api/destination/[controller]")]
+    [Route("api/destination/seasides")]
     [ApiController]
     public class SeasideController : ControllerBase
     {
