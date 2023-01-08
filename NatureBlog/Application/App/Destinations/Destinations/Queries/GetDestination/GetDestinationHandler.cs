@@ -1,28 +1,34 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination
 {
-    public class GetDestinationHandler: IRequestHandler<GetDestinationQuery, Destination>
+    public class GetDestinationHandler: IRequestHandler<GetDestinationQuery, DestinationGetDto>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GetDestinationHandler(IDestinationRepository DestinationRepository)
+       public GetDestinationHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = DestinationRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<Destination> Handle(GetDestinationQuery query, CancellationToken cancellationToken)
+        public Task<DestinationGetDto> Handle(GetDestinationQuery query, CancellationToken cancellationToken)
         {
             try
             {
-                Destination destination = _repository.GetDestination(query.Id);
+                Destination destination = _unitOfWork.DestinationRepository.GetDestination(query.Id);
                 if (destination is null)
                     throw new DestinationNotFoundException("No destination with given id in database!");
 
-                return Task.FromResult(destination);
+                var mappedResult = _mapper.Map<DestinationGetDto>(destination);
+
+                return Task.FromResult(mappedResult);
             }
             catch (Exception ex)
             {
