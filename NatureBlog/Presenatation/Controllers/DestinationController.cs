@@ -1,16 +1,15 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
+using NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
 using NatureBlog.Application.Dto.Destination.Destination;
-using NatureBlog.Application.Dto.Region;
 using NatureBlog.Application.Dto.User;
-using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,6 +37,15 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("id")]
+        public async Task<IActionResult> GetDestinationById(int id)
+        {
+            var result = await _mediator.Send(new GetDestinationQuery { Id = id});
+
+            return Ok(result);
+        }
+        
         [HttpGet]
         [Route("region/{id}")]
         public async Task<IActionResult> FilterByRegion(int id)
