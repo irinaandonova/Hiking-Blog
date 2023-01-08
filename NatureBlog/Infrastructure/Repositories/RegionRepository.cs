@@ -13,6 +13,10 @@ namespace NatureBlog.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public Region GetRegion(int regionId)
+        {
+            return _dbContext.Regions.SingleOrDefault(r => r.Id == regionId);
+        }
         public async Task Add(Region region)
         {
              await _dbContext.Regions.AddAsync(region);
