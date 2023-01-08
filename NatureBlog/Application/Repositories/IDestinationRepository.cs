@@ -53,5 +53,6 @@ namespace NatureBlog.Application.Repositories
         Park GetParkInfo(int destinationId);
 
         List<Comment> GetComments(int destinationId);
+
     }
 }

@@ -6,6 +6,7 @@ using NatureBlog.Application.Destinations.HikingTrails.Commands.ChangeDifficulty
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Domain.Models;
 using NatuteBlog.Application.Destinations.HikingTrails.Queries.FilterHikingTrails;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -59,6 +60,7 @@ namespace NatureBlog.Presenatation.Controllers
                 RegionId = hikingTrail.RegionId,
                 Description = hikingTrail.Description,
                 ImageUrl = hikingTrail.ImageUrl,
+                //Ratings = new ICollection<Rating> { },
                 Difficulty = hikingTrail.Difficulty,
                 Duration = hikingTrail.Duration
             });

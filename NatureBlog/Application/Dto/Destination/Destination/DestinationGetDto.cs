@@ -11,5 +11,7 @@
         public string ImageUrl { get; set; }
 
         public int RegionId { get; set; }
+
+        public string Type { get; set; }
     }
 }

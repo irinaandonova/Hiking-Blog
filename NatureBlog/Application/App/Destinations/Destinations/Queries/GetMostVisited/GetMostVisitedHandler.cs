@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using NatureBlog.Application.Dto.Destination.Destination;
-using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
