@@ -2,7 +2,7 @@
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
-namespace NatuteBlog.Application.Regions
+namespace NatureBlog.Application.App.Regions.Commands.CreateRegion
 {
     public class CreateRegionHandler : IRequestHandler<CreateRegionCommand, Region>
     {

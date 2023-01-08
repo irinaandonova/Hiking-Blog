@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NatureBlog.Domain.Models;
 
-namespace NatuteBlog.Application.Regions
+namespace NatureBlog.Application.App.Regions.Commands.CreateRegion
 {
     public class CreateRegionCommand : IRequest<Region>
     {

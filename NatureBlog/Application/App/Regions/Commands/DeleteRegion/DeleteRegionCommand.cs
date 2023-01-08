@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace NatureBlog.Application.App.Regions.DeleteRegion
+namespace NatureBlog.Application.App.Regions.Commands.DeleteRegion
 {
     public class DeleteRegionCommand : IRequest<bool?>
     {

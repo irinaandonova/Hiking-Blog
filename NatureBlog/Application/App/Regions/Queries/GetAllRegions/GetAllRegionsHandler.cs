@@ -4,7 +4,7 @@ using NatureBlog.Application.Dto.Region;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.App.Regions.GetAllRegions
+namespace NatureBlog.Application.App.Regions.Queries.GetAllRegions
 {
     public class GetAllRegionsHandler : IRequestHandler<GetAllRegionsCommand, List<RegionGetDto>>
     {
