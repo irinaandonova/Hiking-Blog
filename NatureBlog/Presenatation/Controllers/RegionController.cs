@@ -1,15 +1,14 @@
 ﻿using Application.Dto.Region;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.App.Regions.DeleteRegion;
-using NatureBlog.Application.App.Regions.GetAllRegions;
-using NatureBlog.Application.Dto.Region;
-using NatureBlog.Application.Dto.User;
-using NatuteBlog.Application.Regions;
+using NatureBlog.Application.App.Regions.Commands.CreateRegion;
+using NatureBlog.Application.App.Regions.Commands.DeleteRegion;
+using NatureBlog.Application.App.Regions.Queries.GetAllRegions;
+using NatureBlog.Application.App.Regions.Queries.GetRegionById;
 
 namespace Presenatation.Controllers
 {
-    [Route("api/regions")]
+    [Route("api/region")]
     [ApiController]
     public class RegionController : ControllerBase
     {
@@ -24,6 +23,18 @@ namespace Presenatation.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllRegionsCommand());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _mediator.Send(new GetRegionByIdCommand { Id = id });
+
+            if (result is null)
+                return NotFound();
+
             return Ok(result);
         }
 
@@ -53,7 +64,7 @@ namespace Presenatation.Controllers
             if (result is null)
                 return BadRequest();
 
-            if(result == false)
+            if (result == false)
                 return StatusCode(500);
 
             return Ok("Region deleted successfully!");
