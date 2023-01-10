@@ -10,7 +10,7 @@ using NatureBlog.Application.Dto.Destination.Park;
 
 namespace Presenatation.Controllers
 {
-    [Route("api/destination/parks")]
+    [Route("api/destinations/parks")]
     [ApiController]
 
     public class ParkController : ControllerBase
@@ -23,9 +23,9 @@ namespace Presenatation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllParks()
+        public async Task<IActionResult> GetAllParks()
         {
-            var result = _mediator.Send(new GetAllParksQuery());
+            var result = await _mediator.Send(new GetAllParksQuery());
 
             if (result == null)
             {

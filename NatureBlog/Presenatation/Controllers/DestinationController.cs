@@ -38,7 +38,7 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("id")]
+        [Route("/{id}")]
         public async Task<IActionResult> GetDestinationById(int id)
         {
             var result = await _mediator.Send(new GetDestinationQuery { Id = id});

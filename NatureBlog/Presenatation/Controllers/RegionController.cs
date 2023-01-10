@@ -18,14 +18,14 @@ namespace Presenatation.Controllers
         {
             _mediator = mediator;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllRegionsCommand());
             return Ok(result);
         }
-
+        
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -37,7 +37,7 @@ namespace Presenatation.Controllers
 
             return Ok(result);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> AddRegion([FromBody] RegionPostDto region)
         {
