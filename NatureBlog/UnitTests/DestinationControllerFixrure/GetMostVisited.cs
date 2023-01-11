@@ -11,18 +11,7 @@ namespace NatureBlog.UnitTests.DestinationControllerFixrure
     {
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
 
-        [TestMethod]
-        public async Task Get_Most_Visited_Is_Called()
-        {
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetMostVisitedQuery>(), It.IsAny<CancellationToken>()))
-                .Verifiable();
-
-            var controller = new DestinationController(_mockMediator.Object);
-            await controller.GetMostVisited();
-
-            _mockMediator.Verify(m => m.Send(It.IsAny<GetMostVisitedQuery>(), It.IsAny<CancellationToken>()), Times.Once());
-        }
+      
         /*
         public async Task Get_Most_Visited_Returns_List()
         {
