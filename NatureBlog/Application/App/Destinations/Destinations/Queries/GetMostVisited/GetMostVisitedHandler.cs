@@ -8,12 +8,12 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
 {
     public class GetMostVisitedHandler : IRequestHandler<GetMostVisitedQuery, List<DestinationGetDto>>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
 
-        public GetMostVisitedHandler(IDestinationRepository destinationRepository, IMapper mapper)
+        public GetMostVisitedHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _repository= destinationRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
 
         }
@@ -22,7 +22,13 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
         {
             try 
             {
-                List<Destination> result = _repository.GetMostVisited();
+                int offset = 0;
+                if (command.Page == 1)
+                    offset = 0;
+                else
+                 offset = command.Page - 1 * 10;
+                List<Destination> result = _unitOfWork.DestinationRepository.GetMostVisited(offset);
+
                 if (result.Count < 1)
                     return Task.FromResult(new List<DestinationGetDto> { });
 

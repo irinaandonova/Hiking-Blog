@@ -17,7 +17,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
         {
             try
             {
-                HikingTrail hikingTrail = new HikingTrail { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId , Difficulty = command.Difficulty, HikingDuration = command.Duration };
+                HikingTrail hikingTrail = new HikingTrail { Name = command.name, CreatorId = command.creatorId, Description = command.description, ImageUrl = command.imageUrl, RegionId = command.regionId , Difficulty = command.difficulty, HikingDuration = command.duration };
                 
                 await _unitOfWork.DestinationRepository.AddHikingTrail(hikingTrail);
                 await _unitOfWork.Save();

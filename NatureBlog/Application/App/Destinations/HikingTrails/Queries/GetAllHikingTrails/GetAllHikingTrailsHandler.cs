@@ -4,16 +4,17 @@ using NatureBlog.Application.Exceptions;
 using NatureBlog.Domain.Models;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
 using AutoMapper;
+using NatureBlog.Application.Dto.Destination.Destination;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
 {
     public class GetAllHikingTrailsHandler : IRequestHandler<GetAllHikingTrailsQuery, List<HikingTrailGetDto>>
     {
-        private readonly IDestinationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public GetAllHikingTrailsHandler(IDestinationRepository DestinationRepository, IMapper mapper)
+        public GetAllHikingTrailsHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = DestinationRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -21,7 +22,14 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
         {
             try
             {
-                List<HikingTrail> allHikingTrails = _repository.GetAllHikingTrails();
+                int offset = 0;
+                if (query.Page == 1)
+                    offset = 0;
+                else
+                    offset = query.Page - 1 * 10;
+                
+
+                List<HikingTrail> allHikingTrails = _unitOfWork.DestinationRepository.GetAllHikingTrails(offset);
 
                 if (allHikingTrails.Count() < 0)
                     return Task.FromResult(new List<HikingTrailGetDto> { });

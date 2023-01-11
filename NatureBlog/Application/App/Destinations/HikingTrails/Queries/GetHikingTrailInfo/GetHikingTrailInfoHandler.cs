@@ -22,6 +22,7 @@ namespace NatureBlog.Application.App.Destinations.HikingTrails.Queries.GetHiking
             try
             {
                 HikingTrail hikingTrail = _unitOfWork.DestinationRepository.GetHikingTrailInfo(query.Id);
+
                 if (hikingTrail is null)
                     throw new DestinationNotFoundException("No destination with such id");
 

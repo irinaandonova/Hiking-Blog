@@ -21,7 +21,12 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
         {
             try
             {
-                List<Seaside> allSeasides = _unitOfWork.DestinationRepository.GetAllSeasides();
+                int offset = 0;
+                if (query.Page == 1)
+                    offset = 0;
+                else
+                    offset = query.Page - 1 * 10;
+                List<Seaside> allSeasides = _unitOfWork.DestinationRepository.GetAllSeasides(offset);
 
                 if (allSeasides.Count() < 0)
                     return Task.FromResult(new List<SeasideGetDto>());

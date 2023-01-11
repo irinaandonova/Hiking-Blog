@@ -6,5 +6,6 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
 {
     public class GetAllHikingTrailsQuery: IRequest<List<HikingTrailGetDto>>
     {
+        public int Page { get; set; }
     }
 }

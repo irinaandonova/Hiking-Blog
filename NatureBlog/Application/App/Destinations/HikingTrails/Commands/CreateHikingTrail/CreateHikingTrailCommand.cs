@@ -5,28 +5,19 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHiking
 {
     public class CreateHikingTrailCommand: IRequest<int?>
     {
-        public string Name { get; set; }
+        public string name { get; set; }
 
-        public int CreatorId { get; set; }
+        public int creatorId { get; set; }
 
-        public string Description { get; set; }
+        public string description { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string imageUrl { get; set; }
 
-        public int RegionId { get; set; }
+        public int regionId { get; set; }
 
-        public Region Region { get; set; }
+        public int difficulty { get; set; }
 
-        public int Difficulty { get; set; }
+        public int duration { get; set; }
 
-        public int Duration { get; set; }
-
-        public int? RatingScore { get; set; }
-
-        public ICollection<Comment> Comments { get; set; }
-
-        public ICollection<Rating> Ratings { get; set; }
-
-        public ICollection<User> Visitors { get; set; }
     }
 }

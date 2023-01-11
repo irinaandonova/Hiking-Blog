@@ -21,7 +21,13 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
         {
             try
             {
-                List<Park> allParks = _repository.GetAllParks();
+                int offset = 0;
+                if (query.Page == 1)
+                    offset = 0;
+                else
+                    offset = query.Page - 1 * 10;
+
+                List<Park> allParks = _repository.GetAllParks(offset);
 
                 if (allParks.Count() < 0)
                     throw new DestinationNotFoundException("There are no elements in the collection");
