@@ -1,5 +1,9 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
+using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Application.Dto.Destination.Park;
+using NatureBlog.Application.Dto.Destination.Seaside;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 using System.Xml.Linq;
@@ -9,41 +13,52 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDe
     public class CreateDestinationHandler : IRequestHandler<CreateDestinationCommand, int?>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateDestinationHandler(IUnitOfWork unitOfWork)
+        public CreateDestinationHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<int?> Handle(CreateDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                /*
                 if (command.IsGuarded is not null)
                 {
-                    Seaside destination = new Seaside { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, OffersUmbrella = command.OffersUmbrella, IsGuarded = command.IsGuarded }
-                await _unitOfWork.DestinationRepository.AddDestination(destination);
+                    var result = _mapper.Map<SeasidePostDto>(command);
+                    Seaside destination = new Seaside { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, OffersUmbrella = result.OffersUmbrella, IsGuarded = result.IsGuarded };
+                    await _unitOfWork.DestinationRepository.AddDestination(destination);
+                    await _unitOfWork.Save();
+
+                    return destination.Id;
 
                 }
                 else if (command.HasPlayground is not null)
                 {
-                    Park destination = new Park { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, HasPlayground = command.HasPlayground, IsDogFriendly = command.IsDogFriendly };
+
+                    var result = _mapper.Map<ParkPostDto>(command);
+                    Park destination = new Park { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, HasPlayground = result.HasPlayground, IsDogFriendly = result.IsDogFriendly };
                     await _unitOfWork.DestinationRepository.AddDestination(destination);
+                    await _unitOfWork.Save();
+
+                    return destination.Id;
 
                 }
                 else if (command.Duration is not null)
                 {
-                    HikingTrail destination = { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, Difficulty = command.Difficulty, HikingDuration = command.Duration }
-                await _unitOfWork.DestinationRepository.AddDestination(destination);
+                    var result = _mapper.Map<HikingTrailPostDto>(command);
 
+                    HikingTrail destination = new HikingTrail { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, Difficulty = result.Difficulty, HikingDuration = result.Duration };
+                    await _unitOfWork.DestinationRepository.AddDestination(destination);
+                    await _unitOfWork.Save();
+
+                    return destination.Id;
                 }
+                else
+                    return null;
                 
-                
-                await _unitOfWork.Save();
-                return destination.Id;*/
-
-                return 1;
 
             }
             catch (Exception ex)

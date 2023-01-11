@@ -110,22 +110,21 @@ namespace NatureBlog.Presenatation.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHikingTrail([FromBody] DestinationGetDto destination)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            
 
             var result = await _mediator.Send(new CreateDestinationCommand
             {
-                Name = destination.Name,
-                CreatorId = destination.CreatorId,
-                RegionId = destination.RegionId,
-                Description = destination.Description,
-                ImageUrl = destination.ImageUrl,
-                Difficulty = destination.Difficulty,
-                Duration = destination.Duration,
-                HasUmbrella = destination.HasUmbrella,
-                IsGuarded = destination.IsGuarded,
-                HasPlayground = destination.HasPlayground,
-                IsDogFriendly = destination.IsDogFriendly
+                Name = destination.name,
+                CreatorId = destination.creatorId,
+                RegionId = destination.regionId,
+                Description = destination.description,
+                ImageUrl = destination.imageUrl,
+                Difficulty = destination.difficulty,
+                Duration = destination.duration,
+                HasUmbrella = destination.hasUmbrella,
+                IsGuarded = destination.isGuarded,
+                HasPlayground = destination.hasPlayground,
+                IsDogFriendly = destination.isDogFriendly
 
             });
 
