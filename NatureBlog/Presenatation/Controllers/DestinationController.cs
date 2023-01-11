@@ -4,22 +4,16 @@ using NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDestin
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
-using NatureBlog.Application.App.Destinations.Parks.Commands.UpdateIsDogFriendly;
-using NatureBlog.Application.App.Destinations.Parks.Queries.GetParkInfo;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
-using NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
-using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Destination;
-using NatureBlog.Application.Dto.Destination.HikingTrail;
-using NatureBlog.Application.Dto.Destination.Park;
 using NatureBlog.Application.Dto.User;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
