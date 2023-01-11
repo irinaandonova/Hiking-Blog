@@ -110,7 +110,8 @@ namespace NatureBlog.Presenatation.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHikingTrail([FromBody] DestinationGetDto destination)
         {
-            
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var result = await _mediator.Send(new CreateDestinationCommand
             {
