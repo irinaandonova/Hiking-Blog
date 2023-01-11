@@ -49,16 +49,63 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public List<Destination> GetMostVisited()
+        public List<Destination> GetMostVisited(int offset)
         {
-            List<Destination> result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Take(10).ToList();
+            List<Destination> result = new List<Destination>();
+            
+             result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+            
+            return result;
+        }
+
+        public List<HikingTrail> GetAllHikingTrails(int offset)
+        {
+            List<HikingTrail> result = new List<HikingTrail>();
+            if (offset == 0)
+                result = _dbContext.Destinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).Take(10).ToList();
+            else
+                result = _dbContext.Destinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).Skip(offset).Take(10).ToList();
 
             return result;
+        }
+        public int GetAllDestinationsCount()
+        {
+            int count = _dbContext.Destinations.Count();
+            Console.WriteLine((count));
+            return count;
+        }
+
+        public int GetHikingTrailCount()
+        {
+            int count = _dbContext.Destinations.Where(x => x is HikingTrail).Count();
+
+            return count;
+        }
+
+        public int GetParkCount()
+        {
+            int count = _dbContext.Destinations.Where(x => x is Park).Count();
+
+            return count;
+        }
+
+        public int GetSeasideCount()
+        {
+            int count = _dbContext.Destinations.Where(x => x is Seaside).Count();
+
+            return count;
         }
 
         public List<Seaside> GetAllSeasides()
         {
             List<Seaside> destinations = _dbContext.Destinations.Where(x => x is Seaside).Select(s => s as Seaside).ToList();
+
+            return destinations;
+        }
+
+        public List<Seaside> GetAllSeasides(int offset)
+        {
+            List<Seaside> destinations = _dbContext.Destinations.Where(x => x is Seaside).Select(s => s as Seaside).Skip(offset).Take(10).ToList();
 
             return destinations;
         }
@@ -85,6 +132,12 @@ namespace NatureBlog.Infrastructure.Repositories
             return parks;
         }
 
+        public List<Park> GetAllParks(int offset)
+        {
+            List<Park> parks = _dbContext.Destinations.Where(x => x is Park).Select(s => s as Park).Skip(offset).Take(10).ToList();
+
+            return parks;
+        }
         public List<HikingTrail> FilterHikingTrails(int difficulty)
         {
             List<HikingTrail> hikingTrails = GetAllHikingTrails().Where(d => d.Difficulty == difficulty).ToList();

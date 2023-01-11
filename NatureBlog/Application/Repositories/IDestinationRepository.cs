@@ -16,13 +16,26 @@ namespace NatureBlog.Application.Repositories
 
         bool Update(int Id, string name, string description, string imageUrl, Region region);
 
-        List<Destination> GetMostVisited();
+        List<Destination> GetMostVisited(int offset);
 
-        List<Seaside> GetAllSeasides();
+        int GetAllDestinationsCount();
+
+        int GetHikingTrailCount();
+
+        int GetSeasideCount();
+
+        int GetParkCount();
+
+        List<Seaside> GetAllSeasides(int offset);
 
         List<HikingTrail> GetAllHikingTrails();
 
+        List<HikingTrail> GetAllHikingTrails(int offset);
+
         List<Park> GetAllParks();
+
+        List<Park> GetAllParks(int offset);
+
 
         List<HikingTrail> FilterHikingTrails(int difficulty);
 
