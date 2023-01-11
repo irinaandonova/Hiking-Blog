@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
@@ -8,6 +9,9 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
+using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
+using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
+using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Dto.User;
 
@@ -27,9 +31,21 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMostVisited()
+        [Route("all/{page}")]
+        public async Task<IActionResult> GetMostVisited(int page)
         {
-            var result = await _mediator.Send(new GetMostVisitedQuery());
+            var result = await _mediator.Send(new GetMostVisitedQuery { Page = page });
+
+            if (result is null)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("hiking-trails/{page}")]
+        public async Task<IActionResult> GetAllHikingTrails(int page)
+        {
+            var result = await _mediator.Send(new GetAllHikingTrailsQuery { Page = page });
 
             if (result is null)
                 return StatusCode(500);
@@ -38,14 +54,52 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("/{id}")]
-        public async Task<IActionResult> GetDestinationById(int id)
+        [Route("seasides/{page}")]
+        public async Task<IActionResult> GetAllSeaside(int page)
         {
-            var result = await _mediator.Send(new GetDestinationQuery { Id = id});
+            var result = await _mediator.Send(new GetAllSeasidesQuery { Page = page});
+
+            if (result == null)
+            {
+                return NoContent();
+            }
 
             return Ok(result);
         }
-        
+        [HttpGet]
+        [Route("parks/{page}")]
+        public async Task<IActionResult> GetAllParks(int page)
+        {
+            var result = await _mediator.Send(new GetAllParksQuery{ Page = page });
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("count/{type}")]
+        public async Task<IActionResult> GetCount(string type)
+        {
+            var result = await _mediator.Send(new GetDestinationCountQuery { Type = type });
+
+            if (result is null)
+                return StatusCode(400);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/{id}")]
+        public async Task<IActionResult> GetDestinationById(int id)
+        {
+            var result = await _mediator.Send(new GetDestinationQuery { Id = id });
+
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("region/{id}")]
         public async Task<IActionResult> FilterByRegion(int id)
@@ -86,9 +140,9 @@ namespace NatureBlog.Presenatation.Controllers
             if (string.IsNullOrEmpty(condition))
                 return BadRequest("Condition can't be empty!");
 
-            var result = await _mediator.Send(new SortDestinationsQuery{ Condition = condition });
+            var result = await _mediator.Send(new SortDestinationsQuery { Condition = condition });
 
-            if(result is null)
+            if (result is null)
                 return StatusCode(500);
 
             return Ok(result);
@@ -103,11 +157,12 @@ namespace NatureBlog.Presenatation.Controllers
             if (result.Count == 0)
                 return NoContent();
 
-            if(result is null)
+            if (result is null)
                 return StatusCode(500);
 
             return Ok(result);
         }
+
         [HttpPost]
         [Route("{id}/rate")]
         public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
@@ -122,7 +177,7 @@ namespace NatureBlog.Presenatation.Controllers
             if (result is null)
                 return BadRequest("Invalid creator or destination id!");
 
-            if(result == false)
+            if (result == false)
                 return StatusCode(500);
 
             return Ok("Destination rated successfully!");

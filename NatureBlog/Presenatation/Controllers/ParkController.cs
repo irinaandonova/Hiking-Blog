@@ -22,18 +22,7 @@ namespace Presenatation.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllParks()
-        {
-            var result = await _mediator.Send(new GetAllParksQuery());
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-        }
+        
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)

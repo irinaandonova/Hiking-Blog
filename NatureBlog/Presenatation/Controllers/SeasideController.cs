@@ -20,18 +20,8 @@ namespace NatureBlog.Presenatation.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllSeaside()
-        {
-            var result = await _mediator.Send(new GetAllSeasidesQuery());
-
-            if (result == null)
-            {
-                return NoContent();
-            }
-
-            return Ok(result);
-        }
+        
+        
 
         [HttpPost]
         public async Task<IActionResult> CreateSeaside([FromBody] SeasidePostDto seaside)

@@ -25,17 +25,6 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllHikingTrails()
-        {
-            var result = await _mediator.Send(new GetAllHikingTrailsQuery());
-
-            if (result is null)
-                return StatusCode(500);
-
-            return Ok(result);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetHikingTrail(int id)
         {
@@ -55,14 +44,14 @@ namespace NatureBlog.Presenatation.Controllers
 
             var result = await _mediator.Send(new CreateHikingTrailCommand
             {
-                Name = hikingTrail.Name,
-                CreatorId = hikingTrail.CreatorId,
-                RegionId = hikingTrail.RegionId,
-                Description = hikingTrail.Description,
-                ImageUrl = hikingTrail.ImageUrl,
+                name = hikingTrail.name,
+                creatorId = hikingTrail.creatorId,
+                regionId = hikingTrail.regionId,
+                description = hikingTrail.description,
+                imageUrl = hikingTrail.imageUrl,
                 //Ratings = new ICollection<Rating> { },
-                Difficulty = hikingTrail.Difficulty,
-                Duration = hikingTrail.Duration
+                difficulty = hikingTrail.difficulty,
+                duration = hikingTrail.duration
             });
 
             if (result is null)
