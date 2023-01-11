@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
 
+        public int CreatorId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -13,5 +15,17 @@
         public int RegionId { get; set; }
 
         public string Type { get; set; }
+
+        public int? Duration { get; set; }
+
+        public int? Difficulty { get; set; }
+
+        public bool? IsGuarded { get; set; }
+
+        public bool? HasUmbrella { get; set; }
+
+        public bool? HasPlayground { get; set; }
+
+        public bool? IsDogFriendly { get; set; }
     }
 }

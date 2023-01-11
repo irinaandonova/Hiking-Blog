@@ -1,11 +1,9 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NatureBlog.Application;
-using NatureBlog.Infrastructure;
-using System.Reflection;
 using NatureBlog.Application.Repositories;
+using NatureBlog.Infrastructure;
 using NatureBlog.Infrastructure.Repositories;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 

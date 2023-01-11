@@ -67,5 +67,9 @@ namespace NatureBlog.Application.Repositories
 
         List<Comment> GetComments(int destinationId);
 
+        Destination GetFullInfo(int destinationId);
+
+        Task AddDestination(Destination destination);
+
     }
 }

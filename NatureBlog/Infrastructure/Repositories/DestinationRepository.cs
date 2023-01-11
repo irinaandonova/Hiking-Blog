@@ -264,5 +264,15 @@ namespace NatureBlog.Infrastructure.Repositories
             
             return destination.Comments.ToList();
         }
+
+        public Destination GetFullInfo(int destenitaionId)
+        {
+            return _dbContext.Destinations.SingleOrDefault(x => x.Id == destenitaionId);
+        }
+
+        public async Task AddDestination(Destination destination)
+        {
+            await _dbContext.Destinations.AddAsync(destination);
+        }
     }
 }

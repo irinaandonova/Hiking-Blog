@@ -1,7 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDestination;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
+using NatureBlog.Application.App.Destinations.Parks.Commands.UpdateIsDogFriendly;
+using NatureBlog.Application.App.Destinations.Parks.Queries.GetParkInfo;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
@@ -9,10 +13,13 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
+using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Destination;
+using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Application.Dto.Destination.Park;
 using NatureBlog.Application.Dto.User;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -91,15 +98,48 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
+
         [HttpGet]
-        [Route("/{id}")]
-        public async Task<IActionResult> GetDestinationById(int id)
+        [Route("/info/{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = await _mediator.Send(new GetDestinationQuery { Id = id });
+            var result = await _mediator.Send(new GetFullInfoQuery { Id = id });
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateHikingTrail([FromBody] DestinationGetDto destination)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(new CreateDestinationCommand
+            {
+                Name = destination.Name,
+                CreatorId = destination.CreatorId,
+                RegionId = destination.RegionId,
+                Description = destination.Description,
+                ImageUrl = destination.ImageUrl,
+                Difficulty = destination.Difficulty,
+                Duration = destination.Duration,
+                HasUmbrella = destination.HasUmbrella,
+                IsGuarded = destination.IsGuarded,
+                HasPlayground = destination.HasPlayground,
+                IsDogFriendly = destination.IsDogFriendly
+
+            });
+
+            if (result is null)
+                return BadRequest("Invalid input");
 
             return Ok(result);
         }
-
         [HttpGet]
         [Route("region/{id}")]
         public async Task<IActionResult> FilterByRegion(int id)
