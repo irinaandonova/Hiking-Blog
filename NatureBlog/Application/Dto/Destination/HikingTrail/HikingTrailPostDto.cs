@@ -13,7 +13,7 @@ namespace NatureBlog.Application.Dto.Destination.HikingTrail
         public int CreatorId { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(960)]
         [MinLength(2)]
         public string Description { get; set; }
 

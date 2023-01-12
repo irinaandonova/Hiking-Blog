@@ -13,7 +13,7 @@ namespace NatureBlog.Application.Dto.Destination.Park
         public int CreatorId { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(960)]
         [MinLength(2)]
         public string Description { get; set; }
 
