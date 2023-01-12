@@ -20,7 +20,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
 
             destinationConfiguration.Property(d => d.Description)
                 .IsRequired()
-                .HasMaxLength(560);
+                .HasMaxLength(960);
 
             destinationConfiguration.Property(d => d.ImageUrl)
                 .IsRequired()
