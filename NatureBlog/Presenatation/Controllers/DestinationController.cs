@@ -10,10 +10,16 @@ using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
+using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
+using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
 using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
+using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Destination;
+using NatureBlog.Application.Dto.Destination.HikingTrail;
+using NatureBlog.Application.Dto.Destination.Park;
+using NatureBlog.Application.Dto.Destination.Seaside;
 using NatureBlog.Application.Dto.User;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -94,7 +100,7 @@ namespace NatureBlog.Presenatation.Controllers
 
 
         [HttpGet]
-        [Route("/info/{id}")]
+        [Route("info/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetFullInfoQuery { Id = id });
@@ -108,24 +114,21 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateHikingTrail([FromBody] DestinationGetDto destination)
+        [Route("seaside")]
+        public async Task<IActionResult> CreateSeaside([FromBody] SeasidePostDto seaside)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _mediator.Send(new CreateDestinationCommand
+            var result = await _mediator.Send(new CreateSeasideCommand
             {
-                Name = destination.name,
-                CreatorId = destination.creatorId,
-                RegionId = destination.regionId,
-                Description = destination.description,
-                ImageUrl = destination.imageUrl,
-                Difficulty = destination.difficulty,
-                Duration = destination.duration,
-                HasUmbrella = destination.hasUmbrella,
-                IsGuarded = destination.isGuarded,
-                HasPlayground = destination.hasPlayground,
-                IsDogFriendly = destination.isDogFriendly
+                Name = seaside.Name,
+                CreatorId = seaside.CreatorId,
+                RegionId = seaside.RegionId,
+                Description = seaside.Description,
+                ImageUrl = seaside.ImageUrl,
+                OffersUmbrella = seaside.OffersUmbrella,
+                IsGuarded = seaside.IsGuarded,
 
             });
 
@@ -134,6 +137,56 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("park")]
+        public async Task<IActionResult> CreatePark([FromBody] ParkPostDto park)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(new CreateParkCommand
+            {
+                Name = park.Name,
+                CreatorId = park.CreatorId,
+                RegionId = park.RegionId,
+                Description = park.Description,
+                ImageUrl = park.ImageUrl,
+                IsDogFriendly = park.IsDogFriendly,
+
+            });
+
+            if (result is null)
+                return BadRequest("Invalid input");
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("hiking-trail")]
+        public async Task<IActionResult> CreateHikingTrail([FromBody] HikingTrailPostDto hikingTrail)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(new CreateHikingTrailCommand
+            {
+                Name = hikingTrail.Name,
+                CreatorId = hikingTrail.CreatorId,
+                RegionId = hikingTrail.RegionId,
+                Description = hikingTrail.Description,
+                ImageUrl = hikingTrail.ImageUrl,
+                Duration= hikingTrail.Duration,
+                Difficulty= hikingTrail.Difficulty,    
+
+            });
+
+            if (result is null)
+                return BadRequest("Invalid input");
+
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("region/{id}")]
         public async Task<IActionResult> FilterByRegion(int id)
