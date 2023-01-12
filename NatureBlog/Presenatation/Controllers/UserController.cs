@@ -2,9 +2,7 @@
 using Application.Dto.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.App.Users;
 using NatureBlog.Application.App.Users.Commands.DeleteUser;
-using NatureBlog.Application.Dto.User;
 
 namespace Presenatation.Controllers
 {

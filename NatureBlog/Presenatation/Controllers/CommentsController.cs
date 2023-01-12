@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("/{destinationId}/{commentId}")]
+        [HttpDelete("{destinationId}/{commentId}")]
         public async Task<IActionResult> DeleteComment(int destinationId, int commentId, [FromBody] UserIdGetDto userId)
         {
             var result = await _mediator.Send(new DeleteCommentCommand
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        [Route("/{id}/edit")]
+        [Route("{id}/edit")]
         public async Task<IActionResult> EditComment(int commentId, [FromBody] CommentPutDto comment)
         {
             var result = await _mediator.Send(new EditCommentCommand
