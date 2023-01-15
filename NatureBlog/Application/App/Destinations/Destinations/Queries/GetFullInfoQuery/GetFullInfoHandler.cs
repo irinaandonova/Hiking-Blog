@@ -26,8 +26,13 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullIn
                 Destination destination = _unitOfWork.DestinationRepository.GetFullInfo(query.Id);
                 if (destination is null)
                     throw new DestinationNotFoundException("No destination with given id in database!");
+                var type = destination.GetType().ToString().Replace("NatureBlog.Domain.Models.", "").ToLower();
+                if (type == "hikingtrail")
+                    type = "hikingTrail";
 
                 var mappedResult = _mapper.Map<DestinationGetDto>(destination);
+                mappedResult.Type = type;
+
                 return Task.FromResult(mappedResult);
             }
             catch (Exception ex)

@@ -1,15 +1,12 @@
 ﻿using MediatR;
-using NatureBlog.Domain.Models;
 
-namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDestination
+namespace NatureBlog.Application.Destinations.HikingTrails.Commands
 {
-    public class UpdateDestinationCommand : IRequest<bool>
+    public class UpdateHikingTrailCommand : IRequest<bool?>
     {
         public int DestinationId { get; set; }
 
         public string Name { get; set; }
-
-        public User User { get; set; }
 
         public string Description { get; set; }
 
@@ -17,5 +14,10 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.UpdateDe
 
         public int RegionId { get; set; }
 
+        public int Difficulty { get; set; }
+
+        public int Duration { get; set; }
+
+        public int UserId { get; set; }
     }
 }

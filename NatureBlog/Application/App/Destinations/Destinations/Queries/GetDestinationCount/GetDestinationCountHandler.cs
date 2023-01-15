@@ -3,10 +3,11 @@ using MediatR;
 using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
+using System.Threading.Tasks;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount
 {
-    public class GetDestinationCountHandler : IRequestHandler<GetDestinationCountQuery, int?>
+    public class GetDestinationCountHandler : IRequestHandler<GetDestinationCountQuery, int>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,7 +18,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestin
             _mapper = mapper;
         }
 
-        public Task<int?> Handle(GetDestinationCountQuery query, CancellationToken cancellationToken)
+        public Task<int> Handle(GetDestinationCountQuery query, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,13 +34,16 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestin
                 else
                     throw new OutOfRangeException("No such type");
 
-                int? result = count / 10 + 1;
-                return Task.FromResult(result);
+                if (count % 10 == 0)
+                    return Task.FromResult(count % 10);
+                else
+                    return Task.FromResult(count / 10 + 1);
+                    
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the GetDestinationCountQuery", ex.Message);
-                return null;
+                return Task.FromResult(-1);
             }
         }
     }

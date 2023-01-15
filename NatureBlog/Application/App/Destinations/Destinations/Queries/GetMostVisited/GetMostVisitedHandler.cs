@@ -22,11 +22,15 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
         {
             try 
             {
+                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
                 int offset = 0;
                 if (command.Page == 1)
                     offset = 0;
                 else
-                 offset = command.Page - 1 * 10;
+                 offset = (command.Page -1) * 10;
+                
+                if (offset > count)
+                    offset = count - 1;
                 List<Destination> result = _unitOfWork.DestinationRepository.GetMostVisited(offset);
 
                 if (result.Count < 1)
