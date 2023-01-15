@@ -2,30 +2,30 @@
 {
     public class DestinationGetDto
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public int creatorId { get; set; }
+        public int CreatorId { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public string imageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
-        public int regionId { get; set; }
+        public int RegionId { get; set; }
 
-        public string type { get; set; }
+        public string Type { get; set; }
 
-        public int? duration { get; set; }
+        public int? HikingDuration { get; set; }
 
-        public int? difficulty { get; set; }
+        public int? Difficulty { get; set; }
 
-        public bool? isGuarded { get; set; }
+        public bool? IsGuarded { get; set; }
 
-        public bool? hasUmbrella { get; set; }
+        public bool? HasUmbrella { get; set; }
 
-        public bool? hasPlayground { get; set; }
+        public bool? HasPlayground { get; set; }
 
-        public bool? isDogFriendly { get; set; }
+        public bool? IsDogFriendly { get; set; }
     }
 }
