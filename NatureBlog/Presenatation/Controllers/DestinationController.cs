@@ -1,20 +1,22 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDestination;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
+using NatureBlog.Application.App.Destinations.Parks.Commands.UpdatePark;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
+using NatureBlog.Application.Destinations.HikingTrails.Commands;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
 using NatureBlog.Application.Destinations.Parks.Commands.CreatePark;
 using NatureBlog.Application.Destinations.Parks.Queries.GetAllPark;
 using NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside;
+using NatureBlog.Application.Destinations.Seasides.Commands.UpdateSeaside;
 using NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside;
 using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
@@ -86,13 +88,14 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok(result);
         }
+
         [HttpGet]
         [Route("count/{type}")]
         public async Task<IActionResult> GetCount(string type)
         {
             var result = await _mediator.Send(new GetDestinationCountQuery { Type = type });
 
-            if (result is null)
+            if (result < 0)
                 return StatusCode(400);
 
             return Ok(result);
@@ -183,6 +186,81 @@ namespace NatureBlog.Presenatation.Controllers
 
             if (result is null)
                 return BadRequest("Invalid input");
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("hiking-trail/edit")]
+        public async Task<IActionResult> UpdateHikingTrail(HikingTrailPutDto hikingTrail)
+        {
+            var result = await _mediator.Send(new UpdateHikingTrailCommand 
+            {
+                DestinationId = hikingTrail.Id,
+                Name = hikingTrail.Name,
+                UserId = hikingTrail.UserId,
+                RegionId = hikingTrail.RegionId,
+                Description = hikingTrail.Description,
+                ImageUrl = hikingTrail.ImageUrl,
+                Difficulty = hikingTrail.Difficulty,
+                Duration = hikingTrail.Duration
+            });
+
+            if (result is null)
+                return BadRequest();
+
+            if (result == false)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("seaside/edit")]
+        public async Task<IActionResult> UpdateSeaside(SeasidePutDto seaside)
+        {
+            var result = await _mediator.Send(new UpdateSeasideCommand
+            {
+                DestinationId = seaside.Id,
+                Name = seaside.Name,
+                UserId = seaside.UserId,
+                RegionId = seaside.RegionId,
+                Description = seaside.Description,
+                ImageUrl = seaside.ImageUrl,
+                IsGuarded = seaside.IsGuarded,
+                OffersUmbrella = seaside.OffersUmbrella
+            });
+
+            if (result is null)
+                return BadRequest(500);
+
+            if (result == false)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("park/edit")]
+        public async Task<IActionResult> UpdatePark(ParkPutDto park)
+        {
+            var result = await _mediator.Send(new UpdateParkCommand
+            {
+                Id = park.Id,
+                Name = park.Name,
+                UserId = park.UserId,
+                RegionId = park.RegionId,
+                Description = park.Description,
+                ImageUrl = park.ImageUrl,
+                HasPlayground = park.
+                IsDogFriendly = park.IsDogFriendly
+            });
+
+            if (result is null)
+                return BadRequest(500);
+
+            if (result == false)
+                return StatusCode(500);
 
             return Ok(result);
         }
