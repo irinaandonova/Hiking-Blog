@@ -1,4 +1,5 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using NatureBlog.Application.Destinations.HikingTrails.Commands;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
@@ -26,6 +27,38 @@ namespace NatureBlog.Infrastructure.Repositories
             await _dbContext.Destinations.AddAsync(destination);
         }
 
+        public bool UpdateHikingTrail(string name, int destinationId, int regionId, string imageUrl, string description, int difficulty, int duration)
+        {
+            Update(destinationId, name, description, imageUrl, regionId);
+            HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
+
+            hikingTrail.Difficulty = difficulty;
+            hikingTrail.HikingDuration = duration;
+
+            return true;
+        }
+
+        public bool UpdateSeaside(string name, int destinationId, int regionId, string imageUrl, string description, bool isGuarded, bool offersUmbrella)
+        {
+            Update(destinationId, name, description, imageUrl, regionId);
+            Seaside seaside = (Seaside)GetDestination(destinationId);
+
+            seaside.IsGuarded = isGuarded;
+            seaside.OffersUmbrella = offersUmbrella;
+
+            return true;
+        }
+
+        public bool UpdatePark(string name, int destinationId, int regionId, string imageUrl, string description, bool hasPlayground, bool isDogFriendly)
+        {
+            Update(destinationId, name, description, imageUrl, regionId);
+            Park park = (Park)GetDestination(destinationId);
+
+            park.HasPlayground = hasPlayground;
+            park.IsDogFriendly = isDogFriendly;
+
+            return true;
+        }
         public bool Delete(int Id)
         {
             Destination destination = GetDestination(Id);
@@ -38,13 +71,13 @@ namespace NatureBlog.Infrastructure.Repositories
             return (Destination)_dbContext.Destinations.SingleOrDefault(x => x.Id == id);
         }
 
-        public bool Update(int destinationId, string name, string description, string imageUrl, Region region)
+        public bool Update(int destinationId, string name, string description, string imageUrl, int regionId)
         {
             Destination destination = GetDestination(destinationId);
             destination.Name = name;
             destination.Description = description;
             destination.ImageUrl = imageUrl;
-            destination.Region = region;
+            destination.RegionId = regionId;
 
             return true;
         }
@@ -52,9 +85,9 @@ namespace NatureBlog.Infrastructure.Repositories
         public List<Destination> GetMostVisited(int offset)
         {
             List<Destination> result = new List<Destination>();
-            
-             result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
-            
+
+            result = _dbContext.Destinations.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+
             return result;
         }
 
@@ -71,7 +104,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public int GetAllDestinationsCount()
         {
             int count = _dbContext.Destinations.Count();
-            Console.WriteLine((count));
+
             return count;
         }
 
@@ -217,13 +250,6 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool UpdateDifficulty(int destinationId, int difficulty)
-        {
-            HikingTrail hikingTrail = (HikingTrail)GetDestination(destinationId);
-            hikingTrail.Difficulty = difficulty;
-
-            return true;
-        }
 
         public bool UpdatePlayground(int destinationId, bool hasPlayground)
         {
@@ -261,7 +287,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public List<Comment> GetComments(int destenitaionId)
         {
             Destination destination = GetDestination(destenitaionId);
-            
+
             return destination.Comments.ToList();
         }
 

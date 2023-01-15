@@ -14,8 +14,14 @@ namespace NatureBlog.Application.Repositories
 
         Destination GetDestination(int destinationId);
 
-        bool Update(int Id, string name, string description, string imageUrl, Region region);
+        bool Update(int Id, string name, string description, string imageUrl, int regionId);
 
+        bool UpdateHikingTrail(string name, int destinationId, int regionId, string imageUrl, string description, int difficulty, int duration);
+
+        bool UpdateSeaside(string name, int destinationId, int regionId, string imageUrl, string description, bool isGuarded, bool offersUmbrella);
+
+        bool UpdatePark(string name, int destinationId, int regionId, string imageUrl, string description, bool hasPlayground, bool isDogFriednly);
+        
         List<Destination> GetMostVisited(int offset);
 
         int GetAllDestinationsCount();
@@ -53,13 +59,9 @@ namespace NatureBlog.Application.Repositories
 
         bool AddUmbrellaPrices(int destinationId, double price);
 
-        bool UpdateDifficulty(int destinationId, int difficulty);
-
         bool UpdatePlayground(int destinationId, bool hasPlayground);
 
         bool UpdateIsDogFriendly(int destinationId, bool isDogFriendly);
-
-        bool UpdateDuration(int destinationId, int duration);
 
         HikingTrail GetHikingTrailInfo(int destinationId);
 
@@ -70,6 +72,8 @@ namespace NatureBlog.Application.Repositories
         Destination GetFullInfo(int destinationId);
 
         Task AddDestination(Destination destination);
+
+        
 
     }
 }
