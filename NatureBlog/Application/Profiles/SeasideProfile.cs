@@ -9,8 +9,21 @@ namespace NatureBlog.Application.Profiles
         public SeasideProfile() 
         {
             CreateMap<SeasidePostDto, Seaside>();
-            CreateMap<Seaside, SeasideGetDto>();
+            CreateMap<Seaside, SeasideGetDto>()
+                .ForMember(s => s.RatingScore, options => options.MapFrom((s) => CalcRatings(s)));
+        }
 
+        private decimal CalcRatings(Seaside seaside)
+        {
+            int allRatings = 0;
+
+            foreach (var rating in seaside.Ratings)
+            {
+                allRatings += rating.RatingValue;
+            }
+            decimal ratingScore = (decimal)allRatings / seaside.Ratings.Count;
+
+            return ratingScore;
         }
     }
 }

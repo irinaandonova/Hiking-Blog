@@ -9,7 +9,22 @@ namespace NatureBlog.Presenatation.Profiles
         public ParkProfile()
         {
             CreateMap<ParkPostDto, Park>();
-            CreateMap<Park, ParkGetDto>();
+            CreateMap<Park, ParkGetDto>()
+                .ForMember(p => p.RatingScore, options => options.MapFrom((p) => CalcRatings(p)));
         }
+
+        private decimal CalcRatings(Park park)
+        {
+            int allRatings = 0;
+
+            foreach (var rating in park.Ratings)
+            {
+                allRatings += rating.RatingValue;
+            }
+            decimal ratingScore = (decimal)allRatings / park.Ratings.Count;
+
+            return ratingScore;
+        }
+
     }
 }
