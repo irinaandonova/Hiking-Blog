@@ -19,13 +19,13 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
             try
             {
                 User user = _unitOfWork.UserRepository.GetUser(command.UserId);
-                bool? response = _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
-                await _unitOfWork.Save();
-                
-                if (user is null || response is null)
+                if (user is null)
                     return null;
 
-                return response;
+                await _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
+                await _unitOfWork.Save();
+
+                return true;
             }
             catch (Exception ex)
             {
