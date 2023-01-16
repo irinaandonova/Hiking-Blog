@@ -1,4 +1,5 @@
-﻿using NatureBlog.Application.Destinations.HikingTrails.Commands;
+﻿using Microsoft.EntityFrameworkCore;
+using NatureBlog.Application.Destinations.HikingTrails.Commands;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -91,13 +92,13 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        public List<HikingTrail> GetAllHikingTrails(int offset)
+        public List<HikingTrail?> GetAllHikingTrails(int offset)
         {
-            List<HikingTrail> result = new List<HikingTrail>();
+            List<HikingTrail?> result = new List<HikingTrail?>();
             if (offset == 0)
-                result = _dbContext.Destinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).Take(10).ToList();
+                result = _dbContext.Destinations.Where(x => x is HikingTrail).Include(ht => ht.Ratings).Select(s => s as HikingTrail).Take(10).ToList();
             else
-                result = _dbContext.Destinations.Where(x => x is HikingTrail).Select(s => s as HikingTrail).Skip(offset).Take(10).ToList();
+                result = _dbContext.Destinations.Where(x => x is HikingTrail).Include(ht => ht.Ratings).Select(s => s as HikingTrail).Skip(offset).Take(10).ToList();
 
             return result;
         }
@@ -233,21 +234,20 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public bool? RateDestination(int destinationId, int ratingValue, int userId)
+        public async Task RateDestination(int destinationId, int ratingValue, int userId)
         {
+                
 
-            Destination destination = GetDestination(destinationId);
-            if (destination is null)
-                return null;
+            Rating databaseRating = _dbContext.Ratings.SingleOrDefault(x => x.UserId == userId && x.DestinationId == destinationId);
 
-            Rating rating = (Rating)destination.Ratings.Select(x => x.User.Id == userId);
-
-            if (rating is null)
-                destination.Ratings.Add(rating);
+            if (databaseRating is not null)
+                databaseRating.RatingValue = ratingValue;
             else
-                rating.RatingValue = ratingValue;
+            {
+                Rating rating = new Rating { UserId = userId, DestinationId = destinationId, RatingValue = ratingValue };
+                await _dbContext.Ratings.AddAsync(rating);
+            }
 
-            return true;
         }
 
 
