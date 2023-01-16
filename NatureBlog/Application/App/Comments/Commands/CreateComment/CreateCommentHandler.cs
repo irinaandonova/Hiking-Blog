@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -18,9 +17,12 @@ namespace NatureBlog.Application.App.Comments.Commands.CreateComment
         {
             try
             {
-                Comment comment = new Comment { DestinationId = command.DestinationId, CreatorId = command.CreatorId, Text = command.Text };
+                Comment comment = new Comment { DestinationId = command.DestinationId, CreatorId = command.CreatorId, Text = command.Text, Date = DateTime.Now };
 
                 _unitOfWork.CommentRepository.CreateComment(comment);
+                var destination = _unitOfWork.DestinationRepository.GetDestination(comment.DestinationId);
+
+                destination.Comments.Add(comment);
                 await _unitOfWork.Save();
 
                 if (comment is not null)

@@ -19,7 +19,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetCommen
 
         public Task<List<CommentGetDto>> Handle(GetCommentsQuery command, CancellationToken cancellationToken)
         {
-            List<Comment> result = _unitOfWork.DestinationRepository.GetComments(command.Id);
+            List<Comment> result = _unitOfWork.CommentRepository.GetComments(command.Id);
             if (result.Count == 0)
                 return Task.FromResult(new List<CommentGetDto> { });
 

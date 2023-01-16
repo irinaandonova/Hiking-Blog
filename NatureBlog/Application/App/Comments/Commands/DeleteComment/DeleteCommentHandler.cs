@@ -19,13 +19,14 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
             {
                 Destination destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
                 Comment comment = _unitOfWork.CommentRepository.GetComment(command.CommentId);
-
+                
                 if (destination is null || comment is null)
                     return null;
 
-                if (comment.Creator.Id != command.CreatorId)
+                if (comment.CreatorId != command.CreatorId)
                     return null;
 
+                destination.Comments.Remove(comment);
                 bool response = _unitOfWork.CommentRepository.DeleteComment(command.DestinationId, command.CommentId);
                 await _unitOfWork.Save();
 
