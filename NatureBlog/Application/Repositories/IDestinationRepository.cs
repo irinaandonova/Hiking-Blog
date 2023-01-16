@@ -55,7 +55,7 @@ namespace NatureBlog.Application.Repositories
 
         List<Destination> SortDestinations(string condition);
 
-        bool? RateDestination(int destinationId, int ratingValue, int userId);
+        Task RateDestination(int destinationId, int ratingValue, int userId);
 
         bool AddUmbrellaPrices(int destinationId, double price);
 
