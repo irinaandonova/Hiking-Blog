@@ -9,7 +9,7 @@ namespace NatureBlog.Application.Profiles
         public DestinationProfile()
         {
             CreateMap<Destination, DestinationGetDto>()
-                .ForMember(m => m.type, options => options.MapFrom(destination => destination.GetType()));
+                .ForMember(m => m.Type, options => options.MapFrom(destination => destination.GetType().ToString().Replace("NatureBlog.Domain.Models.", "")));
             CreateMap<HikingTrail, DestinationGetDto>();
             CreateMap<Seaside, DestinationGetDto>();
             CreateMap<Park, DestinationGetDto>();

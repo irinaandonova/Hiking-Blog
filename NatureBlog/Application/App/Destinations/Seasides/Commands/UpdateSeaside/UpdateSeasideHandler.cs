@@ -30,7 +30,7 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.UpdateSeaside
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the UpdateDifficulty Method! " + ex.Message);
+                Console.WriteLine("Exception in the Update Seaside Method! " + ex.Message);
                 return false;
             }
         }

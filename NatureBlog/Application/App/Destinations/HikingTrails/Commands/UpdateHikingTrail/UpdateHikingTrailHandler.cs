@@ -33,7 +33,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the UpdateDifficulty Method! " + ex.Message);
+                Console.WriteLine("Exception in the Update Hiking Trail Method! " + ex.Message);
                 return false;
             }
         }

@@ -16,9 +16,9 @@ namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdatePark
         {
             try
             {
-                Seaside seaside = (Seaside)_unitOfWork.DestinationRepository.GetDestination(command.Id);
+                Park park = (Park)_unitOfWork.DestinationRepository.GetDestination(command.Id);
 
-                if (seaside.CreatorId != command.UserId)
+                if (park.CreatorId != command.UserId)
                     return null;
 
                 _unitOfWork.DestinationRepository.UpdatePark(command.Name, command.Id, command.RegionId, command.ImageUrl, command.Description, command.HasPlayground, command.IsDogFriendly);
