@@ -1,10 +1,8 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using AutoMapper;
 using MediatR;
-using NatureBlog.Application.Exceptions;
-using NatureBlog.Domain.Models;
 using NatureBlog.Application.Dto.Destination.HikingTrail;
-using AutoMapper;
-using NatureBlog.Application.Dto.Destination.Destination;
+using NatureBlog.Application.Repositories;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail
 {
@@ -35,7 +33,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
                     return Task.FromResult(new List<HikingTrailGetDto> { });
 
                 var mappedResult = _mapper.Map<List<HikingTrailGetDto>>(allHikingTrails);
-
+                
                 return Task.FromResult(mappedResult);
             }
 
