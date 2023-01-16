@@ -4,7 +4,7 @@ namespace NatureBlog.Application.Repositories
 {
     public interface ICommentRepository
     {
-        bool CreateComment(Comment comment);
+        Task CreateComment(Comment comment);
 
         bool DeleteComment(int destinationId, int commentId);
 
@@ -12,5 +12,6 @@ namespace NatureBlog.Application.Repositories
 
         Comment GetComment(int commentId);
 
+        List<Comment> GetComments(int id);
     }
 }

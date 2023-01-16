@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NatureBlog.Application.Repositories;
+﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Infrastructure.Repositories
@@ -15,21 +14,16 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public DestinationRepository DestinationRepository { get; set; }
         
-        public bool CreateComment(Comment comment)
+        public async Task CreateComment(Comment comment)
         {
-            Destination destination = DestinationRepository.GetDestination(comment.DestinationId);
+            await _dbContext.Comments.AddAsync(comment);
 
-            destination.Comments.Add(comment);
-
-            return true;
         }
 
         public bool DeleteComment(int destinationId, int commentId)
         {
-            Destination destination = DestinationRepository.GetDestination(destinationId);
             Comment comment = GetComment(commentId);
-            destination.Comments.Remove(comment);
-
+            _dbContext.Comments.Remove(comment);
             return true;
         }
         
@@ -41,7 +35,14 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public Comment GetComment(int commentId)
         {
-            return (Comment)_dbContext.Comments.Select(x => x.Id == commentId);
+            return (Comment)_dbContext.Comments.SingleOrDefault(x => x.Id == commentId);
+        }
+
+        public List<Comment> GetComments(int id)
+        {
+            List<Comment> comments = _dbContext.Comments.Where(c => c.DestinationId == id).ToList();
+
+            return comments;
         }
     }
 }
