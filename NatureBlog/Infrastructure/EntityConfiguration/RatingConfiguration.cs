@@ -17,8 +17,10 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             ratingBuilder.Property(x => x.RatingValue)
                 .IsRequired();
 
-            
-
+            ratingBuilder.HasOne(r => r.Destination)
+                .WithMany(d => d.Ratings)
+                .HasForeignKey(d => d.DestinationId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

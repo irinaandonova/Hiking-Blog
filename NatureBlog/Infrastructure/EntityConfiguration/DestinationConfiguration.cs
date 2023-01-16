@@ -35,6 +35,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
                 .WithMany(d => d.Destinations)
                 .HasForeignKey(d => d.RegionId)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
