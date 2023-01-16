@@ -15,5 +15,7 @@
         public int Difficulty { get; set; }
 
         public int Duration { get; set; }
+
+        public decimal RatingScore { get; set; }
     }
 }

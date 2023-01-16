@@ -14,8 +14,10 @@
 
         public int RegionId { get; set; }
 
-        bool HasPlaygroung { get; set; }
+        public bool HasPlaygroung { get; set; }
 
-        bool IsDogFriendly { get; set; }
+        public bool IsDogFriendly { get; set; }
+
+        public decimal RatingScore { get; set; }
     }
 }

@@ -12,8 +12,10 @@
 
         public int RegionId { get; set; }
 
-        bool OffersUmbrella { get; set; }
+        public bool OffersUmbrella { get; set; }
 
-        bool IsGuarded { get; set; }
+        public bool IsGuarded { get; set; }
+
+        public decimal RatingScore { get; set; }
     }
 }
