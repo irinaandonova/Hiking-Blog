@@ -313,20 +313,7 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route("{id}/comments")]
-        public async Task<IActionResult> GetDestinationComments(int id)
-        {
-            var result = await _mediator.Send(new GetCommentsQuery { Id = id });
-
-            if (result.Count == 0)
-                return NoContent();
-
-            if (result is null)
-                return StatusCode(500);
-
-            return Ok(result);
-        }
+        
 
         [HttpPost]
         [Route("{id}/rate")]

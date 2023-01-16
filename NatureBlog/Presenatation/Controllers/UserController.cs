@@ -3,6 +3,7 @@ using Application.Dto.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users.Commands.DeleteUser;
+using NatureBlog.Application.App.Users.Queries;
 
 namespace Presenatation.Controllers
 {
@@ -17,7 +18,17 @@ namespace Presenatation.Controllers
             _mediator = mediator;
         }
 
-        // POST api/<UserController>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var result = await _mediator.Send(new GetUserQuery { Id = id });
+
+            if (result is null)
+                return BadRequest();
+            return Ok(result);
+        }
+        
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromBody] UserPostDto user)
         {

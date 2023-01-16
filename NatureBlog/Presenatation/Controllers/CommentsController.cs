@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Comments.Commands.CreateComment;
 using NatureBlog.Application.App.Comments.Commands.DeleteComment;
 using NatureBlog.Application.App.Comments.Commands.EditComment;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
 using NatureBlog.Application.Dto.Comment;
 using NatureBlog.Application.Dto.User;
 
@@ -21,8 +22,22 @@ namespace WebAPI.Controllers
         {
             _mediator = mediator;
         }
-        
-        // POST api/<CommentsController>
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetDestinationComments(int id)
+        {
+            var result = await _mediator.Send(new GetCommentsQuery { Id = id });
+
+            if (result.Count == 0)
+                return NoContent();
+
+            if (result is null)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentPostDto comment)
         {
@@ -39,12 +54,12 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{destinationId}/{commentId}")]
-        public async Task<IActionResult> DeleteComment(int destinationId, int commentId, [FromBody] UserIdGetDto userId)
+        [HttpDelete("{commentId}")]
+        public async Task<IActionResult> DeleteComment(int commentId, [FromBody] UserIdGetDto userId)
         {
             var result = await _mediator.Send(new DeleteCommentCommand
             {
-                DestinationId = destinationId,
+                DestinationId = userId.DestinationId,
                 CommentId = commentId,
                 CreatorId = userId.UserId
             });
