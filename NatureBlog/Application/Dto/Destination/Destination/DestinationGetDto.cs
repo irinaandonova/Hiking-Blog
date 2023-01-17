@@ -1,4 +1,6 @@
-﻿namespace NatureBlog.Application.Dto.Destination.Destination
+﻿using NatureBlog.Application.Dto.User;
+
+namespace NatureBlog.Application.Dto.Destination.Destination
 {
     public class DestinationGetDto
     {
@@ -27,5 +29,9 @@
         public bool? HasPlayground { get; set; }
 
         public bool? IsDogFriendly { get; set; }
+
+        public decimal RatingScore { get; set; }
+
+        public ICollection<UserGetDto> Visitors { get; set; }
     }
 }
