@@ -16,6 +16,8 @@ namespace NatureBlog.Application.Profiles
         private decimal CalcRatings(Seaside seaside)
         {
             int allRatings = 0;
+            if (seaside.Ratings.Count == 0)
+                return 2.5M;
 
             foreach (var rating in seaside.Ratings)
             {

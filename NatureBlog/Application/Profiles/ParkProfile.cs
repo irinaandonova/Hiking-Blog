@@ -16,7 +16,8 @@ namespace NatureBlog.Presenatation.Profiles
         private decimal CalcRatings(Park park)
         {
             int allRatings = 0;
-
+            if (park.Ratings.Count == 0)
+                return 2.5M;
             foreach (var rating in park.Ratings)
             {
                 allRatings += rating.RatingValue;

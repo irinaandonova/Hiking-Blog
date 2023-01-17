@@ -16,7 +16,8 @@ namespace NatureBlog.Presenatation.Profiles
         private decimal CalcRatings(HikingTrail hikingTrail)
         {
             int allRatings = 0;
-            
+            if(hikingTrail.Ratings.Count == 0)
+                return 2.5M;
             foreach(var rating in hikingTrail.Ratings)
             {
                 allRatings += rating.RatingValue;
