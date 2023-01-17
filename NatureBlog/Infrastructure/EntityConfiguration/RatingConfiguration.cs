@@ -20,7 +20,7 @@ namespace NatureBlog.Infrastructure.EntityConfiguration
             ratingBuilder.HasOne(r => r.Destination)
                 .WithMany(d => d.Ratings)
                 .HasForeignKey(d => d.DestinationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
