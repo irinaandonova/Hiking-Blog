@@ -18,7 +18,11 @@ namespace NatureBlog.Application.Destinations.Parks.Commands.CreatePark
         {
             try
             {
-                Park park = new Park { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, HasPlayground = command.HasPlayground, IsDogFriendly = command.IsDogFriendly };
+                User user = _unitOfWork.UserRepository.GetUser(command.CreatorId);
+                ICollection<User> visitors = new List<User>();
+                visitors.Add(user);
+
+                Park park = new Park { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, HasPlayground = command.HasPlayground, IsDogFriendly = command.IsDogFriendly, Visitors = visitors };
                 await _unitOfWork.DestinationRepository.AddPark(park);
                 await _unitOfWork.Save();
 

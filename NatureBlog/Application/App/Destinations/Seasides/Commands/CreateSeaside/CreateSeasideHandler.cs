@@ -17,9 +17,13 @@ namespace NatureBlog.Application.Destinations.Seasides.Commands.CreateSeaside
         {
             try
             {
-                Seaside seaside = new Seaside { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, OffersUmbrella = command.OffersUmbrella, IsGuarded= command.IsGuarded, Ratings = new List<Rating> { }, Comments = new List<Comment> { } };
+                User user = _unitOfWork.UserRepository.GetUser(command.CreatorId);
+                ICollection<User> visitors = new List<User>();
+                visitors.Add(user);
+
+                Seaside seaside = new Seaside { Name = command.Name, CreatorId = command.CreatorId, Description = command.Description, ImageUrl = command.ImageUrl, RegionId = command.RegionId, OffersUmbrella = command.OffersUmbrella, IsGuarded= command.IsGuarded, Visitors = visitors };
                 
-                _unitOfWork.DestinationRepository.AddSeaside(seaside);
+                await _unitOfWork.DestinationRepository.AddSeaside(seaside);
                 await _unitOfWork.Save();
 
                 return seaside.Id;

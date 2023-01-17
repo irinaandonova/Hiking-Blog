@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using NatureBlog.Application.Destinations.AllDestinations.Queries.GetDestination;
 using NatureBlog.Application.Dto.Destination.Destination;
 using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
@@ -26,12 +25,28 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullIn
                 Destination destination = _unitOfWork.DestinationRepository.GetFullInfo(query.Id);
                 if (destination is null)
                     throw new DestinationNotFoundException("No destination with given id in database!");
+
+                int allRatings = 0;
+                decimal ratingScore = 0;
+                if (destination.Ratings.Count == 0)
+                    ratingScore = 2.5M;
+                else
+                {
+                    foreach (var rating in destination.Ratings)
+                    {
+                        allRatings += rating.RatingValue;
+                    }
+                    ratingScore = (decimal)allRatings / destination.Ratings.Count;
+                }
+
                 var type = destination.GetType().ToString().Replace("NatureBlog.Domain.Models.", "").ToLower();
                 if (type == "hikingtrail")
                     type = "hikingTrail";
 
                 var mappedResult = _mapper.Map<DestinationGetDto>(destination);
+
                 mappedResult.Type = type;
+                mappedResult.RatingScore = ratingScore;
 
                 return Task.FromResult(mappedResult);
             }
