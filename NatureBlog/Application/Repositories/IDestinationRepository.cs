@@ -73,7 +73,7 @@ namespace NatureBlog.Application.Repositories
 
         Task AddDestination(Destination destination);
 
-        
+        List<User> VisitDestination(User userInfo, int destinationId);
 
     }
 }
