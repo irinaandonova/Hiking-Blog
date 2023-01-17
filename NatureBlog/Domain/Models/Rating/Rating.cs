@@ -7,7 +7,7 @@ namespace NatureBlog.Domain.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-        public int DestinationId { get; set; }
+        public int? DestinationId { get; set; }
 
         public Destination Destination { get; set; }
 
