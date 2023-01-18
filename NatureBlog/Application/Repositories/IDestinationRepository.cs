@@ -9,7 +9,7 @@ namespace NatureBlog.Application.Repositories
         Task AddPark(Park destination);
 
         Task AddSeaside(Seaside destination);
-
+        
         bool Delete(int destinationId);
 
         Destination GetDestination(int destinationId);
@@ -55,6 +55,12 @@ namespace NatureBlog.Application.Repositories
 
         List<Destination> SortDestinations(string condition);
 
+        List<Destination> SortSeasides(string condition);
+
+        List<Destination> SortParks(string condition);
+
+        List<Destination> SortHikingTrails(string condition);
+
         Task RateDestination(int destinationId, int ratingValue, int userId);
 
         bool AddUmbrellaPrices(int destinationId, double price);
@@ -73,7 +79,20 @@ namespace NatureBlog.Application.Repositories
 
         Task AddDestination(Destination destination);
 
-        List<User> VisitDestination(User userInfo, int destinationId);
+        void VisitDestination(User userInfo, Destination destination);
 
+        List<Destination?> GetBestRatedDestinations(int offset);
+
+        List<Destination?> GetBestRatedSeasides(int offset);
+
+        List<Destination?> GetBestRatedParks(int offset);
+
+        List<Destination?> GetBestRatedHikingTrails(int offset);
+
+        List<Destination?> GetMostVisitedHikingTrails(int offset);
+
+        List<Destination?> GetMostVisitedParks(int offset);
+
+        List<Destination?> GetMostVisitedSeasides(int offset);
     }
 }
