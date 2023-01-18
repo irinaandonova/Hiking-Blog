@@ -3,8 +3,10 @@ using NatureBlog.Application.Dto.Destination.Destination;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetMostVisitedQuery: IRequest<List<DestinationGetDto>>
+    public class GetAllDestinationsQuery: IRequest<List<DestinationGetDto?>>
     {
         public int Page { get; set; } 
+
+        public string Sorting { get; set; }
     }
 }

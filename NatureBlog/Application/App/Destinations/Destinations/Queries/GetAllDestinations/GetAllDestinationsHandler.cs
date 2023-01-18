@@ -6,19 +6,19 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetMostVisitedHandler : IRequestHandler<GetMostVisitedQuery, List<DestinationGetDto>>
+    public class GetAllDestinationsHandler : IRequestHandler<GetAllDestinationsQuery, List<DestinationGetDto?>>
     {
         private readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
 
-        public GetMostVisitedHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public GetAllDestinationsHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
 
         }
 
-        public Task<List<DestinationGetDto>> Handle(GetMostVisitedQuery command, CancellationToken cancellationToken) 
+        public Task<List<DestinationGetDto?>> Handle(GetAllDestinationsQuery command, CancellationToken cancellationToken) 
         {
             try 
             {
@@ -31,8 +31,15 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
                 
                 if (offset > count)
                     offset = count - 1;
-                List<Destination> result = _unitOfWork.DestinationRepository.GetMostVisited(offset);
 
+                List<Destination?> result = new List<Destination?>();
+
+                if (command.Sorting == "visitors")
+                    result = _unitOfWork.DestinationRepository.GetMostVisited(offset);
+                else if (command.Sorting == "rating")
+                    result = _unitOfWork.DestinationRepository.GetBestRatedDestinations(offset);
+                else
+                    result = _unitOfWork.DestinationRepository.SortDestinations(command.Sorting);
                 if (result.Count < 1)
                     return Task.FromResult(new List<DestinationGetDto> { });
 

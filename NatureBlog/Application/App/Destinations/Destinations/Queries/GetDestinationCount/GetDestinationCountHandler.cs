@@ -25,11 +25,11 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestin
                 int count = 0;
                 if (query.Type == "all")
                     count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
-                else if (query.Type == "hiking-trail")
+                else if (query.Type == "hiking-trails")
                     count = _unitOfWork.DestinationRepository.GetHikingTrailCount();
-                else if (query.Type == "park")
+                else if (query.Type == "parks")
                     count = _unitOfWork.DestinationRepository.GetParkCount();
-                else if (query.Type == "seaside")
+                else if (query.Type == "seasides")
                     count = _unitOfWork.DestinationRepository.GetSeasideCount();
                 else
                     throw new OutOfRangeException("No such type");

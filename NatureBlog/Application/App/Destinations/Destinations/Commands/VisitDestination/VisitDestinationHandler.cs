@@ -4,7 +4,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination
 {
-    public class VisitDestinationHandler : IRequestHandler<VisitDestinationCommand, List<User>>
+    public class VisitDestinationHandler : IRequestHandler<VisitDestinationCommand, bool>
     {
         private readonly IUnitOfWork _unitOfwork;
 
@@ -13,24 +13,22 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDes
             _unitOfwork = unitOfwork;
         }
 
-        public List<User> Handle(VisitDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(VisitDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                /*
-                 Destination destination = _unitOfwork.DestinationRepository.GetDestination(command.DestinationId);
-                if (destination is null || user is null)
-                    return null;
-                */
+                Destination destination = _unitOfwork.DestinationRepository.GetDestination(command.DestinationId);
                 User user = _unitOfwork.UserRepository.GetUser(command.UserId);
 
-               List<User> visitors= _unitOfwork.DestinationRepository.VisitDestination(user, command.DestinationId);
-                //await _unitOfwork.Save();
-                
+                _unitOfwork.DestinationRepository.VisitDestination(user, destination);
+                await _unitOfwork.Save();
+                return true;
+            }
+
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the Visit Destination Method", ex);
-                return new List<User>  { };
+                return false;
             }
         }
     }

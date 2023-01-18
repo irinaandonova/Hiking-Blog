@@ -28,7 +28,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDe
                 if (command.IsGuarded is not null)
                 {
                     var result = _mapper.Map<SeasidePostDto>(command);
-                    Seaside destination = new Seaside { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, OffersUmbrella = result.OffersUmbrella, IsGuarded = result.IsGuarded };
+                    Seaside destination = new Seaside { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, OffersUmbrella = result.OffersUmbrella, IsGuarded = result.IsGuarded, Ratings = new List<Rating> { } };
                     await _unitOfWork.DestinationRepository.AddDestination(destination);
                     await _unitOfWork.Save();
 
@@ -39,7 +39,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.CreateDe
                 {
 
                     var result = _mapper.Map<ParkPostDto>(command);
-                    Park destination = new Park { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, HasPlayground = result.HasPlayground, IsDogFriendly = result.IsDogFriendly };
+                    Park destination = new Park { Name = result.Name, CreatorId = result.CreatorId, Description = result.Description, ImageUrl = result.ImageUrl, RegionId = result.RegionId, HasPlayground = result.HasPlayground, IsDogFriendly = result.IsDogFriendly, Ratings = new List<Rating> { } };
                     await _unitOfWork.DestinationRepository.AddDestination(destination);
                     await _unitOfWork.Save();
 

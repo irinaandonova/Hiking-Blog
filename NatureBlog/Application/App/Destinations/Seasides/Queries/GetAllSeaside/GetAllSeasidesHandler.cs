@@ -1,13 +1,12 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using AutoMapper;
 using MediatR;
-using NatureBlog.Application.Exceptions;
+using NatureBlog.Application.Dto.Destination.Destination;
+using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
-using NatureBlog.Application.Dto.Destination.Seaside;
-using AutoMapper;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
 {
-    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<SeasideGetDto>>
+    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<DestinationGetDto?>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,21 +16,32 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
             _mapper = mapper;
         }
 
-        public Task<List<SeasideGetDto>> Handle(GetAllSeasidesQuery query, CancellationToken cancellationToken)
+        public Task<List<DestinationGetDto?>> Handle(GetAllSeasidesQuery query, CancellationToken cancellationToken)
         {
             try
             {
+                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
                 int offset = 0;
                 if (query.Page == 1)
                     offset = 0;
                 else
-                    offset = query.Page - 1 * 10;
-                List<Seaside> allSeasides = _unitOfWork.DestinationRepository.GetAllSeasides(offset);
+                    offset = (query.Page - 1) * 10;
 
-                if (allSeasides.Count() < 0)
-                    return Task.FromResult(new List<SeasideGetDto>());
+                if (offset > count)
+                    offset = count - 1;
 
-                var mappedResult = _mapper.Map<List<SeasideGetDto>>(allSeasides);
+                List<Destination?> result = new List<Destination?>();
+
+                if (query.Sorting == "visitors")
+                    result = _unitOfWork.DestinationRepository.GetMostVisitedSeasides(offset);
+                else if (query.Sorting == "rating")
+                    result = _unitOfWork.DestinationRepository.GetBestRatedSeasides(offset);
+                else
+                    result = _unitOfWork.DestinationRepository.SortSeasides(query.Sorting);
+                if (result.Count < 1)
+                    return Task.FromResult(new List<DestinationGetDto?> { });
+
+                var mappedResult = _mapper.Map<List<DestinationGetDto>>(result);
                 return Task.FromResult(mappedResult);
             }
 
