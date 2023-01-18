@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NatureBlog.Application.App.Destinations.Destinations.Queries.GetComments;
+using NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
 using NatureBlog.Application.App.Destinations.Parks.Commands.UpdatePark;
@@ -9,7 +9,6 @@ using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestinati
 using NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRegion;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited;
 using NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword;
-using NatureBlog.Application.Destinations.AllDestinations.Queries.SordDestinations;
 using NatureBlog.Application.Destinations.HikingTrails.Commands;
 using NatureBlog.Application.Destinations.HikingTrails.Commands.CreateHikingTrail;
 using NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingTrail;
@@ -40,21 +39,10 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("all/{page}")]
-        public async Task<IActionResult> GetMostVisited(int page)
+        [Route("all/{sorting}/{page}")]
+        public async Task<IActionResult> GetMostVisited(string sorting, int page)
         {
-            var result = await _mediator.Send(new GetMostVisitedQuery { Page = page });
-
-            if (result is null)
-                return StatusCode(500);
-
-            return Ok(result);
-        }
-        [HttpGet]
-        [Route("hiking-trails/{page}")]
-        public async Task<IActionResult> GetAllHikingTrails(int page)
-        {
-            var result = await _mediator.Send(new GetAllHikingTrailsQuery { Page = page });
+            var result = await _mediator.Send(new GetAllDestinationsQuery { Page = page, Sorting = sorting });
 
             if (result is null)
                 return StatusCode(500);
@@ -63,10 +51,22 @@ namespace NatureBlog.Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("seasides/{page}")]
-        public async Task<IActionResult> GetAllSeaside(int page)
+        [Route("hiking-trails/{sorting}/{page}")]
+        public async Task<IActionResult> GetAllHikingTrails(string sorting, int page)
         {
-            var result = await _mediator.Send(new GetAllSeasidesQuery { Page = page});
+            var result = await _mediator.Send(new GetAllHikingTrailsQuery { Sorting = sorting, Page = page });
+
+            if (result is null)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("seasides/{sorting}/{page}")]
+        public async Task<IActionResult> GetAllSeaside(string sorting, int page)
+        {
+            var result = await _mediator.Send(new GetAllSeasidesQuery { Sorting = sorting, Page = page });
 
             if (result == null)
             {
@@ -75,11 +75,12 @@ namespace NatureBlog.Presenatation.Controllers
 
             return Ok(result);
         }
+
         [HttpGet]
-        [Route("parks/{page}")]
-        public async Task<IActionResult> GetAllParks(int page)
+        [Route("parks/{sorting}/{page}")]
+        public async Task<IActionResult> GetAllParks(string sorting, int page)
         {
-            var result = await _mediator.Send(new GetAllParksQuery{ Page = page });
+            var result = await _mediator.Send(new GetAllParksQuery { Sorting = sorting, Page = page });
 
             if (result == null)
             {
@@ -179,8 +180,8 @@ namespace NatureBlog.Presenatation.Controllers
                 RegionId = hikingTrail.RegionId,
                 Description = hikingTrail.Description,
                 ImageUrl = hikingTrail.ImageUrl,
-                Duration= hikingTrail.Duration,
-                Difficulty= hikingTrail.Difficulty,    
+                Duration = hikingTrail.Duration,
+                Difficulty = hikingTrail.Difficulty,
 
             });
 
@@ -194,7 +195,7 @@ namespace NatureBlog.Presenatation.Controllers
         [Route("hiking-trail/edit")]
         public async Task<IActionResult> UpdateHikingTrail(HikingTrailPutDto hikingTrail)
         {
-            var result = await _mediator.Send(new UpdateHikingTrailCommand 
+            var result = await _mediator.Send(new UpdateHikingTrailCommand
             {
                 DestinationId = hikingTrail.Id,
                 Name = hikingTrail.Name,
@@ -298,23 +299,6 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route("sort/{condition}")]
-        public async Task<IActionResult> SortDestination(string condition)
-        {
-            if (string.IsNullOrEmpty(condition))
-                return BadRequest("Condition can't be empty!");
-
-            var result = await _mediator.Send(new SortDestinationsQuery { Condition = condition });
-
-            if (result is null)
-                return StatusCode(500);
-
-            return Ok(result);
-        }
-
-        
-
         [HttpPost]
         [Route("{id}/rate")]
         public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
@@ -335,9 +319,25 @@ namespace NatureBlog.Presenatation.Controllers
             return Ok("Destination rated successfully!");
 
         }
+
+        [HttpPost]
+        [Route("{id}/visit")]
+        public async Task<IActionResult> VisitDestination(int id, [FromBody] UserIdPostDto userInfo)
+        {
+            var result = await _mediator.Send(new VisitDestinationCommand
+            {
+                DestinationId = id,
+                UserId = userInfo.UserId,
+            });
+
+
+
+            return Ok(result);
+        }
+
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteDestination(int id, [FromBody] UserIdGetDto userId)
+        public async Task<IActionResult> DeleteDestination(int id, [FromBody] UserIdPostDto userId)
         {
             var result = await _mediator.Send(new DeleteDestinationCommand { DestinationId = id, UserId = userId.UserId });
 
