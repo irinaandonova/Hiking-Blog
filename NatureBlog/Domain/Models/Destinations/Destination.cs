@@ -21,7 +21,7 @@ namespace NatureBlog.Domain.Models
 
         public Region Region { get; set; }
 
-        public int? RatingScore { get; set; } 
+        public decimal RatingScore { get; set; } 
 
         public ICollection<Comment> Comments { get; set; } 
 
