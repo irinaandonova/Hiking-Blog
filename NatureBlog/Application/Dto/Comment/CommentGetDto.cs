@@ -4,7 +4,11 @@
     {
         public int Id { get; set; }
 
-        public string CreatorId { get; set; }
+        public int CreatorId { get; set; }
+
+        public string Username { get; set; }
+
+        public int DestinationId { get; set; }
 
         public string Text { get; set; }
 

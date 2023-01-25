@@ -21,7 +21,7 @@ namespace NatureBlog.Application.App.Users.Queries
         {
             try
             {
-                User user = _unitOfWork.UserRepository.GetUser(query.Id);
+                User? user = _unitOfWork.UserRepository.GetUser(query.Email);
                 var mappedResult = _mapper.Map<UserGetDto>(user);
 
                 return Task.FromResult(mappedResult);

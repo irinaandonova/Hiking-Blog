@@ -26,7 +26,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Commands
                 if (command.Difficulty < 1 || command.Difficulty > 3)
                     return null;
 
-                _unitOfWork.DestinationRepository.UpdateHikingTrail(command.Name, command.DestinationId, command.RegionId, command.ImageUrl, command.Description, command.Duration, command.Difficulty);
+                _unitOfWork.DestinationRepository.UpdateHikingTrail(command.Name, command.DestinationId, command.RegionId, command.ImageUrl, command.Description, command.Difficulty, command.Duration);
                 await _unitOfWork.Save();
 
                 return true;

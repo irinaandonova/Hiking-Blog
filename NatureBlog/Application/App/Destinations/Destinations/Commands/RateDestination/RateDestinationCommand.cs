@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {
-    public class RateDestinationCommand : IRequest<bool?>
+    public class RateDestinationCommand : IRequest<decimal?>
     {
         public int DestinationId { get; set; }
 

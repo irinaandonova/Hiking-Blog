@@ -48,10 +48,10 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     CreatorId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(560)", maxLength: 560, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(960)", maxLength: 960, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     RegionId = table.Column<int>(type: "int", nullable: false),
-                    RatingScore = table.Column<int>(type: "int", nullable: true)
+                    RatingScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

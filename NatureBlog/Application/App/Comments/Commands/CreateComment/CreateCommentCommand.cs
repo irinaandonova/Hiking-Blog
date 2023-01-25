@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using NatureBlog.Application.Dto.Comment;
 
 namespace NatureBlog.Application.App.Comments.Commands.CreateComment
 {
-    public class CreateCommentCommand : IRequest<int?>
+    public class CreateCommentCommand : IRequest<CommentGetDto>
     {
         public int DestinationId { get; set; }
 

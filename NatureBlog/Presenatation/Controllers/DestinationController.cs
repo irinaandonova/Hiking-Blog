@@ -1,8 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
+using NatureBlog.Application.App.Destinations.Destinations.Queries.GetTopThree;
 using NatureBlog.Application.App.Destinations.Parks.Commands.UpdatePark;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDestination;
 using NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination;
@@ -27,6 +30,7 @@ using NatureBlog.Application.Dto.User;
 
 namespace NatureBlog.Presenatation.Controllers
 {
+    
     [Route("api/destinations")]
     [ApiController]
     public class DestinationController : ControllerBase
@@ -37,6 +41,19 @@ namespace NatureBlog.Presenatation.Controllers
         {
             _mediator = mediator;
         }
+
+        [HttpGet]
+        [Route("top-three")]
+        public async Task<IActionResult> GetTopThree()
+        {
+            var result = await _mediator.Send(new GetTopThreeQuery { });
+
+            if (result is null)
+                return StatusCode(500);
+
+            return Ok(result);
+        }
+
 
         [HttpGet]
         [Route("all/{sorting}/{page}")]
@@ -303,7 +320,7 @@ namespace NatureBlog.Presenatation.Controllers
         [Route("{id}/rate")]
         public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
         {
-            bool? result = await _mediator.Send(new RateDestinationCommand
+            var result = await _mediator.Send(new RateDestinationCommand
             {
                 DestinationId = id,
                 UserId = rating.UserId,
@@ -313,10 +330,7 @@ namespace NatureBlog.Presenatation.Controllers
             if (result is null)
                 return BadRequest("Invalid creator or destination id!");
 
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok("Destination rated successfully!");
+            return Ok(result);
 
         }
 
@@ -329,9 +343,7 @@ namespace NatureBlog.Presenatation.Controllers
                 DestinationId = id,
                 UserId = userInfo.UserId,
             });
-
-
-
+            
             return Ok(result);
         }
 

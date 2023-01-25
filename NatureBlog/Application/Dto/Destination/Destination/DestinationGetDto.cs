@@ -24,6 +24,8 @@ namespace NatureBlog.Application.Dto.Destination.Destination
 
         public bool? IsGuarded { get; set; }
 
+        public bool? OffersUmbrella { get; set; }
+
         public bool? HasUmbrella { get; set; }
 
         public bool? HasPlayground { get; set; }

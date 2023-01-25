@@ -19,13 +19,13 @@ namespace Presenatation.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        [Route("{email}")]
+        public async Task<IActionResult> GetUser(string email)
         {
-            var result = await _mediator.Send(new GetUserQuery { Id = id });
+            var result = await _mediator.Send(new GetUserQuery { Email = email });
 
             if (result is null)
-                return BadRequest();
+                return NoContent();
             return Ok(result);
         }
         

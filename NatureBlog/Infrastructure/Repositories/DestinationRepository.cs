@@ -83,11 +83,23 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
+        public List<Destination> GetTopThree()
+        {
+            List<Destination?> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
+            foreach (Destination destination in destinations)
+            {
+                decimal ratingScore = CalcRatings(destination);
+                destination.RatingScore = ratingScore;
+            }
+
+            destinations = destinations.OrderByDescending(d => d.RatingScore).Take(3).ToList();
+            return destinations;
+        }
         public List<Destination?> GetMostVisited(int offset)
         {
             List<Destination?> result = _dbContext.Destinations.Include(s => s.Visitors).Include(d => d.Ratings).ToList();
 
-            result = result.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+            result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
             foreach(var destination in result)
                 destination.RatingScore = CalcRatings(destination);
 
@@ -97,7 +109,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public List<Destination?> GetMostVisitedSeasides(int offset)
         {
             List<Destination?> result = _dbContext.Destinations.Where(s => s is Seaside).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
-            result = result.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+            result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
 
             foreach (var destination in result)
                 destination.RatingScore = CalcRatings(destination);
@@ -109,7 +121,7 @@ namespace NatureBlog.Infrastructure.Repositories
         {
             List<Destination?> result = _dbContext.Destinations.Where(s => s is Park).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
 
-            result = result.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+            result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
             foreach (var destination in result)
                 destination.RatingScore = CalcRatings(destination);
             return result;
@@ -119,7 +131,7 @@ namespace NatureBlog.Infrastructure.Repositories
         {
             List<Destination?> result = _dbContext.Destinations.Where(s => s is HikingTrail).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
 
-            result = result.OrderBy(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+            result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
             foreach (var destination in result)
                 destination.RatingScore = CalcRatings(destination);
             return result;
@@ -294,7 +306,7 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        private decimal CalcRatings(Destination destination)
+        public decimal CalcRatings(Destination destination)
         {
             int allRatings = 0;
 
@@ -313,7 +325,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public List<Destination?> GetBestRatedDestinations(int offset)
         {
             List<Destination?> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
-            foreach(var destination in destinations)
+            foreach(Destination destination in destinations)
             {
                 decimal ratingScore = CalcRatings(destination);
                 destination.RatingScore = ratingScore;
@@ -384,6 +396,7 @@ namespace NatureBlog.Infrastructure.Repositories
             {
                 Rating rating = new Rating { UserId = userId, DestinationId = destinationId, RatingValue = ratingValue };
                 await _dbContext.Ratings.AddAsync(rating);
+
             }
         }
 
@@ -448,6 +461,13 @@ namespace NatureBlog.Infrastructure.Repositories
             else 
                 destination.Visitors.Remove(user);
 
+        }
+
+        public List<User> GetVisitorsCount(int destinationId)
+        {
+            Destination destination = GetDestination(destinationId);
+
+            return destination.Visitors.ToList();
         }
     }
 }

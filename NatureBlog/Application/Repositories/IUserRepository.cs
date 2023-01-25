@@ -4,7 +4,9 @@ namespace NatureBlog.Application.Repositories
 {
     public interface IUserRepository
     {
-        User GetUser(int id);
+        User? GetUser(int id);
+
+        User? GetUser(string email);
 
         Task Add(User user);
 

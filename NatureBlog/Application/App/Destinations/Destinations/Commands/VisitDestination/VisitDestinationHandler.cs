@@ -1,19 +1,23 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using NatureBlog.Application.Dto.User;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination
 {
-    public class VisitDestinationHandler : IRequestHandler<VisitDestinationCommand, bool>
+    public class VisitDestinationHandler : IRequestHandler<VisitDestinationCommand, List<UserGetDto>>
     {
         private readonly IUnitOfWork _unitOfwork;
+        private readonly IMapper _mapper;
 
-        public VisitDestinationHandler(IUnitOfWork unitOfwork)
+        public VisitDestinationHandler(IUnitOfWork unitOfwork, IMapper mapper)
         {
             _unitOfwork = unitOfwork;
+            _mapper = mapper;
         }
 
-        public async Task<bool> Handle(VisitDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<List<UserGetDto>> Handle(VisitDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -22,13 +26,15 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDes
 
                 _unitOfwork.DestinationRepository.VisitDestination(user, destination);
                 await _unitOfwork.Save();
-                return true;
+                var result = _unitOfwork.DestinationRepository.GetVisitorsCount(command.DestinationId);
+                var mappedResult = _mapper.Map<List<UserGetDto>>(result);
+                return mappedResult;
             }
 
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the Visit Destination Method", ex);
-                return false;
+                return null;
             }
         }
     }

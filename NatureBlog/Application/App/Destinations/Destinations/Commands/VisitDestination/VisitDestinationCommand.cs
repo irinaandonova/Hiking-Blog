@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using NatureBlog.Domain.Models;
+using NatureBlog.Application.Dto.User;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination
 {
-    public class VisitDestinationCommand : IRequest<bool>
+    public class VisitDestinationCommand : IRequest<List<UserGetDto>>
     {
         public int DestinationId { get; set; }
 

@@ -1,19 +1,23 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using NatureBlog.Application.Dto.Comment;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Comments.Commands.CreateComment
 {
-    public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, int?>
+    public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, CommentGetDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateCommentHandler(IUnitOfWork unitOfWork)
+        public CreateCommentHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<int?> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
+        public async Task<CommentGetDto> Handle(CreateCommentCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -26,7 +30,10 @@ namespace NatureBlog.Application.App.Comments.Commands.CreateComment
                 await _unitOfWork.Save();
 
                 if (comment is not null)
-                    return comment.Id;
+                {
+                    var mappedResult = _mapper.Map<CommentGetDto>(comment);
+                    return mappedResult;
+                }
 
                 else
                     return null;

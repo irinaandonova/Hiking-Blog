@@ -1,10 +1,5 @@
 ﻿using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NatureBlog.Infrastructure.Repositories
 {
@@ -19,7 +14,12 @@ namespace NatureBlog.Infrastructure.Repositories
 
         public User GetUser(int id)
         {
-            return _dbContext.Users.FirstOrDefault(u => u.Id == id);
+            return _dbContext.Users.SingleOrDefault(u => u.Id == id);
+        }
+
+        public User? GetUser(string email)
+        {
+            return _dbContext.Users.SingleOrDefault(u => u.Email == email);
         }
         public async Task Add(User user)
         {

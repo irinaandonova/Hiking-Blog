@@ -12,7 +12,7 @@ using NatureBlog.Infrastructure;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20221213102636_init")]
+    [Migration("20230118092250_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -85,8 +85,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(560)
-                        .HasColumnType("nvarchar(560)");
+                        .HasMaxLength(960)
+                        .HasColumnType("nvarchar(960)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -98,8 +98,8 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.Property<int?>("RatingScore")
-                        .HasColumnType("int");
+                    b.Property<decimal>("RatingScore")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RegionId")
                         .HasColumnType("int");
@@ -123,7 +123,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DestinationId")
+                    b.Property<int?>("DestinationId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("RatingValue")

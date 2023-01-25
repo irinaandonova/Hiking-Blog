@@ -25,7 +25,9 @@ namespace NatureBlog.Infrastructure
 
         public DbSet<Park> Parks => Set<Park>();
 
-        public DbSet<Rating> Ratings => Set<Rating>();  
+        public DbSet<Rating> Ratings => Set<Rating>();
+
+        //public DbSet<Destination, User> VisitedDestinations => Set<Destination, User>;
 
         //public DbSet<UserVisitedDestinations> UserVisitedDestinations => Set<UserVisitedDestinations>();
         

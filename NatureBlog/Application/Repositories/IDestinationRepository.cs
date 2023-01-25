@@ -81,6 +81,8 @@ namespace NatureBlog.Application.Repositories
 
         void VisitDestination(User userInfo, Destination destination);
 
+        List<User> GetVisitorsCount(int destinationId);
+
         List<Destination?> GetBestRatedDestinations(int offset);
 
         List<Destination?> GetBestRatedSeasides(int offset);
@@ -94,5 +96,9 @@ namespace NatureBlog.Application.Repositories
         List<Destination?> GetMostVisitedParks(int offset);
 
         List<Destination?> GetMostVisitedSeasides(int offset);
+
+        decimal CalcRatings(Destination destination);
+
+        List<Destination> GetTopThree();
     }
 }

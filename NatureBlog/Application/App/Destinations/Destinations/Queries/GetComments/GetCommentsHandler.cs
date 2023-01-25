@@ -25,6 +25,12 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetCommen
 
             List<CommentGetDto> mappedResult = _mapper.Map<List<CommentGetDto>>(result);
 
+            foreach(var comment in mappedResult)
+            {
+                User user = _unitOfWork.UserRepository.GetUser(comment.CreatorId);
+                comment.Username = user.Username;
+            }
+
             return Task.FromResult(mappedResult);
         }
     }
