@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class CommentNotFoundException : Exception
+    public class CommentNotFoundException : Exception
     {
         public CommentNotFoundException()
         {
