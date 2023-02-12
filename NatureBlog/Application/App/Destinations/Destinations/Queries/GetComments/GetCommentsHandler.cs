@@ -19,19 +19,26 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetCommen
 
         public Task<List<CommentGetDto>> Handle(GetCommentsQuery command, CancellationToken cancellationToken)
         {
-            List<Comment> result = _unitOfWork.CommentRepository.GetComments(command.Id);
-            if (result.Count == 0)
-                return Task.FromResult(new List<CommentGetDto> { });
-
-            List<CommentGetDto> mappedResult = _mapper.Map<List<CommentGetDto>>(result);
-
-            foreach(var comment in mappedResult)
+            try
             {
-                User user = _unitOfWork.UserRepository.GetUser(comment.CreatorId);
-                comment.Username = user.Username;
-            }
+                List<Comment> result = _unitOfWork.CommentRepository.GetComments(command.Id);
+                if (result.Count == 0)
+                    return Task.FromResult(new List<CommentGetDto> { });
 
-            return Task.FromResult(mappedResult);
+                List<CommentGetDto> mappedResult = _mapper.Map<List<CommentGetDto>>(result);
+
+                foreach (var comment in mappedResult)
+                {
+                    User user = _unitOfWork.UserRepository.GetUser(comment.CreatorId);
+                    comment.Username = user.Username;
+                }
+                return Task.FromResult(mappedResult);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the Get Comments method", ex.Message);
+                return null;
+            }
         }
     }
 }
