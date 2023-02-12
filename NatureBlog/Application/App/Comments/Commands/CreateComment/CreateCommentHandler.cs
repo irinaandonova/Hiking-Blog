@@ -54,7 +54,7 @@ namespace NatureBlog.Application.App.Comments.Commands.CreateComment
             {
                 throw ex;
             }
-            catch(CommentCreationFailedException ex)
+            catch(CommentModificationFailedException ex)
             {
                 throw ex;
             }
