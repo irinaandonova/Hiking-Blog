@@ -8,8 +8,6 @@ using NatureBlog.Application.Dto.Comment;
 using NatureBlog.Application.Dto.User;
 
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebAPI.Controllers
 {
     [Route("api/comments")]
@@ -29,9 +27,6 @@ namespace WebAPI.Controllers
         {
             var result = await _mediator.Send(new GetCommentsQuery { Id = id });
 
-            if (result.Count == 0)
-                return NoContent();
-
             if (result is null)
                 return StatusCode(500);
 
@@ -41,56 +36,84 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentPostDto comment)
         {
-            var result = await _mediator.Send(new CreateCommentCommand
+            try
             {
-                DestinationId = comment.DestinationId,
-                CreatorId = comment.CreatorId,
-                Text = comment.Text
-            });
+                var result = await _mediator.Send(new CreateCommentCommand
+                {
+                    DestinationId = comment.DestinationId,
+                    CreatorId = comment.CreatorId,
+                    Text = comment.Text
+                });
 
-            if (result is null)
-                return StatusCode(500);
+                if (result is null)
+                    return StatusCode(500);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpDelete("{commentId}")]
         public async Task<IActionResult> DeleteComment(int commentId, [FromBody] UserIdGetDto userId)
         {
-            var result = await _mediator.Send(new DeleteCommentCommand
+            try
             {
-                DestinationId = userId.DestinationId,
-                CommentId = commentId,
-                CreatorId = userId.UserId
-            });
+                var result = await _mediator.Send(new DeleteCommentCommand
+                {
+                    DestinationId = userId.DestinationId,
+                    CommentId = commentId,
+                    CreatorId = userId.UserId
+                });
 
-            if(result is null)
-                return BadRequest();
+                if (result == false)
+                    return StatusCode(500);
 
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                                   statusCode: 400,
+                                   title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+                                   detail: ex.Message
+                                   );
+            }
         }
 
         [HttpPut]
         [Route("{id}/edit")]
         public async Task<IActionResult> EditComment(int commentId, [FromBody] CommentPutDto comment)
         {
-            var result = await _mediator.Send(new EditCommentCommand
+            try
             {
-                Id = commentId,
-                UserId = comment.UserId,
-                Text = comment.Text
-            });
+                var result = await _mediator.Send(new EditCommentCommand
+                {
+                    Id = commentId,
+                    UserId = comment.UserId,
+                    Text = comment.Text
+                });
 
-            if (result is null)
-                return BadRequest();
 
-            if (result == false)
-                return StatusCode(500);
+                if (result == false)
+                    return StatusCode(500);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                                   statusCode: 400,
+                                   title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+                                   detail: ex.Message
+                                   );
+            }
         }
     }
 }

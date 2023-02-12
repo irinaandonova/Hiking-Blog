@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
 using NatureBlog.Application.App.Destinations.Destinations.Commands.VisitDestination;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount;
 using NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullInfoQuery;
@@ -25,12 +24,12 @@ using NatureBlog.Application.Dto.Destination.HikingTrail;
 using NatureBlog.Application.Dto.Destination.Park;
 using NatureBlog.Application.Dto.Destination.Seaside;
 using NatureBlog.Application.Dto.User;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using NatureBlog.Application.Exceptions;
+using System;
 
 namespace NatureBlog.Presenatation.Controllers
 {
-    
+
     [Route("api/destinations")]
     [ApiController]
     public class DestinationController : ControllerBase
@@ -57,7 +56,7 @@ namespace NatureBlog.Presenatation.Controllers
 
         [HttpGet]
         [Route("all/{sorting}/{page}")]
-        public async Task<IActionResult> GetMostVisited(string sorting, int page)
+        public async Task<IActionResult> GetDestinationsForPage(string sorting, int page)
         {
             var result = await _mediator.Send(new GetAllDestinationsQuery { Page = page, Sorting = sorting });
 
@@ -87,7 +86,7 @@ namespace NatureBlog.Presenatation.Controllers
 
             if (result == null)
             {
-                return NoContent();
+                return StatusCode(500);
             }
 
             return Ok(result);
@@ -101,7 +100,7 @@ namespace NatureBlog.Presenatation.Controllers
 
             if (result == null)
             {
-                return NotFound();
+                return StatusCode(500);
             }
 
             return Ok(result);
@@ -111,7 +110,7 @@ namespace NatureBlog.Presenatation.Controllers
         [Route("count/{type}")]
         public async Task<IActionResult> GetCount(string type)
         {
-            var result = await _mediator.Send(new GetDestinationCountQuery { Type = type });
+            var result = await _mediator.Send(new GetPagesCountQuery { Type = type });
 
             if (result < 0)
                 return StatusCode(400);
@@ -124,239 +123,441 @@ namespace NatureBlog.Presenatation.Controllers
         [Route("info/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _mediator.Send(new GetFullInfoQuery { Id = id });
-            if (result == null)
+            try
             {
-                return NotFound();
+                var result = await _mediator.Send(new GetFullInfoQuery { Id = id });
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
             }
-
-            return Ok(result);
-
+            catch (DestinationNotFoundException ex)
+            {
+                return Problem(
+               statusCode: 400,
+               title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+               detail: ex.Message
+               );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                statusCode: 500,
+                title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+                detail: ex.Message
+                );
+            }
         }
 
         [HttpPost]
         [Route("seaside")]
         public async Task<IActionResult> CreateSeaside([FromBody] SeasidePostDto seaside)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateSeasideCommand
+            try
             {
-                Name = seaside.Name,
-                CreatorId = seaside.CreatorId,
-                RegionId = seaside.RegionId,
-                Description = seaside.Description,
-                ImageUrl = seaside.ImageUrl,
-                OffersUmbrella = seaside.OffersUmbrella,
-                IsGuarded = seaside.IsGuarded,
+                if (!ModelState.IsValid)
+                    return Problem(
+                        statusCode: 400,
+                        title: "Model state is invalid!",
+                        detail: "Invalid input"
+                        );
 
-            });
+                var result = await _mediator.Send(new CreateSeasideCommand
+                {
+                    Name = seaside.Name,
+                    CreatorId = seaside.CreatorId,
+                    RegionId = seaside.RegionId,
+                    Description = seaside.Description,
+                    ImageUrl = seaside.ImageUrl,
+                    OffersUmbrella = seaside.OffersUmbrella,
+                    IsGuarded = seaside.IsGuarded,
 
-            if (result is null)
-                return BadRequest("Invalid input");
+                });
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return Problem(
+                statusCode: 401,
+                title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+                detail: ex.Message
+                );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+               statusCode: 500,
+               title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+               detail: ex.Message
+               );
+            }
         }
 
         [HttpPost]
         [Route("park")]
         public async Task<IActionResult> CreatePark([FromBody] ParkPostDto park)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateParkCommand
+            try
             {
-                Name = park.Name,
-                CreatorId = park.CreatorId,
-                RegionId = park.RegionId,
-                Description = park.Description,
-                ImageUrl = park.ImageUrl,
-                IsDogFriendly = park.IsDogFriendly,
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            });
+                var result = await _mediator.Send(new CreateParkCommand
+                {
+                    Name = park.Name,
+                    CreatorId = park.CreatorId,
+                    RegionId = park.RegionId,
+                    Description = park.Description,
+                    ImageUrl = park.ImageUrl,
+                    IsDogFriendly = park.IsDogFriendly,
 
-            if (result is null)
-                return BadRequest("Invalid input");
+                });
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+               statusCode: 500,
+               title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+               detail: ex.Message
+               );
+            }
         }
 
         [HttpPost]
         [Route("hiking-trail")]
         public async Task<IActionResult> CreateHikingTrail([FromBody] HikingTrailPostDto hikingTrail)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateHikingTrailCommand
+            try
             {
-                Name = hikingTrail.Name,
-                CreatorId = hikingTrail.CreatorId,
-                RegionId = hikingTrail.RegionId,
-                Description = hikingTrail.Description,
-                ImageUrl = hikingTrail.ImageUrl,
-                Duration = hikingTrail.Duration,
-                Difficulty = hikingTrail.Difficulty,
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            });
+                var result = await _mediator.Send(new CreateHikingTrailCommand
+                {
+                    Name = hikingTrail.Name,
+                    CreatorId = hikingTrail.CreatorId,
+                    RegionId = hikingTrail.RegionId,
+                    Description = hikingTrail.Description,
+                    ImageUrl = hikingTrail.ImageUrl,
+                    Duration = hikingTrail.Duration,
+                    Difficulty = hikingTrail.Difficulty,
 
-            if (result is null)
-                return BadRequest("Invalid input");
+                });
 
-            return Ok(result);
+                if (result is null)
+                    return BadRequest("Invalid input");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+               statusCode: 500,
+               title: ex.GetType().ToString().Replace("NatureBlog.Application.Exceptions.", ""),
+               detail: ex.Message
+               );
+            }
         }
 
         [HttpPut]
         [Route("hiking-trail/edit")]
         public async Task<IActionResult> UpdateHikingTrail(HikingTrailPutDto hikingTrail)
         {
-            var result = await _mediator.Send(new UpdateHikingTrailCommand
+            try
             {
-                DestinationId = hikingTrail.Id,
-                Name = hikingTrail.Name,
-                UserId = hikingTrail.UserId,
-                RegionId = hikingTrail.RegionId,
-                Description = hikingTrail.Description,
-                ImageUrl = hikingTrail.ImageUrl,
-                Difficulty = hikingTrail.Difficulty,
-                Duration = hikingTrail.Duration
-            });
+                var result = await _mediator.Send(new UpdateHikingTrailCommand
+                {
+                    DestinationId = hikingTrail.Id,
+                    Name = hikingTrail.Name,
+                    UserId = hikingTrail.UserId,
+                    RegionId = hikingTrail.RegionId,
+                    Description = hikingTrail.Description,
+                    ImageUrl = hikingTrail.ImageUrl,
+                    Difficulty = hikingTrail.Difficulty,
+                    Duration = hikingTrail.Duration
+                });
 
-            if (result is null)
-                return BadRequest();
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (UserNotCreatorException ex)
+            {
+                return Problem(
+                   statusCode: 401,
+                   title: "UserNotCreatorException",
+                   detail: ex.Message
+                   );
+            }
+            catch (OutOfRangeException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "OutOfRangeException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpPut]
         [Route("seaside/edit")]
         public async Task<IActionResult> UpdateSeaside(SeasidePutDto seaside)
         {
-            var result = await _mediator.Send(new UpdateSeasideCommand
+            try
             {
-                DestinationId = seaside.Id,
-                Name = seaside.Name,
-                UserId = seaside.UserId,
-                RegionId = seaside.RegionId,
-                Description = seaside.Description,
-                ImageUrl = seaside.ImageUrl,
-                IsGuarded = seaside.IsGuarded,
-                OffersUmbrella = seaside.OffersUmbrella
-            });
+                var result = await _mediator.Send(new UpdateSeasideCommand
+                {
+                    DestinationId = seaside.Id,
+                    Name = seaside.Name,
+                    UserId = seaside.UserId,
+                    RegionId = seaside.RegionId,
+                    Description = seaside.Description,
+                    ImageUrl = seaside.ImageUrl,
+                    IsGuarded = seaside.IsGuarded,
+                    OffersUmbrella = seaside.OffersUmbrella
+                });
 
-            if (result is null)
-                return BadRequest(500);
-
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (UserNotCreatorException ex)
+            {
+                return Problem(
+                   statusCode: 401,
+                   title: "UserNotCreatorException",
+                   detail: ex.Message
+                   );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpPut]
         [Route("park/edit")]
         public async Task<IActionResult> UpdatePark(ParkPutDto park)
         {
-            var result = await _mediator.Send(new UpdateParkCommand
+            try
             {
-                Id = park.Id,
-                Name = park.Name,
-                UserId = park.UserId,
-                RegionId = park.RegionId,
-                Description = park.Description,
-                ImageUrl = park.ImageUrl,
-                HasPlayground = park.
+                var result = await _mediator.Send(new UpdateParkCommand
+                {
+                    Id = park.Id,
+                    Name = park.Name,
+                    UserId = park.UserId,
+                    RegionId = park.RegionId,
+                    Description = park.Description,
+                    ImageUrl = park.ImageUrl,
+                    HasPlayground = park.
                 IsDogFriendly = park.IsDogFriendly
-            });
+                });
 
-            if (result is null)
-                return BadRequest(500);
+                return Ok(result);
+            }
+            catch (UserNotCreatorException ex)
+            {
+                return Problem(
+                   statusCode: 401,
+                   title: "UserNotCreatorException",
+                   detail: ex.Message
+                   );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
 
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok(result);
         }
 
         [HttpGet]
         [Route("region/{id}")]
         public async Task<IActionResult> FilterByRegion(int id)
         {
-            var result = await _mediator.Send(new FilterByRegionQuerry { RegionId = id });
+            try
+            {
+                var result = await _mediator.Send(new FilterByRegionQuerry { RegionId = id });
 
-            if (result is null)
-                return StatusCode(500);
-
-            if (result.Count == 0)
-                return NotFound("No destinations in this region");
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (RegionNotFoundException ex)
+            {
+                return Problem(
+                       statusCode: 400,
+                       title: "RegionNotFoundException",
+                       detail: ex.Message
+                       );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpGet]
         [Route("searchq={searchString}")]
         public async Task<IActionResult> SearchByDestinationName(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString))
-                return BadRequest("Search string can't be empty");
+            try
+            {
 
-            var result = await _mediator.Send(new SearchByDestinationNameQuery { KeyString = searchString });
+                var result = await _mediator.Send(new SearchByDestinationNameQuery { KeyString = searchString });
 
-            if (result.Count < 0)
-                return NotFound("No destination, containing this search string");
-
-            if (result is null)
-                return StatusCode(500);
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest("Search string can't be empty string or null!");
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpPost]
         [Route("{id}/rate")]
         public async Task<IActionResult> RateDestination(int id, [FromBody] DestinationRatePostDto rating)
         {
-            var result = await _mediator.Send(new RateDestinationCommand
+            try
             {
-                DestinationId = id,
-                UserId = rating.UserId,
-                RatingValue = rating.ratingValue
-            });
+                var result = await _mediator.Send(new RateDestinationCommand
+                {
+                    DestinationId = id,
+                    UserId = rating.UserId,
+                    RatingValue = rating.ratingValue
+                });
 
-            if (result is null)
-                return BadRequest("Invalid creator or destination id!");
-
-            return Ok(result);
-
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "UserNotFoundException",
+                    detail: ex.Message
+                    );
+            }
+            catch (DestinationNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "DestinationNotFoundException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpPost]
         [Route("{id}/visit")]
         public async Task<IActionResult> VisitDestination(int id, [FromBody] UserIdPostDto userInfo)
         {
-            var result = await _mediator.Send(new VisitDestinationCommand
+            try
             {
-                DestinationId = id,
-                UserId = userInfo.UserId,
-            });
-            
-            return Ok(result);
+                var result = await _mediator.Send(new VisitDestinationCommand
+                {
+                    DestinationId = id,
+                    UserId = userInfo.UserId,
+                });
+
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return Problem(
+                        statusCode: 400,
+                        title: "UserNotFoundException",
+                        detail: ex.Message
+                        );
+            }
+            catch (DestinationNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "DestinationNotFoundException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteDestination(int id, [FromBody] UserIdPostDto userId)
         {
-            var result = await _mediator.Send(new DeleteDestinationCommand { DestinationId = id, UserId = userId.UserId });
+            try
+            {
+                var result = await _mediator.Send(new DeleteDestinationCommand { DestinationId = id, UserId = userId.UserId });
 
-            if (result)
                 return Ok("Destination sucessfully deleted!");
-
-            return BadRequest("No destination with such id!");
+            }
+            catch (UserNotCreatorException ex)
+            {
+                return Problem(
+                   statusCode: 401,
+                   title: "UserNotCreatorException",
+                   detail: ex.Message
+                   );
+            }
+            catch (DestinationNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "DestinationNotFoundException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
     }
 }
