@@ -83,21 +83,30 @@ namespace NatureBlog.Infrastructure.Repositories
             return true;
         }
 
-        public List<Destination> GetTopThree()
+        public List<Destination>? GetTopThree()
         {
-            List<Destination?> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
-            foreach (Destination destination in destinations)
+            try
             {
-                decimal ratingScore = CalcRatings(destination);
-                destination.RatingScore = ratingScore;
-            }
+                List<Destination> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
+                foreach (Destination destination in destinations)
+                {
+                    decimal ratingScore = CalcRatings(destination);
+                    destination.RatingScore = ratingScore;
+                }
 
-            destinations = destinations.OrderByDescending(d => d.RatingScore).Take(3).ToList();
-            return destinations;
+                destinations = destinations.OrderByDescending(d => d.RatingScore).Take(3).ToList();
+                return destinations;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the get top three repository method", ex);
+                return null;
+            }
+           
         }
-        public List<Destination?> GetMostVisited(int offset)
+        public List<Destination> GetMostVisited(int offset)
         {
-            List<Destination?> result = _dbContext.Destinations.Include(s => s.Visitors).Include(d => d.Ratings).ToList();
+            List<Destination> result = _dbContext.Destinations.Include(s => s.Visitors).Include(d => d.Ratings).ToList();
 
             result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
             foreach(var destination in result)
@@ -106,9 +115,9 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        public List<Destination?> GetMostVisitedSeasides(int offset)
+        public List<Destination> GetMostVisitedSeasides(int offset)
         {
-            List<Destination?> result = _dbContext.Destinations.Where(s => s is Seaside).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
+            List<Destination> result = _dbContext.Destinations.Where(s => s is Seaside).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
             result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
 
             foreach (var destination in result)
@@ -117,19 +126,21 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        public List<Destination?> GetMostVisitedParks(int offset)
+        public List<Destination> GetMostVisitedParks(int offset)
         {
-            List<Destination?> result = _dbContext.Destinations.Where(s => s is Park).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
+            List<Destination> result = _dbContext.Destinations.Where(s => s is Park).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
 
             result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
+
             foreach (var destination in result)
                 destination.RatingScore = CalcRatings(destination);
+
             return result;
         }
 
-        public List<Destination?> GetMostVisitedHikingTrails(int offset)
+        public List<Destination> GetMostVisitedHikingTrails(int offset)
         {
-            List<Destination?> result = _dbContext.Destinations.Where(s => s is HikingTrail).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
+            List<Destination> result = _dbContext.Destinations.Where(s => s is HikingTrail).Include(d => d.Ratings).Include(s => s.Visitors).ToList();
 
             result = result.OrderByDescending(x => x.Visitors.Count).Skip(offset).Take(10).ToList();
             foreach (var destination in result)
@@ -146,28 +157,28 @@ namespace NatureBlog.Infrastructure.Repositories
 
             return result;
         }
-        public int GetAllDestinationsCount()
+        public int GetAllDestinationsPagesCount()
         {
             int count = _dbContext.Destinations.Count();
 
             return count;
         }
 
-        public int GetHikingTrailCount()
+        public int GetHikingTrailPagesCount()
         {
             int count = _dbContext.Destinations.Where(x => x is HikingTrail).ToList().Count;
 
             return count;
         }
 
-        public int GetParkCount()
+        public int GetParkPagesCount()
         {
             int count = _dbContext.Destinations.Where(x => x is Park).ToList().Count;
 
             return count;
         }
 
-        public int GetSeasideCount()
+        public int GetSeasidePagesCount()
         {
             int count = _dbContext.Destinations.Where(x => x is Seaside).ToList().Count;
 
@@ -293,9 +304,9 @@ namespace NatureBlog.Infrastructure.Repositories
             return result;
         }
 
-        public List<Destination?> SortHikingTrails(string condition)
+        public List<Destination> SortHikingTrails(string condition)
         {
-            List<Destination?> result = new List<Destination?> { };
+            List<Destination> result = new List<Destination> { };
             if (condition == "alphabetical")
                 result = _dbContext.Destinations.Where(x => x is HikingTrail).Include(x => x.Ratings).OrderBy(x => x.Name).ToList();
             else if (condition == "alphabetical-rev")
@@ -322,9 +333,10 @@ namespace NatureBlog.Infrastructure.Repositories
             return ratingScore;
         }
 
-        public List<Destination?> GetBestRatedDestinations(int offset)
+        public List<Destination> GetBestRatedDestinations(int offset)
         {
-            List<Destination?> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
+            List<Destination> destinations = _dbContext.Destinations.Include(d => d.Ratings).ToList();
+
             foreach(Destination destination in destinations)
             {
                 decimal ratingScore = CalcRatings(destination);
@@ -361,9 +373,9 @@ namespace NatureBlog.Infrastructure.Repositories
             return destinations;
         }
 
-        public List<Destination?> GetBestRatedHikingTrails(int offset)
+        public List<Destination> GetBestRatedHikingTrails(int offset)
         {
-            List<Destination?> destinations = _dbContext.Destinations.Where(x => x is HikingTrail).Include(d => d.Ratings).ToList();
+            List<Destination> destinations = _dbContext.Destinations.Where(x => x is HikingTrail).Include(d => d.Ratings).ToList();
             foreach (var destination in destinations)
             {
                 decimal ratingScore = CalcRatings(destination);
