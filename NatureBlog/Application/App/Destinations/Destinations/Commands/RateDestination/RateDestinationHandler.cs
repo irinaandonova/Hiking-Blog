@@ -3,11 +3,12 @@ using MediatR;
 using NatureBlog.Domain.Models;
 using AutoMapper;
 using NatureBlog.Application.Dto.Destination.Destination;
+using NatureBlog.Application.Exceptions;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDestination
 {
 
-    public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, decimal?>
+    public class RateDestinationHandler : IRequestHandler<RateDestinationCommand, decimal>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,27 +18,28 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.RateDesti
             _mapper = mapper;
         }
 
-        public async Task<decimal?> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
+        public async Task<decimal> Handle(RateDestinationCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                User user = _unitOfWork.UserRepository.GetUser(command.UserId);
+                User? user = _unitOfWork.UserRepository.GetUser(command.UserId);
                 if (user is null)
-                    return null;
+                    throw new UserNotFoundException("No user with given id!");
+
+                Destination? destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
+                if (destination is null)
+                    throw new DestinationNotFoundException("No destination found with given id!");
 
                 await _unitOfWork.DestinationRepository.RateDestination(command.DestinationId, command.RatingValue, command.UserId);
                 await _unitOfWork.Save();
 
-                Destination destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
-                //List<Rating> Ratings = destination.Ratings.ToList();
                 decimal currentRating = _unitOfWork.DestinationRepository.CalcRatings(destination);
-                //var mappedResult = _mapper.Map<List<DestinationGetRatingDto>(Ratings);
                 return currentRating;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the RateDestination Method! " + ex.Message);
-                return null;
+                throw ex;
             }
         }
     }

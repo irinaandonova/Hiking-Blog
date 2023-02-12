@@ -1,9 +1,8 @@
-﻿using NatureBlog.Application.Repositories;
+﻿using AutoMapper;
 using MediatR;
-using NatureBlog.Application.Exceptions;
-using NatureBlog.Domain.Models;
 using NatureBlog.Application.Dto.Destination.Destination;
-using AutoMapper;
+using NatureBlog.Application.Repositories;
+using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKeyword
 {
@@ -37,7 +36,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.SearchByKe
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the Search Method! " + ex.Message);
-                return null;
+                throw ex;
             }
         }
     }

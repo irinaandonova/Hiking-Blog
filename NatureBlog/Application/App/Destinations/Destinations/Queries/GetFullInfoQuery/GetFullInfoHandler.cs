@@ -23,21 +23,11 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullIn
             try
             {
                 Destination destination = _unitOfWork.DestinationRepository.GetFullInfo(query.Id);
+
                 if (destination is null)
                     throw new DestinationNotFoundException("No destination with given id in database!");
 
-                int allRatings = 0;
-                decimal ratingScore = 0;
-                if (destination.Ratings.Count == 0)
-                    ratingScore = 2.5M;
-                else
-                {
-                    foreach (var rating in destination.Ratings)
-                    {
-                        allRatings += rating.RatingValue;
-                    }
-                    ratingScore = (decimal)allRatings / destination.Ratings.Count;
-                }
+                decimal ratingScore = _unitOfWork.DestinationRepository.CalcRatings(destination);
 
                 var type = destination.GetType().ToString().Replace("NatureBlog.Domain.Models.", "").ToLower();
                 if (type == "hikingtrail")
@@ -49,6 +39,10 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetFullIn
                 mappedResult.RatingScore = ratingScore;
 
                 return Task.FromResult(mappedResult);
+            }
+            catch(DestinationNotFoundException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {

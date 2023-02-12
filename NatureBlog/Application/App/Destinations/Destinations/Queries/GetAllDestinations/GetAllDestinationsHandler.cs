@@ -6,7 +6,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVisited
 {
-    public class GetAllDestinationsHandler : IRequestHandler<GetAllDestinationsQuery, List<DestinationGetDto?>>
+    public class GetAllDestinationsHandler : IRequestHandler<GetAllDestinationsQuery, List<DestinationGetDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
@@ -18,21 +18,16 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
 
         }
 
-        public Task<List<DestinationGetDto?>> Handle(GetAllDestinationsQuery command, CancellationToken cancellationToken) 
+        public Task<List<DestinationGetDto>>? Handle(GetAllDestinationsQuery command, CancellationToken cancellationToken) 
         {
             try 
             {
                 int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
                 int offset = 0;
-                if (command.Page == 1)
-                    offset = 0;
-                else
+                if (command.Page != 1)
                  offset = (command.Page -1) * 10;
                 
-                if (offset > count)
-                    offset = count - 1;
-
-                List<Destination?> result = new List<Destination?>();
+                List<Destination> result = new List<Destination>();
 
                 if (command.Sorting == "visitors")
                     result = _unitOfWork.DestinationRepository.GetMostVisited(offset);

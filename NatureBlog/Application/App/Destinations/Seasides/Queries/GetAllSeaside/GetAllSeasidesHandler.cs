@@ -6,7 +6,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
 {
-    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<DestinationGetDto?>>
+    public class GetAllSeasidesHandler : IRequestHandler<GetAllSeasidesQuery, List<DestinationGetDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,21 +16,16 @@ namespace NatureBlog.Application.Destinations.Seasides.Queries.GetAllSeaside
             _mapper = mapper;
         }
 
-        public Task<List<DestinationGetDto?>> Handle(GetAllSeasidesQuery query, CancellationToken cancellationToken)
+        public Task<List<DestinationGetDto>> Handle(GetAllSeasidesQuery query, CancellationToken cancellationToken)
         {
             try
             {
-                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
+                int count = _unitOfWork.DestinationRepository.GetSeasidePagesCount();
                 int offset = 0;
-                if (query.Page == 1)
-                    offset = 0;
-                else
+                if (query.Page != 1)
                     offset = (query.Page - 1) * 10;
 
-                if (offset > count)
-                    offset = count - 1;
-
-                List<Destination?> result = new List<Destination?>();
+                List<Destination> result = new List<Destination>();
 
                 if (query.Sorting == "visitors")
                     result = _unitOfWork.DestinationRepository.GetMostVisitedSeasides(offset);

@@ -23,6 +23,10 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRe
 
             try
             {
+                Region? region = _unitOfWork.RegionRepository.GetRegion(querry.RegionId);
+                if (region is null)
+                    throw new RegionNotFoundException("No region with such id found!");
+
                 List<Destination> destinations = _unitOfWork.DestinationRepository.FilterByRegion(querry.RegionId);
 
                 if (destinations.Count > 0)
@@ -33,13 +37,12 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.FilterByRe
                 }
                 else
                     return Task.FromResult(new List<DestinationGetDto>());
-
             }
 
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the FilterRegion Method! " + ex.Message);
-                return null;
+                throw ex;
             }
         }
 

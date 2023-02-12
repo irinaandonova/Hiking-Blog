@@ -21,15 +21,10 @@ namespace NatureBlog.Application.Destinations.Parks.Queries.GetAllPark
         {
             try
             {
-                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
+                int count = _unitOfWork.DestinationRepository.GetAllDestinationsPagesCount();
                 int offset = 0;
-                if (query.Page == 1)
-                    offset = 0;
-                else
+                if (query.Page != 1)
                     offset = (query.Page - 1) * 10;
-
-                if (offset > count)
-                    offset = count - 1;
 
                 List<Destination> result = new List<Destination>();
 

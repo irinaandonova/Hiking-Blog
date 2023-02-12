@@ -9,7 +9,6 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetTopThr
     public class GetTopThreeHandler : IRequestHandler<GetTopThreeQuery, List<DestinationGetDto>>
     {
         private readonly IMapper _mapper;
-
         private readonly IUnitOfWork _unitOfWork;
 
         public GetTopThreeHandler(IMapper mapper, IUnitOfWork unitOfWork)
@@ -23,7 +22,6 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetTopThr
             try
             {
                 List<Destination> destinations = _unitOfWork.DestinationRepository.GetTopThree();
-
                 var result = _mapper.Map<List<DestinationGetDto>>(destinations);
 
                 return Task.FromResult(result);

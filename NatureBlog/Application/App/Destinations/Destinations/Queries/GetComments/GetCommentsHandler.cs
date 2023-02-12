@@ -32,6 +32,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetCommen
                     User user = _unitOfWork.UserRepository.GetUser(comment.CreatorId);
                     comment.Username = user.Username;
                 }
+
                 return Task.FromResult(mappedResult);
             }
             catch (Exception ex)

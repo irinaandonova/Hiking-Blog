@@ -18,7 +18,10 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
         {
             try
             {
-                Destination destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
+                Destination? destination = _unitOfWork.DestinationRepository.GetDestination(command.DestinationId);
+                if (destination is null)
+                    throw new DestinationNotFoundException("No destination with given id found!");
+
                 if (destination.CreatorId != command.UserId)
                     throw new UserNotCreatorException("Current user not creator of the destination!");
 
@@ -29,7 +32,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Commands.DeleteDes
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in Delete Method:" + ex.Message);
-                return false;
+                throw ex;
             }
         }
     }
