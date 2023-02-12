@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 
 namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetDestinationCount
 {
-    public class GetDestinationCountHandler : IRequestHandler<GetDestinationCountQuery, int>
+    public class GetPagesCountHandler : IRequestHandler<GetPagesCountQuery, int>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetDestinationCountHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetPagesCountHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public Task<int> Handle(GetDestinationCountQuery query, CancellationToken cancellationToken)
+        public Task<int> Handle(GetPagesCountQuery query, CancellationToken cancellationToken)
         {
             try
             {
                 int count = 0;
                 if (query.Type == "all")
-                    count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
+                    count = _unitOfWork.DestinationRepository.GetAllDestinationsPagesCount();
                 else if (query.Type == "hiking-trails")
-                    count = _unitOfWork.DestinationRepository.GetHikingTrailCount();
+                    count = _unitOfWork.DestinationRepository.GetHikingTrailPagesCount();
                 else if (query.Type == "parks")
-                    count = _unitOfWork.DestinationRepository.GetParkCount();
+                    count = _unitOfWork.DestinationRepository.GetParkPagesCount();
                 else if (query.Type == "seasides")
-                    count = _unitOfWork.DestinationRepository.GetSeasideCount();
+                    count = _unitOfWork.DestinationRepository.GetSeasidePagesCount();
                 else
                     throw new OutOfRangeException("No such type");
 
