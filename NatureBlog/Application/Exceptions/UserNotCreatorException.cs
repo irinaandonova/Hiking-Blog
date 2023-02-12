@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class UserNotCreatorException : Exception
+    public class UserNotCreatorException : Exception
     {
         public UserNotCreatorException()
         {

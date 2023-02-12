@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class OutOfRangeException : Exception
+   public class OutOfRangeException : Exception
     {
         public OutOfRangeException()
         {

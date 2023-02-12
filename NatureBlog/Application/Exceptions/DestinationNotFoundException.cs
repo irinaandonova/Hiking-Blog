@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class DestinationNotFoundException : Exception
+    public class DestinationNotFoundException : Exception
     {
         public DestinationNotFoundException()
         {

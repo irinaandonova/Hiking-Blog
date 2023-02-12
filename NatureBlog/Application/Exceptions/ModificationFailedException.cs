@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class ModificationFailedException : Exception
+    public class ModificationFailedException : Exception
     {
         public ModificationFailedException()
         {

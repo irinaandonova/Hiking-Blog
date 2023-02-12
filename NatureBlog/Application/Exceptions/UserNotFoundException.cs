@@ -1,6 +1,6 @@
 ﻿namespace NatureBlog.Application.Exceptions
 {
-    internal class UserNotFoundException: Exception
+    public class UserNotFoundException: Exception
     {
         public UserNotFoundException()
         {
