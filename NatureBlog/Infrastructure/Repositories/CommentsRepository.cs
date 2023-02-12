@@ -17,7 +17,6 @@ namespace NatureBlog.Infrastructure.Repositories
         public async Task CreateComment(Comment comment)
         {
             await _dbContext.Comments.AddAsync(comment);
-
         }
 
         public bool DeleteComment(int destinationId, int commentId)
@@ -30,6 +29,7 @@ namespace NatureBlog.Infrastructure.Repositories
         public bool EditComment(Comment comment, string text)
         {
             comment.Text = text;
+            comment.Date = DateTime.Now;
             return true;
         }
 
