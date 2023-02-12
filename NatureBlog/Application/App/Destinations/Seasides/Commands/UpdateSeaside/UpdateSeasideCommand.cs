@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.Destinations.Seasides.Commands.UpdateSeaside
 {
-    public class UpdateSeasideCommand : IRequest<bool?>
+    public class UpdateSeasideCommand : IRequest<bool>
     {
         public int DestinationId { get; set; }
 

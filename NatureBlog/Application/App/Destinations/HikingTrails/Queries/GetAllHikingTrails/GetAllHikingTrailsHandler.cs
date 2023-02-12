@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using NatureBlog.Application.Dto.Destination.Destination;
-using NatureBlog.Application.Dto.Destination.HikingTrail;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -17,21 +16,16 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
             _mapper = mapper;
         }
 
-        public Task<List<DestinationGetDto?>> Handle(GetAllHikingTrailsQuery query, CancellationToken cancellationToken)
+        public Task<List<DestinationGetDto>> Handle(GetAllHikingTrailsQuery query, CancellationToken cancellationToken)
         {
             try
             {
                 int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
                 int offset = 0;
-                if (query.Page == 1)
-                    offset = 0;
-                else
+                if (query.Page != 1)
                     offset = (query.Page - 1) * 10;
 
-                if (offset > count)
-                    offset = count - 1;
-
-                List<Destination?> result = new List<Destination?>();
+                List<Destination> result = new List<Destination>();
 
                 if (query.Sorting == "visitors")
                     result = _unitOfWork.DestinationRepository.GetMostVisitedHikingTrails(offset);

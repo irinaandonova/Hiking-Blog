@@ -2,7 +2,7 @@
 
 namespace NatureBlog.Application.Destinations.HikingTrails.Commands
 {
-    public class UpdateHikingTrailCommand : IRequest<bool?>
+    public class UpdateHikingTrailCommand : IRequest<bool>
     {
         public int DestinationId { get; set; }
 

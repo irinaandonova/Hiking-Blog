@@ -3,7 +3,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Destinations.Parks.Commands.UpdatePark 
 {
-    public class UpdateParkCommand : IRequest<bool?>
+    public class UpdateParkCommand : IRequest<bool>
     {
         public int Id { get; set; }
 
