@@ -2,7 +2,7 @@
 using NatureBlog.Domain.Models;
 namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
 {
-    public class DeleteCommentCommand : IRequest<bool?>
+    public class DeleteCommentCommand : IRequest<bool>
     {
         public int DestinationId { get; set; }
 
