@@ -24,13 +24,13 @@ namespace NatureBlog.Application.Repositories
         
         List<Destination> GetMostVisited(int offset);
 
-        int GetAllDestinationsCount();
+        int GetAllDestinationsPagesCount();
 
-        int GetHikingTrailCount();
+        int GetHikingTrailPagesCount();
 
-        int GetSeasideCount();
+        int GetSeasidePagesCount();
 
-        int GetParkCount();
+        int GetParkPagesCount();
 
         List<Seaside> GetAllSeasides(int offset);
 
@@ -49,7 +49,7 @@ namespace NatureBlog.Application.Repositories
 
         List<Park> FilterParks(bool isDogFriendly, bool hasPlayground);
 
-        List<Destination> FilterByRegion(int regionId);
+        List<Destination>? FilterByRegion(int regionId);
 
         List<Destination> SearchByDestinationName(string searchWord);
 
@@ -83,19 +83,19 @@ namespace NatureBlog.Application.Repositories
 
         List<User> GetVisitorsCount(int destinationId);
 
-        List<Destination?> GetBestRatedDestinations(int offset);
+        List<Destination> GetBestRatedDestinations(int offset);
 
         List<Destination?> GetBestRatedSeasides(int offset);
 
         List<Destination?> GetBestRatedParks(int offset);
 
-        List<Destination?> GetBestRatedHikingTrails(int offset);
+        List<Destination> GetBestRatedHikingTrails(int offset);
 
-        List<Destination?> GetMostVisitedHikingTrails(int offset);
+        List<Destination> GetMostVisitedHikingTrails(int offset);
 
-        List<Destination?> GetMostVisitedParks(int offset);
+        List<Destination> GetMostVisitedParks(int offset);
 
-        List<Destination?> GetMostVisitedSeasides(int offset);
+        List<Destination> GetMostVisitedSeasides(int offset);
 
         decimal CalcRatings(Destination destination);
 
