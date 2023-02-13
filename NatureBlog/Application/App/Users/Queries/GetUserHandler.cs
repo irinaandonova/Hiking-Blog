@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using NatureBlog.Application.Dto.User;
+using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -22,14 +23,16 @@ namespace NatureBlog.Application.App.Users.Queries
             try
             {
                 User? user = _unitOfWork.UserRepository.GetUser(query.Email);
-                var mappedResult = _mapper.Map<UserGetDto>(user);
+                if (user is null)
+                    throw new UserNotFoundException("No user with given id found!");
 
+                var mappedResult = _mapper.Map<UserGetDto>(user);
                 return Task.FromResult(mappedResult);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return null;
+                throw ex;
             }
             
         }
