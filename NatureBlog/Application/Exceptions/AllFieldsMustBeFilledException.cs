@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace NatureBlog.Application.Exceptions
 {
-    public class AllFieldsMustBeFilled : Exception
+    public class AllFieldsMustBeFilledException : Exception
     {
-        public AllFieldsMustBeFilled()
+        public AllFieldsMustBeFilledException()
         {
         }
 
-        public AllFieldsMustBeFilled(string message)
+        public AllFieldsMustBeFilledException(string message)
                 : base(message)
         {
         }
 
-        public AllFieldsMustBeFilled(string message, Exception inner)
+        public AllFieldsMustBeFilledException(string message, Exception inner)
         : base(message, inner)
         {
         }
