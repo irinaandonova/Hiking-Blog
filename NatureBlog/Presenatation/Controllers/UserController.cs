@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NatureBlog.Application.App.Users.Commands.DeleteUser;
 using NatureBlog.Application.App.Users.Queries;
+using NatureBlog.Application.Exceptions;
 
 namespace Presenatation.Controllers
 {
@@ -22,44 +23,92 @@ namespace Presenatation.Controllers
         [Route("{email}")]
         public async Task<IActionResult> GetUser(string email)
         {
-            var result = await _mediator.Send(new GetUserQuery { Email = email });
+            try
+            {
+                var result = await _mediator.Send(new GetUserQuery { Email = email });
 
-            if (result is null)
-                return NoContent();
-            return Ok(result);
+                return Ok(result);
+            }
+            catch(UserNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "UserNotFoundException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
         
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromBody] UserPostDto user)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateUserCommand
+            try
             {
-                Username = user.Username,
-                Email = user.Email,
-                HikingSkill = user.HikingSkill
-            });
-            if (result is null)
-                return StatusCode(500);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            return Ok(result);
+                var result = await _mediator.Send(new CreateUserCommand
+                {
+                    Username = user.Username,
+                    Email = user.Email,
+                    HikingSkill = user.HikingSkill
+                });
+
+                return Ok(result);
+            }
+            catch(AllFieldsMustBeFilledException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "AllFieldsMustBeFilledException",
+                    detail: ex.Message
+                    );
+            }
+            catch (OutOfRangeException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "OutOfRangeException",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var result = await _mediator.Send(new DeleteUserCommand { Id = id });
+            try
+            {
+                var result = await _mediator.Send(new DeleteUserCommand { Id = id });
 
-            if (result is null)
-                return NotFound();
-
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok("User is successfully deleted!");
+                return Ok("User is successfully deleted!");
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                   statusCode: 500,
+                   title: ex.GetType().ToString(),
+                   detail: ex.Message
+                   );
+            }
+            
         }
     }
 }
