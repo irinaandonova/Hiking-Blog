@@ -5,6 +5,7 @@ using NatureBlog.Application.App.Regions.Commands.CreateRegion;
 using NatureBlog.Application.App.Regions.Commands.DeleteRegion;
 using NatureBlog.Application.App.Regions.Queries.GetAllRegions;
 using NatureBlog.Application.App.Regions.Queries.GetRegionById;
+using NatureBlog.Application.Exceptions;
 
 namespace Presenatation.Controllers
 {
@@ -18,56 +19,98 @@ namespace Presenatation.Controllers
         {
             _mediator = mediator;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllRegionsCommand());
-            return Ok(result);
+            try
+            {
+                var result = await _mediator.Send(new GetAllRegionsCommand());
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
-        
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _mediator.Send(new GetRegionByIdCommand { Id = id });
+            try
+            {
+                var result = await _mediator.Send(new GetRegionByIdCommand { Id = id });
 
-            if (result is null)
-                return NotFound();
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (RegionNotFoundException ex)
+            {
+                return Problem(
+                    statusCode: 400,
+                    title: "No region with given id!",
+                    detail: ex.Message
+                    );
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    statusCode: 500,
+                    title: ex.GetType().ToString(),
+                    detail: ex.Message
+                    );
+            }
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddRegion([FromBody] RegionPostDto region)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateRegionCommand
+            try
             {
-                Name = region.Name,
-                Cordinates = region.Cordinates
-            });
-            if (result is null)
-                return StatusCode(500);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            return Ok(result);
+                var result = await _mediator.Send(new CreateRegionCommand
+                {
+                    Name = region.Name,
+                    Cordinates = region.Cordinates
+                });
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                   statusCode: 500,
+                   title: ex.GetType().ToString(),
+                   detail: ex.Message
+                   );
+            }
+
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteRegion(int id)
         {
-            var result = await _mediator.Send(new DeleteRegionCommand { Id = id });
+            try
+            {
+                var result = await _mediator.Send(new DeleteRegionCommand { Id = id });
 
-            if (result is null)
-                return BadRequest();
-
-            if (result == false)
-                return StatusCode(500);
-
-            return Ok("Region deleted successfully!");
+                return Ok("Region deleted successfully!");
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                                  statusCode: 500,
+                                  title: ex.GetType().ToString(),
+                                  detail: ex.Message
+                                  );
+            }
         }
     }
 }
