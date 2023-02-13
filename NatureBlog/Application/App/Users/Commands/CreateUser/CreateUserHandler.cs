@@ -18,7 +18,7 @@ namespace Application.App.Users.Commands.CreateUser
             try
             {
                 if (string.IsNullOrEmpty(command.Username) || string.IsNullOrEmpty(command.Email))
-                    throw new AllFieldsMustBeFilled("Username or email isn't filled!");
+                    throw new AllFieldsMustBeFilledException("Username or email isn't filled!");
                 if (command.HikingSkill < 1 || command.HikingSkill > 3)
                     throw new OutOfRangeException("Hiking level must be between 1 and 3!");
 
@@ -32,7 +32,7 @@ namespace Application.App.Users.Commands.CreateUser
             catch (Exception ex)
             {
                 Console.WriteLine("Excetion in the Add User method: ", ex.Message);
-                return null;
+                throw ex;
             }
         }
     }
