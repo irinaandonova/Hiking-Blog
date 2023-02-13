@@ -6,7 +6,7 @@ using NatureBlog.Domain.Models;
 
 namespace NatureBlog.Application.App.Regions.Queries.GetRegionById
 {
-    internal class GetRegionByIdHandler : IRequestHandler<GetRegionByIdCommand, RegionGetDto>
+    public class GetRegionByIdHandler : IRequestHandler<GetRegionByIdCommand, RegionGetDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace NatureBlog.Application.App.Regions.Queries.GetRegionById
             catch(Exception ex)
             {
                 Console.WriteLine("Exception in the Region Get By Id method", ex.Message);
-                return null;
+                throw ex;
             }
 
         }

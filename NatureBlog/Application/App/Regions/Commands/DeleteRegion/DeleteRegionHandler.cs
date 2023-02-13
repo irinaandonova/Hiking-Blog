@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 
 namespace NatureBlog.Application.App.Regions.Commands.DeleteRegion
 {
-    public class DeleteRegionHandler : IRequestHandler<DeleteRegionCommand, bool?>
+    public class DeleteRegionHandler : IRequestHandler<DeleteRegionCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -12,13 +13,13 @@ namespace NatureBlog.Application.App.Regions.Commands.DeleteRegion
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool?> Handle(DeleteRegionCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteRegionCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 bool result = _unitOfWork.RegionRepository.Delete(command.Id);
                 if (result == false)
-                    return null;
+                    throw new ModificationFailedException("Region wasn't deleted!");
 
                 await _unitOfWork.Save();
 
@@ -27,7 +28,7 @@ namespace NatureBlog.Application.App.Regions.Commands.DeleteRegion
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in DeleteRegion method", ex.Message);
-                return false;
+                throw ex;
             }
         }
     }

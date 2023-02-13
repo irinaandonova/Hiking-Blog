@@ -19,11 +19,18 @@ namespace NatureBlog.Application.App.Regions.Queries.GetAllRegions
 
         public async Task<List<RegionGetDto>> Handle(GetAllRegionsCommand command, CancellationToken cancellationToken)
         {
-            List<Region> result = await _unitOfWork.RegionRepository.GetAll();
-
-            var mappedResult = _mapper.Map<List<RegionGetDto>>(result);
-            return mappedResult;
-
+            try
+            {
+                List<Region> result = await _unitOfWork.RegionRepository.GetAll();
+                var mappedResult = _mapper.Map<List<RegionGetDto>>(result);
+                
+                return mappedResult;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the Get All Regions command method", ex.Message);
+                throw ex;
+            }
         }
     }
 }

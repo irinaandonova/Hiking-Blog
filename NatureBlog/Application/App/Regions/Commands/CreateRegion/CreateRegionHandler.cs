@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using NatureBlog.Application.Exceptions;
 using NatureBlog.Application.Repositories;
 using NatureBlog.Domain.Models;
 
@@ -27,9 +28,8 @@ namespace NatureBlog.Application.App.Regions.Commands.CreateRegion
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                throw ex;
             }
-
         }
     }
 }
