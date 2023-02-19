@@ -38,7 +38,7 @@ namespace NatureBlog.Application.App.Destinations.Destinations.Queries.GetCommen
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the Get Comments method", ex.Message);
-                return null;
+                throw ex;
             }
         }
     }

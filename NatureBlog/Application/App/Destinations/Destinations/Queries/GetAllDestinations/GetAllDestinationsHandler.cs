@@ -22,7 +22,7 @@ namespace NatureBlog.Application.Destinations.AllDestinations.Queries.GetMostVis
         {
             try 
             {
-                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
+                int count = _unitOfWork.DestinationRepository.GetAllDestinationsPagesCount();
                 int offset = 0;
                 if (command.Page != 1)
                  offset = (command.Page -1) * 10;

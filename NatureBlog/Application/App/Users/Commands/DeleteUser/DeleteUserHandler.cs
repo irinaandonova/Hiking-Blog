@@ -13,7 +13,7 @@ namespace NatureBlog.Application.App.Users.Commands.DeleteUser
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool?> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
         {
             try
             {

@@ -30,10 +30,12 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
                     throw new UserNotCreatorException("Current user is not the creator of the comment!");
 
                 bool isRemoved = destination.Comments.Remove(comment);
+
                 if(!isRemoved)
                 {
-                    throw new ModificationFailedException("Comment unsuccessfully removed from destination comments array!")
+                    throw new ModificationFailedException("Comment unsuccessfully removed from destination comments array!");
                 }
+
                 bool response = _unitOfWork.CommentRepository.DeleteComment(command.DestinationId, command.CommentId);
                 await _unitOfWork.Save();
 
@@ -42,26 +44,10 @@ namespace NatureBlog.Application.App.Comments.Commands.DeleteComment
                 
                 return true;
             }
-            catch(CommentNotFoundException ex)
-            {
-                throw ex;
-            }
-            catch(ModificationFailedException ex)
-            {
-                throw ex;
-            }
-            catch (UserNotCreatorException ex)
-            {
-                throw ex;
-            }
-            catch (DestinationNotFoundException ex)
-            {
-                throw ex;
-            }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the DeleteComment Method!" + ex.Message);
-                return false;
+                throw ex;
             }
         }
     }

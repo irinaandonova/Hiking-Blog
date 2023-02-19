@@ -20,7 +20,7 @@ namespace NatureBlog.Application.Destinations.HikingTrails.Queries.GetAllHikingT
         {
             try
             {
-                int count = _unitOfWork.DestinationRepository.GetAllDestinationsCount();
+                int count = _unitOfWork.DestinationRepository.GetAllDestinationsPagesCount();
                 int offset = 0;
                 if (query.Page != 1)
                     offset = (query.Page - 1) * 10;
